@@ -1,0 +1,36 @@
+import pygame as pg
+import time
+from PARCIAL2_funciones import *
+#from PARCIAL2_configuraciones import * 
+pg.mixer.init()
+reloj = pg.time.Clock()
+ 
+
+pantalla = pg.display.set_mode((900,700))
+azul = (0,0,150)
+correccion_tamaño_menu = pg.transform.scale(pantalla, (900,700)) #esto corrige el tamaño del fondo 
+
+rectangulo = pg.Rect(100, 100, 50, 50)
+#rectangulo
+
+
+while True:
+    reloj.tick(60)
+    for evento in pg.event.get():
+        if evento.type == pg.QUIT:
+            pg.quit()
+            quit()
+
+        funcion_mouse(evento) #mouse
+
+        dibujar_cuadrados(pantalla,50,3,3,150,150) #sector 1
+        dibujar_cuadrados(pantalla,50,3,3,300,150) #sector 2
+        dibujar_cuadrados(pantalla,50,3,3,450,150) #sector 3
+        dibujar_cuadrados(pantalla,50,3,3,150,300) #sector 4
+        dibujar_cuadrados(pantalla,50,3,3,300,300) #sector 5
+        dibujar_cuadrados(pantalla,50,3,3,450,300) #sector 6
+        dibujar_cuadrados(pantalla,50,3,3,150,450) #sector 7 
+        dibujar_cuadrados(pantalla,50,3,3,300,450) #sector 8
+        dibujar_cuadrados(pantalla,50,3,3,450,450) #sector 9 
+
+    pg.display.flip()
