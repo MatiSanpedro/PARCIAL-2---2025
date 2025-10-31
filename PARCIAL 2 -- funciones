@@ -1,0 +1,160 @@
+import pygame as pg 
+
+
+#matrices 
+
+def matriz_de_10x10():
+    matriz_final = []
+    for i in range(10):
+        fila = [0] *10
+        matriz_final.append(fila)
+    
+    
+        
+        
+    return matriz_final
+    
+
+def matriz_de_20x20():
+    matriz_final = []
+    for i in range(20):
+        fila = [0] *20
+        matriz_final.append(fila)
+        
+        
+        
+    return matriz_final
+
+
+
+
+def matriz_de_40x40():
+    matriz_final = []
+    for i in range(40):
+        fila = [0]  *40
+        matriz_final.append(fila)
+        
+        
+        
+    return matriz_final
+
+
+#esto usa de parametros:
+# Pantalla principal 
+# tamaño de los cuadrados 
+#cantidad de columnas
+# cantidad de filas
+# X e Y desde donde comienza a dibujarse
+ 
+def dibujar_cuadrados(pantalla, tamaño:int, columna:int, fila:int, x_inicial, y_inicial):
+
+    for filass in range(fila):
+        for columnass in range(columna):
+            rectangulo_azul = pg.Rect(x_inicial + columnass * tamaño, y_inicial + filass * tamaño,tamaño,
+                tamaño 
+                )
+            pg.draw.rect(pantalla, (0, 0, 200), rectangulo_azul)      # cuadrados azules
+            pg.draw.rect(pantalla, (0, 0, 0), rectangulo_azul, 1)     # bordes negros
+
+
+
+
+
+#escenario 
+
+def dibujar_escenario_simple(pantalla, tamaño:int,columna:int,fila:int):
+
+    for filass in range(fila):
+        for columnass in range(columna): 
+            rectangulo_agua = pg.Rect(columnass * tamaño, filass * tamaño, tamaño, tamaño)
+            pg.draw.rect(pantalla, (0,0,200), rectangulo_agua) #cuadrados 
+            pg.draw.rect(pantalla, (0,0,0), rectangulo_agua, 1) #lineas, bordes
+            
+
+
+
+#dibujar los barcos (requiere la matriz)
+#esto ademas de dibujarlos en pantalla, devuelve los rectangulos que dibuje en una lista 
+
+
+def dibujar_barcos(pantalla,matriz:list,tamaño):
+
+    lista_de_barcos = []
+
+    for filass in range(len(matriz)):
+        for columnass in range(len(matriz[0])):
+            
+            if matriz[filass][columnass] == 1:
+                rectangulo = pg.Rect(columnass * tamaño, filass * tamaño, tamaño, tamaño)
+                pg.draw.rect(pantalla,(0,0,200),rectangulo)
+                pg.draw.rect(pantalla, (0, 0, 0), rectangulo, 1)
+                
+                lista_de_barcos.append(rectangulo)
+                    
+    
+    
+    return lista_de_barcos
+            
+
+
+def funcion_teclado(evento):
+        if evento.type == pg.KEYDOWN:
+            if evento.key == pg.K_ESCAPE:
+                pass
+                
+            elif evento.key == pg.K_p:
+                pg.mixer.music.pause()
+            elif evento.key == pg.K_m:
+                pg.mixer.music.stop()
+            
+
+        if evento.type == pg.KEYUP:
+            print(" ")
+        
+
+def funcion_mouse(evento):
+    if evento.type == pg.MOUSEBUTTONDOWN:
+        posicion = (evento.pos)
+        print(f"click en{posicion}")
+        if evento.button == 1:
+            print("click izquierdo presionado")
+        if evento.button == 3:
+            print("click derecho presionado")
+
+
+
+#funcion volver atras
+def funcion_atras_pausa(evento,pantalla_actual):
+    if evento.type == pg.KEYDOWN:
+        if evento.key == pg.K_ESCAPE:
+            pantalla_actual = "inicio"
+            print("se apretó esc")
+    
+    return pantalla_actual
+
+
+
+#pausa - despausa
+def pausar_despausar(evento):
+    if evento.type == pg.KEYDOWN:
+        if evento.key == pg.K_p: # P = pausa 
+            pg.mixer.music.pause()
+            print("sonido pausado")
+        if evento.key == pg.K_o: #O = despausa
+            pg.mixer.music.unpause()
+            print("Sonido reanudado")
+
+
+
+#REINICIAR | requiere que le pase "evento" y "bandera_barcos"
+def reiniciar_partida(evento,booleano,pantalla_actual,disparos_realizados,disparos_acertados,puntaje): 
+    if evento.type == pg.KEYDOWN and evento.key ==pg.K_r:
+        booleano = False
+        disparos_realizados.clear() #vacio la lista de disparos para reiniciar la funcion
+        disparos_acertados.clear()
+        puntaje[0] -= puntaje[0]
+        
+
+    return booleano
+
+
