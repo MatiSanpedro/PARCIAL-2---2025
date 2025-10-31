@@ -1,0 +1,7 @@
+import pygame as pg
+import time
+from PARCIAL2_funciones import *
+
+
+pantalla = pg.display.set_mode((900,700))
+azul = (0,0,150)
