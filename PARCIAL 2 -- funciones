@@ -1,61 +1,28 @@
 import pygame as pg 
-
+import random 
 
 #matrices 
+def iniciar_matriz(cantidad_filas,cantidad_columnas,valor_inicial)->list:
+    matriz = []
+    for i in range(cantidad_filas):
+        fila = [valor_inicial] * cantidad_columnas
 
-def matriz_de_10x10():
-    matriz_final = []
-    for i in range(10):
-        fila = [0] *10
-        matriz_final.append(fila)
-    
-    
-        
-        
-    return matriz_final
-    
+        matriz += [fila]
 
-def matriz_de_20x20():
-    matriz_final = []
-    for i in range(20):
-        fila = [0] *20
-        matriz_final.append(fila)
-        
-        
-        
-    return matriz_final
+    return matriz 
 
 
 
+#generar numeros
+def generar_numeros():
+    matriz = []
+    for i in range(9):
+        numero = 1
+        numero +=1
+        matriz.append(numero)
+       # matriz.sort= reverse
 
-def matriz_de_40x40():
-    matriz_final = []
-    for i in range(40):
-        fila = [0]  *40
-        matriz_final.append(fila)
-        
-        
-        
-    return matriz_final
-
-
-#esto usa de parametros:
-# Pantalla principal 
-# tamaño de los cuadrados 
-#cantidad de columnas
-# cantidad de filas
-# X e Y desde donde comienza a dibujarse
- 
-def dibujar_cuadrados(pantalla, tamaño:int, columna:int, fila:int, x_inicial, y_inicial):
-
-    for filass in range(fila):
-        for columnass in range(columna):
-            rectangulo_azul = pg.Rect(x_inicial + columnass * tamaño, y_inicial + filass * tamaño,tamaño,
-                tamaño 
-                )
-            pg.draw.rect(pantalla, (0, 0, 200), rectangulo_azul)      # cuadrados azules
-            pg.draw.rect(pantalla, (0, 0, 0), rectangulo_azul, 1)     # bordes negros
-
+    return matriz 
 
 
 
@@ -96,7 +63,7 @@ def dibujar_barcos(pantalla,matriz:list,tamaño):
     return lista_de_barcos
             
 
-
+#Teclado:
 def funcion_teclado(evento):
         if evento.type == pg.KEYDOWN:
             if evento.key == pg.K_ESCAPE:
@@ -111,7 +78,7 @@ def funcion_teclado(evento):
         if evento.type == pg.KEYUP:
             print(" ")
         
-
+#Mouse:
 def funcion_mouse(evento):
     if evento.type == pg.MOUSEBUTTONDOWN:
         posicion = (evento.pos)
@@ -120,6 +87,33 @@ def funcion_mouse(evento):
             print("click izquierdo presionado")
         if evento.button == 3:
             print("click derecho presionado")
+    
+    
+
+    
+
+
+def mouse_de_inicio(boton1,boton2,boton3,boton4,evento,posicion):
+    if evento.type == pg.MOUSEBUTTONDOWN:
+        if evento.button ==1:
+            print("  ")
+
+        if boton1.collidepoint(posicion):                
+            pantalla_actual = "nivel"
+
+        elif boton2.collidepoint(posicion):
+            pantalla_actual = "jugar"
+            
+        elif boton3.collidepoint(posicion):
+            pantalla_actual = "ver puntaje"
+
+        elif boton4.collidepoint(posicion):
+            pg.quit()
+            quit()
+
+
+        return pantalla_actual
+
 
 
 
@@ -158,3 +152,56 @@ def reiniciar_partida(evento,booleano,pantalla_actual,disparos_realizados,dispar
     return booleano
 
 
+'DIBUJOS EN PANTALLA'
+
+
+#esto usa de parametros:
+#1 Pantalla principal 
+#2 tamaño de los cuadrados 
+#3 cantidad de columnas
+#4 cantidad de filas
+#5  X desde donde comienza a dibujarse
+#6 Y desde donde comienza a dibujarse
+
+#dibuja los cuadraditos: 
+def dibujar_cuadrados(pantalla, tamaño:int, columna:int, fila:int, x_inicial:int, y_inicial:int):     
+
+
+    for filass in range(fila):
+        for columnass in range(columna):
+            rectangulo_azul = pg.Rect(x_inicial + columnass * tamaño, y_inicial + filass * tamaño,tamaño,
+                tamaño 
+                )
+            pg.draw.rect(pantalla, (0, 0, 200), rectangulo_azul)      # cuadrados azules
+            pg.draw.rect(pantalla, (0, 0, 0), rectangulo_azul, 1)     # bordes negros
+
+
+
+#lineas separadoras:
+def dibujar_lineas(pantalla):
+    #verticales             #color     #inicio     #fin
+    pg.draw.line(pantalla, (0, 0, 0), (450, 150), (450,600), 6)
+    pg.draw.line(pantalla, (0, 0, 0), (300, 150), (300,600), 6)
+    
+    #horizontales
+    pg.draw.line(pantalla, (0, 0, 0), (150,300), (600,300), 6)
+    pg.draw.line(pantalla, (0, 0, 0), (150,450), (600,450), 6)
+
+
+
+
+#dibujar todo
+def dibujar_todos_los_cuadrados(pantalla):
+    
+    dibujar_cuadrados(pantalla,50,3,3,150,150) #sector 1
+    dibujar_cuadrados(pantalla,50,3,3,300,150) #sector 2
+    dibujar_cuadrados(pantalla,50,3,3,450,150) #sector 3
+    dibujar_cuadrados(pantalla,50,3,3,150,300) #sector 4
+    dibujar_cuadrados(pantalla,50,3,3,300,300) #sector 5
+    dibujar_cuadrados(pantalla,50,3,3,450,300) #sector 6
+    dibujar_cuadrados(pantalla,50,3,3,150,450) #sector 7 
+    dibujar_cuadrados(pantalla,50,3,3,300,450) #sector 8
+    dibujar_cuadrados(pantalla,50,3,3,450,450) #sector 9 
+
+
+    
