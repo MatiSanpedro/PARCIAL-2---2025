@@ -46,7 +46,7 @@ def dibujar_escenario_simple(pantalla, tamaño:int,columna:int,fila:int):
 
 def dibujar_barcos(pantalla,matriz:list,tamaño):
 
-    lista_de_barcos = []
+   
 
     for filass in range(len(matriz)):
         for columnass in range(len(matriz[0])):
@@ -56,11 +56,11 @@ def dibujar_barcos(pantalla,matriz:list,tamaño):
                 pg.draw.rect(pantalla,(0,0,200),rectangulo)
                 pg.draw.rect(pantalla, (0, 0, 0), rectangulo, 1)
                 
-                lista_de_barcos.append(rectangulo)
+                
                     
     
     
-    return lista_de_barcos
+
             
 
 #Teclado:
@@ -165,7 +165,7 @@ def reiniciar_partida(evento,booleano,pantalla_actual,disparos_realizados,dispar
 
 #dibuja los cuadraditos: 
 def dibujar_cuadrados(pantalla, tamaño:int, columna:int, fila:int, x_inicial:int, y_inicial:int):     
-
+    lista_retorno_de_cuadrados = []
 
     for filass in range(fila):
         for columnass in range(columna):
@@ -174,6 +174,13 @@ def dibujar_cuadrados(pantalla, tamaño:int, columna:int, fila:int, x_inicial:in
                 )
             pg.draw.rect(pantalla, (0, 0, 200), rectangulo_azul)      # cuadrados azules
             pg.draw.rect(pantalla, (0, 0, 0), rectangulo_azul, 1)     # bordes negros
+
+            lista_retorno_de_cuadrados.append(rectangulo_azul)
+            #retorna los cuadrados para usarlos despues en .collidepoint
+
+
+    return lista_retorno_de_cuadrados
+
 
 
 
@@ -193,15 +200,23 @@ def dibujar_lineas(pantalla):
 #dibujar todo
 def dibujar_todos_los_cuadrados(pantalla):
     
-    dibujar_cuadrados(pantalla,50,3,3,150,150) #sector 1
-    dibujar_cuadrados(pantalla,50,3,3,300,150) #sector 2
-    dibujar_cuadrados(pantalla,50,3,3,450,150) #sector 3
-    dibujar_cuadrados(pantalla,50,3,3,150,300) #sector 4
-    dibujar_cuadrados(pantalla,50,3,3,300,300) #sector 5
-    dibujar_cuadrados(pantalla,50,3,3,450,300) #sector 6
-    dibujar_cuadrados(pantalla,50,3,3,150,450) #sector 7 
-    dibujar_cuadrados(pantalla,50,3,3,300,450) #sector 8
-    dibujar_cuadrados(pantalla,50,3,3,450,450) #sector 9 
+    celdas_sector_1 = dibujar_cuadrados(pantalla,50,3,3,150,150) #sector 1
+    celdas_sector_2 = dibujar_cuadrados(pantalla,50,3,3,300,150) #sector 2
+    celdas_sector_3 = dibujar_cuadrados(pantalla,50,3,3,450,150) #sector 3
+    celdas_sector_4 = dibujar_cuadrados(pantalla,50,3,3,150,300) #sector 4
+    celdas_sector_5 = dibujar_cuadrados(pantalla,50,3,3,300,300) #sector 5
+    celdas_sector_6 = dibujar_cuadrados(pantalla,50,3,3,450,300) #sector 6
+    celdas_sector_7 = dibujar_cuadrados(pantalla,50,3,3,150,450) #sector 7 
+    celdas_sector_8 = dibujar_cuadrados(pantalla,50,3,3,300,450) #sector 8
+    celdas_sector_9 = dibujar_cuadrados(pantalla,50,3,3,450,450) #sector 9 
 
 
-    
+#detecta las colisiones dentro de los cuadrados 
+#recibe el evento del mouse, la posicion y una tupla para iterar con enumerate
+
+def detectar_colisiones(evento,pos,cuadrados): 
+    for i, rect in enumerate(cuadrados):
+        if rect.collidepoint(pos):
+            print(f"Hiciste clic en la celda número {i} en posición {rect.topleft}")
+
+
