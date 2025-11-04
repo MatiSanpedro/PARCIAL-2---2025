@@ -6,10 +6,6 @@ import os
 
 correccion_tamaño_menu = pg.transform.scale(pantalla, (900,700)) #esto corrige el tamaño del fondo 
 
-base = os.path.dirname(__file__)
-ruta_fondo = os.path.join(base, "parcial 2", "sudoku2.jpg")
-fondo = pg.image.load(ruta_fondo)
-
 
 
 #Bucle principal
