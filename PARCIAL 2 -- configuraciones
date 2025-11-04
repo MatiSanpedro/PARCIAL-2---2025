@@ -1,7 +1,53 @@
-import pygame as pg
-import time
-from PARCIAL2_funciones import *
+import pygame as pg 
+import pygame.mixer as mixer 
 
 
-pantalla = pg.display.set_mode((900,700))
+pg.init() #esto es para iniciar todos los modulos, fuente, musica, etc
+reloj = pg.time.Clock()
+
+#pantalla
+ANCHO_PANTALLA = 900
+ALTO_PANTALLA = 700
+pantalla = pg.display.set_mode((ANCHO_PANTALLA,ALTO_PANTALLA))
 azul = (0,0,150)
+
+#imagen de fondo de inicio
+fondo_pantalla = pg.image.load("sudoku2.jpg")
+correccion_fondo_pantalla = pg.transform.scale(fondo_pantalla,(900,700))
+
+pantalla_actual = "inicio" #esto controla los cambios de pantalla del menu 
+
+#texto
+fuente = pg.font.SysFont("Bernard MT Comprimida",50)
+texto_prueba = fuente.render("cosas aca", True, (255,255,255))
+
+
+
+#Nivel | boton 1
+nivel = pg.Surface((290,50))
+nivel.fill((117, 83, 76))
+fuente = pg.font.SysFont("Bernard MT Comprimida",50)
+texto1 = fuente.render("Nivel",True, (250,250,250),(0,0,0)) #la segunda tupla es el color detras de las letras
+boton1 = nivel.get_rect(center = (342, 203))
+
+
+#jugar | boton 2 
+jugar = pg.Surface((290,50))
+jugar.fill((117, 83, 76))
+texto_2 = fuente.render("Jugar",True,(250,250,250),(0,0,0))
+boton2 = jugar.get_rect(topleft = (250,150))
+
+#puntaje | boton 3 
+boton_puntaje = pg.Surface((290,50))
+boton_puntaje.fill((117, 83, 76))
+texto_3 = fuente.render("Ver Puntaje",True,(250,250,250),(0,0,0))
+boton3 = boton_puntaje.get_rect(topleft = (250,250))
+
+modo_dificultad = " " #con esto controlo la seleccion de nivel, se guarda y recien ahi se ejecuta "jugar"
+
+
+#salir | boton 4 
+boton_salida = pg.Surface((290,50))
+boton_salida.fill((117, 83, 76))
+texto_4 = fuente.render("Salir",True,(250,250,250),(0,0,0))
+boton4 = boton_salida.get_rect(topleft = (250,350))
