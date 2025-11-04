@@ -2,10 +2,13 @@ import pygame as pg
 import time
 from PARCIAL_2_funciones import *
 from PARCIAL_2_configuraciones import * 
-
+import os
 
 correccion_tamaño_menu = pg.transform.scale(pantalla, (900,700)) #esto corrige el tamaño del fondo 
 
+base = os.path.dirname(__file__)
+ruta_fondo = os.path.join(base, "assets", "sudoku2.jpg")
+fondo = pg.image.load(ruta_fondo)
 
 
 #Bucle principal
