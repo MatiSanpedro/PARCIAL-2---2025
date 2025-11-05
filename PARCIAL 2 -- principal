@@ -19,7 +19,8 @@ while True:
             quit()
 
         match pantalla_actual:
-            case "inicio":
+            case "inicio": #este case es la pantalla principal del menu
+
                 pantalla.blit(correccion_fondo_pantalla,(0,0)) #fondo de pantalla
 
                 pantalla.blit(nivel,(300,100)) #boton 1 
@@ -33,25 +34,28 @@ while True:
                 
                 pantalla.blit(boton_salida,(300,540)) #boton4
                 pantalla.blit(texto_4,(360,540))#texto4 
-
+                
+                #eventos del mouse 
                 if evento.type == pg.MOUSEBUTTONDOWN: 
-                    if evento.button == 1:
-                        posicion = evento.pos  
-
+                    if evento.button == 1: #click derecho 
+                        posicion = evento.pos   #posicion del click
                         print(f"click en {posicion}")
-                        if boton1.collidepoint(posicion):                
+
+                        if boton1.collidepoint(posicion):#click boton1 "Nivel"                
                             pantalla_actual = "nivel"
-                            print("boton1 presionado")
+                            print("Nivel Presionado")
 
-                        elif boton2.collidepoint(posicion):
+                        elif boton2.collidepoint(posicion):#click boton2 "Jugar"
                             pantalla_actual = "jugar"
-                            print("boton2 presionado")
+                            print("Jugar presionado")
 
 
-                        elif boton3.collidepoint(posicion):
+                        elif boton3.collidepoint(posicion): #click boton3 "Ver Puntaje"
                             pantalla_actual = "ver puntaje"
-                            print("boton3 presionado")
-                        elif boton4.collidepoint(posicion):
+                            print("Puntaje presionado")
+                        
+                        elif boton4.collidepoint(posicion): #click boton4 "Salir"
+                            print("saliendo del juego.")
                             pg.quit()
                             quit()
 
@@ -59,10 +63,11 @@ while True:
 
             case "jugar":
                 
-                pantalla.fill((0, 0, 0))
-                #matrices
+                pantalla.fill((0, 0, 0))#color de fondo de pantalla durante el juego
                 
-                
+                pantalla_actual = pausar_juego(evento,pantalla_actual) #controlador de pantalla
+                #ESC = volver a inicio
+
                 #celdas
                 celdas_sector_1 = dibujar_cuadrados(pantalla,50,3,3,150,150) #sector 1
                 celdas_sector_2 = dibujar_cuadrados(pantalla,50,3,3,300,150) #sector 2
@@ -74,9 +79,11 @@ while True:
                 celdas_sector_8 = dibujar_cuadrados(pantalla,50,3,3,300,450) #sector 8
                 celdas_sector_9 = dibujar_cuadrados(pantalla,50,3,3,450,450) #sector 9 
                 
-                dibujar_lineas(pantalla) #las 4 lineas que separan los 9 espacios de la cuadricula
+                dibujar_lineas(pantalla) #son las 4 lineas que separan los 9 espacios de la cuadricula
+                
+                #Detector de colisiones:
                 if evento.type == pg.MOUSEBUTTONDOWN:
-                    posicion = (evento.pos)
+                    posicion = (evento.pos) #posicion 
                     detectar_colisiones(evento,posicion,celdas_sector_1)#colisiones sector 1
                     detectar_colisiones(evento,posicion,celdas_sector_2)#colisiones sector 2
                     detectar_colisiones(evento,posicion,celdas_sector_3)#colisiones sector 3
@@ -86,7 +93,7 @@ while True:
                     detectar_colisiones(evento,posicion,celdas_sector_7)#colisiones sector 7
                     detectar_colisiones(evento,posicion,celdas_sector_8)#colisiones sector 8
                     detectar_colisiones(evento,posicion,celdas_sector_9)#colisiones sector 9
-            
+
             case "ver puntaje":
                 pass
             
