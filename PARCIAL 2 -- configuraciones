@@ -16,7 +16,9 @@ pantalla.fill((255, 235, 222))
 fondo_pantalla = pg.image.load("sudoku2.jpg")
 correccion_fondo_pantalla = pg.transform.scale(fondo_pantalla,(900,700))
 
+
 pantalla_actual = "inicio" #esto controla los cambios de pantalla del menu 
+
 
 #texto
 fuente = pg.font.SysFont("Bernard MT Comprimida",50)
@@ -52,6 +54,11 @@ boton_salida = pg.Surface((290,50))
 boton_salida.fill((117, 83, 76))
 texto_4 = fuente.render("Salir",True,(250,250,250),(0,0,0))
 boton4 = boton_salida.get_rect(topleft = (300,540))
+
+#variables de input 
+cuadrado_seleccionado = False
+
+
 
 #matriz
 matriz_sector_1 = iniciar_matriz(3,3,0)
