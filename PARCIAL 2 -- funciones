@@ -118,11 +118,11 @@ def mouse_de_inicio(boton1,boton2,boton3,boton4,evento,posicion):
 
 
 #funcion volver atras
-def funcion_atras_pausa(evento,pantalla_actual):
+def pausar_juego(evento,pantalla_actual):
     if evento.type == pg.KEYDOWN:
         if evento.key == pg.K_ESCAPE:
             pantalla_actual = "inicio"
-            print("se apretó esc")
+            print("Juego Pausado.")
     
     return pantalla_actual
 
@@ -214,9 +214,24 @@ def dibujar_todos_los_cuadrados(pantalla):
 #detecta las colisiones dentro de los cuadrados 
 #recibe el evento del mouse, la posicion y una tupla para iterar con enumerate
 
-def detectar_colisiones(evento,pos,cuadrados): 
+def detectar_colisiones_ingresar_texto(evento,pos,cuadrados):
+    cuadrado_seleccionado = False
+    numero_ingresado = "" 
     for i, rect in enumerate(cuadrados):
         if rect.collidepoint(pos):
-            print(f"Hiciste clic en la celda número {i} en posición {rect.topleft}")
+           print(f"Hiciste clic en la celda número {i} en posición {rect.topleft}")
+           cuadrado_seleccionado = True
+
+        else:
+            cuadrado_seleccionado = False
+        
+        #condicion valida = seleccionar un cuadrado y apretar una tecla numerica
+        if evento.type == pg.KEYDOWN and cuadrado_seleccionado == True:
+            if evento.key == pg.BACKSPACE: #tecla borrar
+                numero_ingresado = ""
+            elif evento.unicode.isdigit():# validacion de números
+                numero_ingresado = evento.unicode #
+            
+            
 
 
