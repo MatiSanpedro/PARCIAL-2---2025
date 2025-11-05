@@ -1,1 +1,55 @@
 
+import pygame as pg
+
+pg.init()
+pantalla = pg.display.set_mode((400, 400))
+pg.display.set_caption("Input en un rectángulo")
+
+fuente = pg.font.Font(None, 60)
+
+# --- Definir el rectángulo ---
+celda = pg.Rect(150, 150, 80, 80)
+
+# --- Variables de estado ---
+texto = ""
+activo = False  # indica si el rect está seleccionado
+
+corriendo = True
+while corriendo:
+    for evento in pg.event.get():
+        if evento.type == pg.QUIT:
+            corriendo = False
+
+        # Clic del mouse → activar/desactivar la celda
+        if evento.type == pg.MOUSEBUTTONDOWN:
+            if celda.collidepoint(evento.pos):
+                activo = True
+            else:
+                activo = False
+
+        # Escritura en la celda
+        if evento.type == pg.KEYDOWN and activo:
+            if evento.key == pg.K_BACKSPACE:
+                texto = ""  # borrar el contenido
+            elif evento.unicode.isdigit():  # solo números
+                texto = evento.unicode  # solo guardamos el último
+            # si querés limitar del 1 al 9:
+            if texto and (texto < "1" or texto > "9"):
+                texto = ""
+
+    # --- Dibujar en pantalla ---
+    pantalla.fill((30, 30, 30))
+
+    # color del borde según estado
+    color = (0, 255, 0) if activo else (200, 200, 200)
+    pg.draw.rect(pantalla, color, celda, 3)
+
+    # texto dentro del rect
+    if texto:
+        superficie_texto = fuente.render(texto, True, (255, 255, 255))
+        rect_texto = superficie_texto.get_rect(center=celda.center)
+        pantalla.blit(superficie_texto, rect_texto)
+
+    pg.display.flip()
+
+pg.quit()
