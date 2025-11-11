@@ -1,6 +1,14 @@
 import pygame as pg 
 import pygame.mixer as mixer 
-from PARCIAL_2_funciones import iniciar_matriz
+from PARCIAL_2_funciones import agregar_numeros_al_azar_9x9
+from PARCIAL_2_funciones import agregar_numeros_al_azar
+from PARCIAL_2_funciones import unir_matriz_general
+from PARCIAL_2_funciones import agregar_numeros_al_azar_de_verdad
+from PARCIAL_2_funciones import agregar_numeros_por_sector
+from PARCIAL_2_funciones import mover_numeros_en_conflicto
+import random
+
+
 
 pg.init() #esto es para iniciar todos los modulos, fuente, musica, etc
 reloj = pg.time.Clock()
@@ -11,6 +19,9 @@ ALTO_PANTALLA = 700
 pantalla = pg.display.set_mode((ANCHO_PANTALLA,ALTO_PANTALLA))
 azul = (0,0,150)
 pantalla.fill((255, 235, 222))
+
+#tamaño de cuadrado:
+tamaño = 50
 
 #imagen de fondo de inicio
 fondo_pantalla = pg.image.load("sudoku2.jpg")
@@ -60,16 +71,39 @@ cuadrado_seleccionado = False
 
 
 
-#matriz
-matriz_sector_1 = iniciar_matriz(3,3,0)
-matriz_sector_2 = iniciar_matriz(3,3,0)
-matriz_sector_3 = iniciar_matriz(3,3,0)
-matriz_sector_4 = iniciar_matriz(3,3,0)
-matriz_sector_5 = iniciar_matriz(3,3,0)
-matriz_sector_6 = iniciar_matriz(3,3,0)
-matriz_sector_7 = iniciar_matriz(3,3,0)
-matriz_sector_8 = iniciar_matriz(3,3,0)
-matriz_sector_9 = iniciar_matriz(3,3,0)
+#MATRICES:
+#vacias:
+matriz_sector_1 = [[0,0,0],[0,0,0],[0,0,0]]
+matriz_sector_2 = [[0,0,0],[0,0,0],[0,0,0]]
+matriz_sector_3 = [[0,0,0],[0,0,0],[0,0,0]]
+matriz_sector_4 = [[0,0,0],[0,0,0],[0,0,0]]
+matriz_sector_5 = [[0,0,0],[0,0,0],[0,0,0]]
+matriz_sector_6 = [[0,0,0],[0,0,0],[0,0,0]]
+matriz_sector_7 = [[0,0,0],[0,0,0],[0,0,0]]
+matriz_sector_8 = [[0,0,0],[0,0,0],[0,0,0]]
+matriz_sector_9 = [[0,0,0],[0,0,0],[0,0,0]]
 
-matriz_general = [matriz_sector_1,matriz_sector_2,matriz_sector_3,matriz_sector_4,matriz_sector_5,
+
+#con numeros agregados:                        matriz | cantidad de numeros para agregar
+numeros_sector1 = agregar_numeros_al_azar_de_verdad(matriz_sector_1)
+numeros_sector2 = agregar_numeros_al_azar_de_verdad(matriz_sector_2)
+numeros_sector3 = agregar_numeros_al_azar_de_verdad(matriz_sector_3)
+numeros_sector4 = agregar_numeros_al_azar_de_verdad(matriz_sector_4)
+numeros_sector5 = agregar_numeros_al_azar_de_verdad(matriz_sector_5)
+numeros_sector6 = agregar_numeros_al_azar_de_verdad(matriz_sector_6)
+numeros_sector7 = agregar_numeros_al_azar_de_verdad(matriz_sector_7)
+numeros_sector8 = agregar_numeros_al_azar_de_verdad(matriz_sector_8)
+numeros_sector9 = agregar_numeros_al_azar_de_verdad(matriz_sector_9)
+
+
+#general
+matriz_todas = [matriz_sector_1,matriz_sector_2,matriz_sector_3,matriz_sector_4,matriz_sector_5,
                   matriz_sector_6,matriz_sector_7,matriz_sector_8,matriz_sector_9]
+
+
+matriz_general = unir_matriz_general(matriz_todas)
+
+print(matriz_general)
+
+
+
