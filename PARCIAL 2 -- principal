@@ -63,10 +63,10 @@ while True:
 
             case "jugar":
                 
-                pantalla.fill((0, 0, 0))#color de fondo de pantalla durante el juego
+                pantalla.fill((189, 162, 162))#color de fondo de pantalla durante el juego
                 
                 pantalla_actual = pausar_juego(evento,pantalla_actual) #controlador de pantalla
-                #ESC = volver a inicio
+                #ESC = volver a inicio - pausar
 
                 #celdas
                 celdas_sector_1 = dibujar_cuadrados(pantalla,50,3,3,150,150) #sector 1
@@ -80,19 +80,24 @@ while True:
                 celdas_sector_9 = dibujar_cuadrados(pantalla,50,3,3,450,450) #sector 9 
                 
                 dibujar_lineas(pantalla) #son las 4 lineas que separan los 9 espacios de la cuadricula
+        
+                        
+                
+                #dibujar numeros
+                matriz_general_dibujos = dibujar_numeros(pantalla,finalita,tamaño, fuente,150,150) #cambiar el parametro 2 "finalita"
                 
                 #Detector de colisiones:
                 if evento.type == pg.MOUSEBUTTONDOWN:
                     posicion = (evento.pos) #posicion 
-                    detectar_colisiones(evento,posicion,celdas_sector_1)#colisiones sector 1
-                    detectar_colisiones(evento,posicion,celdas_sector_2)#colisiones sector 2
-                    detectar_colisiones(evento,posicion,celdas_sector_3)#colisiones sector 3
-                    detectar_colisiones(evento,posicion,celdas_sector_4)#colisiones sector 4 
-                    detectar_colisiones(evento,posicion,celdas_sector_5)#colisiones sector 5
-                    detectar_colisiones(evento,posicion,celdas_sector_6)#colisiones sector 6
-                    detectar_colisiones(evento,posicion,celdas_sector_7)#colisiones sector 7
-                    detectar_colisiones(evento,posicion,celdas_sector_8)#colisiones sector 8
-                    detectar_colisiones(evento,posicion,celdas_sector_9)#colisiones sector 9
+                    detectar_colisiones_simple(posicion,celdas_sector_1)
+                    detectar_colisiones_simple(posicion,celdas_sector_2)
+                    detectar_colisiones_simple(posicion,celdas_sector_3)
+                    detectar_colisiones_simple(posicion,celdas_sector_4)
+                    detectar_colisiones_simple(posicion,celdas_sector_5)
+                    detectar_colisiones_simple(posicion,celdas_sector_6)
+                    detectar_colisiones_simple(posicion,celdas_sector_7)
+                    detectar_colisiones_simple(posicion,celdas_sector_8)
+                    detectar_colisiones_simple(posicion,celdas_sector_9)
 
             case "ver puntaje":
                 pass
@@ -113,48 +118,3 @@ while True:
 
     pg.display.flip()
 
-
-'''
-match pantalla_actual:
-            
-            case "inicio":
-                pantalla.blit(correccion_fondo_pantalla,(0,0)) #fondo de pantalla
-
-                pantalla.blit(nivel,(300,100)) #boton 1 
-                pantalla.blit(texto1,(390, 100)) #texto 1
-
-                pantalla.blit(jugar,(300,245))#boton2
-                pantalla.blit(texto_2,(390,245))#texto2
-
-                pantalla.blit(boton_puntaje,(300,390))#boton3
-                pantalla.blit(texto_3,(354, 390))#texto3
-                
-                pantalla.blit(boton_salida,(300,540)) #boton4
-                pantalla.blit(texto_4,(360,540))#texto4 
-
-
-                if evento.type == pg.MOUSEBUTTONDOWN:
-                    posicion = (evento.pos)
-                    if evento.button ==1:
-                        print("  ")
-
-                    if boton1.collidepoint(posicion):                
-                        pantalla_actual = "nivel"
-
-                    elif boton2.collidepoint(posicion):
-                        pantalla_actual = "jugar"
-                        
-                    elif boton3.collidepoint(posicion):
-                        pantalla_actual = "ver puntaje"
-
-                    elif boton4.collidepoint(posicion):
-                        pg.quit()
-                        quit()
-                            
-
-            case "nivel":
-                pass
-            
-            case "jugar":
-
-'''
