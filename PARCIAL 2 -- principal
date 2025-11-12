@@ -84,7 +84,7 @@ while True:
                         
                 
                 #dibujar numeros
-                matriz_general_dibujos = dibujar_numeros(pantalla,finalita,tamaño, fuente,150,150) #cambiar el parametro 2 "finalita"
+                matriz_general_dibujos = dibujar_numeros(pantalla,matriz_general,tamaño, fuente,150,150) #cambiar el parametro 2 "finalita"
                 
                 #Detector de colisiones:
                 if evento.type == pg.MOUSEBUTTONDOWN:
