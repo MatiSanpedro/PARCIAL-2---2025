@@ -313,183 +313,6 @@ def agregar_numeros_al_azar(matriz, cantidad):
 
 
 
-
-def unir_matriz_general(matriz_general):
-    """Une las 9 matrices 3x3 en una sola 9x9."""
-    matriz_9x9 = []
-    for fila_bloque in range(3):  # Cada bloque de 3 filas
-        for fila_interna in range(3):
-            fila_completa = []
-            for col_bloque in range(3):
-                fila_completa += matriz_general[fila_bloque * 3 + col_bloque][fila_interna]
-            matriz_9x9.append(fila_completa)
-    return matriz_9x9
-
-
-
-
-def agregar_numeros_al_azar_9x9(matriz, cantidad):
-    """
-  no sirve 
-    """
-    filas = len(matriz)
-    columnas = len(matriz[0])
-
-    # 1) Conjunto de números ya presentes en la matriz (no tocar)
-    existentes = set()
-    posiciones_vacias = []
-    for r in range(filas):
-        for c in range(columnas):
-            val = matriz[r][c]
-            if val == 0:
-                posiciones_vacias.append((r, c))
-            else:
-                existentes.add(val)
-
-    # Números posibles (1..9)
-    todos_numeros = set(range(1, 10))
-    disponibles_global = todos_numeros - existentes
-
-    # Si no hay números disponibles o no hay posiciones vacías, salimos
-    if not disponibles_global or not posiciones_vacias:
-        return matriz
-
-    # Ajustar 'cantidad' al máximo disponible
-    max_posibles = min(len(posiciones_vacias), len(disponibles_global))
-    if cantidad > max_posibles:
-        cantidad = max_posibles  # autocorrección silenciosa
-
-    contador = 0
-
-    # Trabajamos sobre una copia de la lista de posiciones vacías para eliminar las que no sirven
-    posiciones = posiciones_vacias[:]
-
-    while contador < cantidad and posiciones:
-        # 2) Elegir una posición vacía al azar (más eficiente que elegir filas/cols al azar)
-        fila, columna = random.choice(posiciones)
-
-        # 3) Calcular los números que ya están en la fila y en la columna
-        numeros_en_fila = set(matriz[fila])
-        numeros_en_columna = set(matriz[r][columna] for r in range(filas))
-
-        # 4) Conjunto de números válidos para esta posición:
-        permitidos = disponibles_global - numeros_en_fila - numeros_en_columna
-
-        if not permitidos:
-            # Esta posición no admite ningún número válido; la descartamos
-            posiciones.remove((fila, columna))
-            continue
-
-        # 5) Elegir un número al azar entre los permitidos
-        numero = random.choice(list(permitidos))
-
-        # 6) Insertar y actualizar estructuras
-        matriz[fila][columna] = numero
-        existentes.add(numero)
-        disponibles_global.remove(numero)
-        posiciones.remove((fila, columna))
-        contador += 1
-
-    return matriz
-
-
-
-
-#probar esto es para volver a hacer submatrices de 3x3 a partir de la general
-def agregar_por_sector(matriz_general, cantidad_por_sector):
-    # Recorremos la matriz general en bloques de 3x3
-    for bloque_fila in range(0, 9, 3):        # 0, 3, 6
-        for bloque_columna in range(0, 9, 3): # 0, 3, 6
-            # Crear una submatriz temporal 3x3
-            submatriz = [fila[bloque_columna:bloque_columna+3] for fila in matriz_general[bloque_fila:bloque_fila+3]]
-
-            # Agregar números a esa submatriz
-            submatriz = agregar_numeros_al_azar(submatriz, cantidad_por_sector)
-
-            # Volver a colocar la submatriz modificada en la matriz general
-            for i in range(3):
-                for j in range(3):
-                    matriz_general[bloque_fila + i][bloque_columna + j] = submatriz[i][j]
-    return matriz_general
-
-
-
-
-
-
-def agregar_numeros_por_sector(matriz):
-    # Recorremos los 9 sectores 3x3
-    for fila_sector in range(0, 9, 3):  # 0, 3, 6
-        for columna_sector in range(0, 9, 3):  # 0, 3, 6
-            
-            usados = set()  # números usados en este sector
-            contador = 0
-
-            while contador < 5:  # 5 números por sector
-                fila_rel = random.randint(0, 2)      # posición relativa dentro del sector
-                col_rel = random.randint(0, 2)
-                fila_abs = fila_sector + fila_rel     # posición absoluta dentro de la matriz
-                col_abs = columna_sector + col_rel
-
-                if matriz[fila_abs][col_abs] != 0:
-                    continue
-
-                numero = random.randint(1, 9)
-                if numero in usados:
-                    continue
-
-                matriz[fila_abs][col_abs] = numero
-                usados.add(numero)
-                contador += 1
-
-    return matriz
-
-
-
-
-
-def mover_numeros_en_conflicto(matriz):
-    filas = len(matriz)
-    columnas = len(matriz[0])
-    
-    # Función auxiliar para mover un número específico
-    def mover_numero(matriz, fila_actual, col_actual, numero):
-        lugares_validos = []
-        for f in range(filas):
-            for c in range(columnas):
-                if matriz[f][c] == 0:
-                    # Verifica que el número no esté en la fila ni en la columna
-                    if numero not in matriz[f]:
-                        columna_actual = [matriz[i][c] for i in range(filas)]
-                        if numero not in columna_actual:
-                            lugares_validos.append((f, c))
-        
-        if lugares_validos:
-            nueva_fila, nueva_col = random.choice(lugares_validos)
-            matriz[fila_actual][col_actual] = 0
-            matriz[nueva_fila][nueva_col] = numero
-    
-    # Revisar cada fila y cada columna
-    for f in range(filas):
-        for c in range(columnas):
-            numero = matriz[f][c]
-            if numero == 0:
-                continue
-            
-            # Verificar conflicto en fila
-            if matriz[f].count(numero) > 1:
-                mover_numero(matriz, f, c, numero)
-                continue  # ya lo movió, sigue
-            
-            # Verificar conflicto en columna
-            columna = [matriz[i][c] for i in range(filas)]
-            if columna.count(numero) > 1:
-                mover_numero(matriz, f, c, numero)
-    
-    return matriz
-
-
-
 def agregar_numeros_al_azar_de_verdad(matriz, cantidad=5):
     # agrega numeros al azar, en lugares al azar en una matriz 9x9
 
@@ -532,6 +355,17 @@ def agregar_numeros_al_azar_de_verdad(matriz, cantidad=5):
     return matriz
 
 
+def unir_matriz_general(matriz_general):
+    """Une las 9 matrices 3x3 en una sola 9x9."""
+    matriz_9x9 = []
+    for fila_bloque in range(3):  # Cada bloque de 3 filas
+        for fila_interna in range(3):
+            fila_completa = []
+            for col_bloque in range(3):
+                fila_completa += matriz_general[fila_bloque * 3 + col_bloque][fila_interna]
+            matriz_9x9.append(fila_completa)
+    return matriz_9x9
+
 
 def agregar_la_concha_de_tu_madre(matriz,cantidad):
     # agrega numeros al azar, en lugares al azar en una matriz 9x9
@@ -545,3 +379,26 @@ def agregar_la_concha_de_tu_madre(matriz,cantidad):
         fila_al_azar = random.randrange(filas)        # fila al azar (0 a 8)
         columna_al_azar = random.randrange(columnas)  # columna al azar (0 a 8)
         numero_al_azar = random.randint(1, 9)         # numero al azar entre 1 y 9
+    
+
+def quitar_repetidos_verticales(matriz1,matriz4,matriz7):
+    for i in range(len(matriz1)): #uso matriz 1 porque todas tienen el mismo tamaño
+        for j in range(len(matriz1[i])):
+            numero = matriz1[i][j]
+    
+            if matriz1[i][j] != 0:
+                pass
+            if numero in matriz4 or numero in matriz7:
+                matriz4.remove(numero)
+            
+
+
+
+
+matriz1 = [[0,2,0],[1,0,0],[8,9,0]]
+matriz4 = [[0,2,0],[0,3,0],[0,7,0]]
+matriz7 = [[0,1,0],[1,0,6],[0,7,0]]
+
+quitar_repetidos_verticales(matriz1,matriz4,matriz7)
+
+
