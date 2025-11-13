@@ -313,47 +313,6 @@ def agregar_numeros_al_azar(matriz, cantidad):
 
 
 
-def agregar_numeros_al_azar_de_verdad(matriz, cantidad=5):
-    # agrega numeros al azar, en lugares al azar en una matriz 9x9
-
-    filas = len(matriz)
-    columnas = len(matriz[0])
-    contador = 0  # contador del bucle
-    usados = set()  # set de numeros ya usados
-
-    while contador < cantidad:  # definida por parametro
-        fila_al_azar = random.randrange(filas)        # fila al azar (0 a 8)
-        columna_al_azar = random.randrange(columnas)  # columna al azar (0 a 8)
-        numero_al_azar = random.randint(1, 9)         # numero al azar entre 1 y 9
-
-        # si el lugar ya tiene un número distinto de 0, saltar
-        if matriz[fila_al_azar][columna_al_azar] != 0:
-            continue
-
-        # si el numero está dentro de la lista de usados, lo salto
-        if numero_al_azar in usados:
-            continue
-
-        # verifico que el numero no esté en la fila
-        if numero_al_azar in matriz[fila_al_azar]:
-            continue
-
-        # verifico que el numero no esté en la columna
-        repetido = False
-        for j in range(filas):
-            if matriz[j][columna_al_azar] == numero_al_azar:
-                repetido = True
-                break
-        if repetido:
-            continue
-
-        # si pasa todo esto, lo incluyo
-        matriz[fila_al_azar][columna_al_azar] = numero_al_azar
-        contador += 1
-        usados.add(numero_al_azar)
-
-    return matriz
-
 
 def unir_matriz_general(matriz_general):
     """Une las 9 matrices 3x3 en una sola 9x9."""
@@ -381,24 +340,41 @@ def agregar_la_concha_de_tu_madre(matriz,cantidad):
         numero_al_azar = random.randint(1, 9)         # numero al azar entre 1 y 9
     
 
-def quitar_repetidos_verticales(matriz1,matriz4,matriz7):
-    for i in range(len(matriz1)): #uso matriz 1 porque todas tienen el mismo tamaño
-        for j in range(len(matriz1[i])):
-            numero = matriz1[i][j]
+def quitar_repetidos_verticales(matriz1, matriz4, matriz7):
+    repetidos = []  # lista donde guardaremos los números repetidos
+
+    # Recorremos columna por columna
+    for col in range(3):  # cada matriz es 3x3
+        numeros_vistos = set()
+
+        # Recorremos las tres matrices en la misma columna
+        for matriz in (matriz1, matriz4, matriz7):
+            for fila in range(3):
+                numero = matriz[fila][col]
+
+                # ignoramos los ceros (casillas vacías)
+                if numero == 0:
+                    continue
+
+                # si ya vimos ese número en la misma columna, está repetido
+                if numero in numeros_vistos:
+                    repetidos.append((numero,fila, col))
+
+                else:
+                    numeros_vistos.add(numero)
     
-            if matriz1[i][j] != 0:
-                pass
-            if numero in matriz4 or numero in matriz7:
-                matriz4.remove(numero)
-            
-
-
+    # Mostramos los resultados
+    if repetidos != 0:
+        print("Repetidos encontrados (número, columna):", repetidos)
+    else:
+        print("No hay números repetidos en columnas.")
 
 
 matriz1 = [[0,2,0],[1,0,0],[8,9,0]]
 matriz4 = [[0,2,0],[0,3,0],[0,7,0]]
 matriz7 = [[0,1,0],[1,0,6],[0,7,0]]
 
-quitar_repetidos_verticales(matriz1,matriz4,matriz7)
+#quitar_repetidos_verticales(matriz1,matriz4,matriz7)
 
-
+asdasd = quitar_repetidos_verticales(matriz1,matriz4,matriz7)
+print(asdasd)
