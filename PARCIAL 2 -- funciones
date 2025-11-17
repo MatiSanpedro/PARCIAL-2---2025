@@ -731,3 +731,29 @@ def borrar_repetidos(matrices, repetidos):
 
 
 #probar esto, todavia no lo use, mirar si realmente borra los repetidos 
+def quitar_repetidos_verticales(matriz1, matriz4, matriz7):
+    matrices = [matriz1, matriz4, matriz7]
+
+    # Recorre columna por columna
+    for col in range(3):
+        numeros_vistos = {}   # número → (indice_matriz, fila)
+
+        # Recorremos las 3 matrices
+        for idx_matriz, matriz in enumerate(matrices):
+            for fila in range(3):
+                numero = matriz[fila][col]
+
+                if numero == 0:
+                    continue
+
+                if numero not in numeros_vistos:
+                    # Guardamos el primer lugar donde apareció
+                    numeros_vistos[numero] = (idx_matriz, fila)
+                else:
+                    # BORRAMOS la repetición
+                    print(f"Borrando número repetido: {numero} en matriz {idx_matriz}, fila {fila}, columna {col}")
+                    matriz[fila][col] = 0  # lo borramos
+
+    return matriz1, matriz4, matriz7
+
+
