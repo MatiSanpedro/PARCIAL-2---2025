@@ -312,8 +312,6 @@ def agregar_numeros_al_azar(matriz, cantidad):
 
 
 
-
-
 def unir_matriz_general(matriz_general):
     """Une las 9 matrices 3x3 en una sola 9x9."""
     matriz_9x9 = []
@@ -326,21 +324,9 @@ def unir_matriz_general(matriz_general):
     return matriz_9x9
 
 
-def agregar_la_concha_de_tu_madre(matriz,cantidad):
-    # agrega numeros al azar, en lugares al azar en una matriz 9x9
-    filas = len(matriz)
-    columnas = len(matriz[0])
-    contador = 0  # contador del bucle
-    usados = set()  # set de numeros ya usados
     
 
-    while contador < cantidad:  # definida por parametro
-        fila_al_azar = random.randrange(filas)        # fila al azar (0 a 8)
-        columna_al_azar = random.randrange(columnas)  # columna al azar (0 a 8)
-        numero_al_azar = random.randint(1, 9)         # numero al azar entre 1 y 9
-    
-
-def quitar_repetidos_verticales(matriz1, matriz4, matriz7):
+def hallar_repetidos_verticales(matriz1, matriz4, matriz7):
     repetidos = []  # lista donde guardaremos los números repetidos
 
     # Recorremos columna por columna
@@ -358,7 +344,7 @@ def quitar_repetidos_verticales(matriz1, matriz4, matriz7):
 
                 # si ya vimos ese número en la misma columna, está repetido
                 if numero in numeros_vistos:
-                    repetidos.append((numero,fila, col))
+                    repetidos.append((numero,fila, col))                       
 
                 else:
                     numeros_vistos.add(numero)
@@ -369,12 +355,379 @@ def quitar_repetidos_verticales(matriz1, matriz4, matriz7):
     else:
         print("No hay números repetidos en columnas.")
 
+    return repetidos
 
-matriz1 = [[0,2,0],[1,0,0],[8,9,0]]
-matriz4 = [[0,2,0],[0,3,0],[0,7,0]]
-matriz7 = [[0,1,0],[1,0,6],[0,7,0]]
 
-#quitar_repetidos_verticales(matriz1,matriz4,matriz7)
 
-asdasd = quitar_repetidos_verticales(matriz1,matriz4,matriz7)
-print(asdasd)
+def borrar_repetidos(matrices, repetidos):
+    for numero, col, fila in repetidos:
+        matrices[numero][fila][col] = 0
+
+import pygame as pg 
+import random 
+
+
+#matrices 
+def iniciar_matriz(cantidad_filas,cantidad_columnas,valor_inicial)->list:
+    matriz = []
+    for i in range(cantidad_filas):
+        fila = [valor_inicial] * cantidad_columnas
+
+        matriz += [fila]
+
+    return matriz 
+
+
+
+#escenario 
+
+def dibujar_escenario_simple(pantalla, tamaño:int,columna:int,fila:int):
+
+    for filass in range(fila):
+        for columnass in range(columna): 
+            rectangulo_agua = pg.Rect(columnass * tamaño, filass * tamaño, tamaño, tamaño)
+            pg.draw.rect(pantalla, (0,0,200), rectangulo_agua) #cuadrados 
+            pg.draw.rect(pantalla, (0,0,0), rectangulo_agua, 1) #lineas, bordes
+            
+
+
+
+#dibujar los barcos (requiere la matriz)
+#esto ademas de dibujarlos en pantalla, devuelve los rectangulos que dibuje en una lista 
+
+
+def dibujar_barcos(pantalla,matriz:list,tamaño):
+
+   
+
+    for filass in range(len(matriz)):
+        for columnass in range(len(matriz[0])):
+            
+            if matriz[filass][columnass] == 1:
+                rectangulo = pg.Rect(columnass * tamaño, filass * tamaño, tamaño, tamaño)
+                pg.draw.rect(pantalla,(0,0,200),rectangulo)
+                pg.draw.rect(pantalla, (0, 0, 0), rectangulo, 1)
+                
+                
+                    
+    
+    
+
+            
+
+#Teclado:
+def funcion_teclado(evento):
+        if evento.type == pg.KEYDOWN:
+            if evento.key == pg.K_ESCAPE:
+                pass
+                
+            elif evento.key == pg.K_p:
+                pg.mixer.music.pause()
+            elif evento.key == pg.K_m:
+                pg.mixer.music.stop()
+            
+
+        if evento.type == pg.KEYUP:
+            print(" ")
+        
+#Mouse:
+def funcion_mouse(evento):
+    if evento.type == pg.MOUSEBUTTONDOWN:
+        posicion = (evento.pos)
+        print(f"click en{posicion}")
+        if evento.button == 1:
+            print("click izquierdo presionado")
+        if evento.button == 3:
+            print("click derecho presionado")
+    
+    
+
+    
+
+
+def mouse_de_inicio(boton1,boton2,boton3,boton4,evento,posicion):
+    if evento.type == pg.MOUSEBUTTONDOWN:
+        if evento.button ==1:
+            print("  ")
+
+        if boton1.collidepoint(posicion):                
+            pantalla_actual = "nivel"
+
+        elif boton2.collidepoint(posicion):
+            pantalla_actual = "jugar"
+            
+        elif boton3.collidepoint(posicion):
+            pantalla_actual = "ver puntaje"
+
+        elif boton4.collidepoint(posicion):
+            pg.quit()
+            quit()
+
+
+        return pantalla_actual
+
+
+
+
+#funcion volver atras
+def pausar_juego(evento,pantalla_actual):
+    if evento.type == pg.KEYDOWN:
+        if evento.key == pg.K_ESCAPE:
+            pantalla_actual = "inicio"
+            print("Juego Pausado.")
+    
+    return pantalla_actual
+
+
+
+#pausa - despausa
+def pausar_despausar(evento):
+    if evento.type == pg.KEYDOWN:
+        if evento.key == pg.K_p: # P = pausa 
+            pg.mixer.music.pause()
+            print("sonido pausado")
+        if evento.key == pg.K_o: #O = despausa
+            pg.mixer.music.unpause()
+            print("Sonido reanudado")
+
+
+
+#REINICIAR | requiere que le pase "evento" y "bandera_barcos"
+def reiniciar_partida(evento,booleano,pantalla_actual,disparos_realizados,disparos_acertados,puntaje): 
+    if evento.type == pg.KEYDOWN and evento.key ==pg.K_r:
+        booleano = False
+        disparos_realizados.clear() #vacio la lista de disparos para reiniciar la funcion
+        disparos_acertados.clear()
+        puntaje[0] -= puntaje[0]
+        
+
+    return booleano
+
+
+'DIBUJOS EN PANTALLA'
+
+
+#esto usa de parametros:
+#1 Pantalla principal 
+#2 tamaño de los cuadrados 
+#3 cantidad de columnas
+#4 cantidad de filas
+#5  X desde donde comienza a dibujarse
+#6 Y desde donde comienza a dibujarse
+
+#dibuja los cuadraditos: 
+def dibujar_cuadrados(pantalla, tamaño:int, columna:int, fila:int, x_inicial:int, y_inicial:int):     
+    lista_retorno_de_cuadrados = []
+
+    for filass in range(fila):
+        for columnass in range(columna):
+            rectangulo_azul = pg.Rect(x_inicial + columnass * tamaño, y_inicial + filass * tamaño,tamaño,
+                tamaño 
+                )
+            pg.draw.rect(pantalla, (255, 234, 227), rectangulo_azul)      # cuadrados azules
+            pg.draw.rect(pantalla, (0, 0, 0), rectangulo_azul, 1)     # bordes negros
+
+            lista_retorno_de_cuadrados.append(rectangulo_azul)
+            #retorna los cuadrados para usarlos despues en .collidepoint
+
+
+    return lista_retorno_de_cuadrados
+
+
+
+
+#lineas separadoras:
+def dibujar_lineas(pantalla):
+    #verticales             #color     #inicio     #fin
+    pg.draw.line(pantalla, (0, 0, 0), (450, 150), (450,600), 6)
+    pg.draw.line(pantalla, (0, 0, 0), (300, 150), (300,600), 6)
+    
+    #horizontales
+    pg.draw.line(pantalla, (0, 0, 0), (150,300), (600,300), 6)
+    pg.draw.line(pantalla, (0, 0, 0), (150,450), (600,450), 6)
+
+
+
+
+#dibujar todo
+def dibujar_todos_los_cuadrados(pantalla):
+    
+    celdas_sector_1 = dibujar_cuadrados(pantalla,50,3,3,150,150) #sector 1
+    celdas_sector_2 = dibujar_cuadrados(pantalla,50,3,3,300,150) #sector 2
+    celdas_sector_3 = dibujar_cuadrados(pantalla,50,3,3,450,150) #sector 3
+    celdas_sector_4 = dibujar_cuadrados(pantalla,50,3,3,150,300) #sector 4
+    celdas_sector_5 = dibujar_cuadrados(pantalla,50,3,3,300,300) #sector 5
+    celdas_sector_6 = dibujar_cuadrados(pantalla,50,3,3,450,300) #sector 6
+    celdas_sector_7 = dibujar_cuadrados(pantalla,50,3,3,150,450) #sector 7 
+    celdas_sector_8 = dibujar_cuadrados(pantalla,50,3,3,300,450) #sector 8
+    celdas_sector_9 = dibujar_cuadrados(pantalla,50,3,3,450,450) #sector 9 
+
+
+#detecta las colisiones dentro de los cuadrados 
+#recibe el evento del mouse, la posicion y una tupla para iterar con enumerate
+
+def detectar_colisiones_simple(posicion,cuadrados):
+    # Detectar clic en cuadrado
+    for i, rect in enumerate(cuadrados):
+        if rect.collidepoint(posicion):
+            print(f"Hiciste clic en la celda número {i} en posición {rect.topleft}")
+            
+
+def detectar_colisiones_ingresar_texto(evento,pos, cuadrados, pantalla, fuente):
+    cuadrado_seleccionado = None
+    numero_ingresado = ""
+
+    # Detectar clic en cuadrado
+    for i, rect in enumerate(cuadrados):
+        if rect.collidepoint(pos):
+            print(f"Hiciste clic en la celda número {i} en posición {rect.topleft}")
+            cuadrado_seleccionado = i
+            break
+
+    # Si se presiona una tecla y hay una celda seleccionada
+    if evento.type == pg.KEYDOWN and cuadrado_seleccionado is not None:
+        if evento.key == pg.K_BACKSPACE:
+            numero_ingresado = ""
+        elif evento.unicode.isdigit():
+            numero_ingresado = evento.unicode
+            if numero_ingresado < "1" or numero_ingresado > "9":
+                numero_ingresado = ""
+
+        # Dibujar el número en pantalla
+        if numero_ingresado:
+            rect = cuadrados[cuadrado_seleccionado]
+            x, y = rect.center
+            texto = fuente.render(numero_ingresado, True, (0, 0, 0))
+            texto_rect = texto.get_rect(center=(x, y))
+            pantalla.blit(texto, texto_rect)
+
+
+
+def dibujar_numeros(pantalla, matriz: list, tamaño, fuente, posicion_x, posicion_y):
+    lista_de_numeros = []
+
+    for fila in range(len(matriz)):
+        for columna in range(len(matriz[0])):
+
+            valor = matriz[fila][columna]
+            if valor != 0:  # Solo dibujo si no es cero
+
+                # Calcular posición de la celda actual
+                x = posicion_x + columna * tamaño
+                y = posicion_y + fila * tamaño
+
+                # Dibujar borde de celda (opcional)
+                rect = pg.Rect(x, y, tamaño, tamaño)
+                #pg.draw.rect(pantalla, (0, 0, 0), rect, 1)
+
+                # Renderizar el número
+                texto = fuente.render(str(valor), True, (158, 108, 100))
+                
+                # Centrar el número dentro de la celda
+                texto_rect = texto.get_rect(center=(x + tamaño // 2, y + tamaño // 2))
+                pantalla.blit(texto, texto_rect)
+
+                lista_de_numeros.append(rect)
+
+    return lista_de_numeros
+
+
+
+
+#          parametros:     matriz | #cantidad de numeros para agregar
+def agregar_numeros_al_azar(matriz, cantidad):
+    #agrega numeros al azar, en lugares al azar en una matriz
+
+    filas = len(matriz)
+    columnas = len(matriz[0])
+    contador = 0 #contador del bucle
+    usados = set() #set de numeros ya usados
+
+    while contador < cantidad: #definida por parametro 
+        fila_al_azar = random.randrange(filas)  # fila al azar 
+        columna_al_azar = random.randrange(columnas) #columna al azar 
+        numero_al_azar = random.randint(1, 9) #numero al azar dentro de 1 y 9
+
+        # si el lugar ya tiene un número distinto de 0, saltar
+        if matriz[fila_al_azar][columna_al_azar] != 0:#esto es para no perder numeros en el contador y que al final agregue algo distinto de la cantidad que quiero
+            continue
+        #si el numero esta dentro de la lista de usados lo salto 
+        if numero_al_azar in usados:
+            continue
+
+        # verifico que el numero no este en las filas
+        if numero_al_azar in matriz[fila_al_azar]:
+            continue
+
+        # verifico que el numero no esté en la posicion "j", [0,1,2]
+        repetido = False
+        for j in range(filas): 
+            if matriz[j][columna_al_azar] == numero_al_azar: # mira uno por uno dentro de la lista pequeña [0,1,2]
+                repetido = True #si esta, freno
+                break
+        if repetido:
+            continue #salto ese numero 
+
+        # Si pasa todo esto, lo incluyo 
+        matriz[fila_al_azar][columna_al_azar] = numero_al_azar
+        contador += 1 #sumo 1 al contador y continua el bucle 
+        usados.add(numero_al_azar)
+    return matriz
+
+
+
+
+def unir_matriz_general(matriz_general):
+    """Une las 9 matrices 3x3 en una sola 9x9."""
+    matriz_9x9 = []
+    for fila_bloque in range(3):  # Cada bloque de 3 filas
+        for fila_interna in range(3):
+            fila_completa = []
+            for col_bloque in range(3):
+                fila_completa += matriz_general[fila_bloque * 3 + col_bloque][fila_interna]
+            matriz_9x9.append(fila_completa)
+    return matriz_9x9
+
+
+    
+
+def hallar_repetidos_verticales(matriz1, matriz4, matriz7):
+    repetidos = []  # lista donde guardaremos los números repetidos
+
+    # Recorremos columna por columna
+    for col in range(3):  # cada matriz es 3x3
+        numeros_vistos = set()
+
+        # Recorremos las tres matrices en la misma columna
+        for matriz in (matriz1, matriz4, matriz7):
+            for fila in range(3):
+                numero = matriz[fila][col]
+
+                # ignoramos los ceros (casillas vacías)
+                if numero == 0:
+                    continue
+
+                # si ya vimos ese número en la misma columna, está repetido
+                if numero in numeros_vistos:
+                    repetidos.append((numero,fila, col))                       
+
+                else:
+                    numeros_vistos.add(numero)
+    
+    # Mostramos los resultados
+    if repetidos != 0:
+        print("Repetidos encontrados (número, columna):", repetidos)
+    else:
+        print("No hay números repetidos en columnas.")
+
+    return repetidos
+
+
+
+def borrar_repetidos(matrices, repetidos):
+    for numero, col, fila in repetidos:
+        matrices[numero][fila][col] = 0
+
+
+
+#probar esto, todavia no lo use, mirar si realmente borra los repetidos 
