@@ -418,6 +418,8 @@ def detectar_todas_las_colisiones(posicion,celdas_sector_1,celdas_sector_2,celda
     detectar_colisiones_simple(posicion,celdas_sector_9)
 
 
+
+
 def detectar_colisiones_ingresar_texto(evento,pos, cuadrados, pantalla, fuente):
     cuadrado_seleccionado = None
     numero_ingresado = ""
@@ -445,7 +447,6 @@ def detectar_colisiones_ingresar_texto(evento,pos, cuadrados, pantalla, fuente):
             texto = fuente.render(numero_ingresado, True, (0, 0, 0))
             texto_rect = texto.get_rect(center=(x, y))
             pantalla.blit(texto, texto_rect)
-
 
 
 def dibujar_numeros(pantalla, matriz: list, tamaño, fuente, posicion_x, posicion_y):
