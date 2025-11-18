@@ -311,138 +311,7 @@ def agregar_numeros_al_azar(matriz, cantidad):
 
 
 
-
-def unir_matriz_general(matriz_general):
-    """Une las 9 matrices 3x3 en una sola 9x9."""
-    matriz_9x9 = []
-    for fila_bloque in range(3):  # Cada bloque de 3 filas
-        for fila_interna in range(3):
-            fila_completa = []
-            for col_bloque in range(3):
-                fila_completa += matriz_general[fila_bloque * 3 + col_bloque][fila_interna]
-            matriz_9x9.append(fila_completa)
-    return matriz_9x9
-
-
-    
-
-def hallar_repetidos_verticales(matriz1, matriz4, matriz7):
-    repetidos = []  # lista donde guardaremos los números repetidos
-
-    # Recorremos columna por columna
-    for col in range(3):  # cada matriz es 3x3
-        numeros_vistos = set()
-
-        # Recorremos las tres matrices en la misma columna
-        for matriz in (matriz1, matriz4, matriz7):
-            for fila in range(3):
-                numero = matriz[fila][col]
-
-                # ignoramos los ceros (casillas vacías)
-                if numero == 0:
-                    continue
-
-                # si ya vimos ese número en la misma columna, está repetido
-                if numero in numeros_vistos:
-                    repetidos.append((numero,fila, col))                       
-
-                else:
-                    numeros_vistos.add(numero)
-    
-    # Mostramos los resultados
-    if repetidos != 0:
-        print("Repetidos encontrados (número, columna):", repetidos)
-    else:
-        print("No hay números repetidos en columnas.")
-
-    return repetidos
-
-
-
-def borrar_repetidos(matrices, repetidos):
-    for numero, col, fila in repetidos:
-        matrices[numero][fila][col] = 0
-
-import pygame as pg 
-import random 
-
-
-#matrices 
-def iniciar_matriz(cantidad_filas,cantidad_columnas,valor_inicial)->list:
-    matriz = []
-    for i in range(cantidad_filas):
-        fila = [valor_inicial] * cantidad_columnas
-
-        matriz += [fila]
-
-    return matriz 
-
-
-
-#escenario 
-
-def dibujar_escenario_simple(pantalla, tamaño:int,columna:int,fila:int):
-
-    for filass in range(fila):
-        for columnass in range(columna): 
-            rectangulo_agua = pg.Rect(columnass * tamaño, filass * tamaño, tamaño, tamaño)
-            pg.draw.rect(pantalla, (0,0,200), rectangulo_agua) #cuadrados 
-            pg.draw.rect(pantalla, (0,0,0), rectangulo_agua, 1) #lineas, bordes
-            
-
-
-
-#dibujar los barcos (requiere la matriz)
-#esto ademas de dibujarlos en pantalla, devuelve los rectangulos que dibuje en una lista 
-
-
-def dibujar_barcos(pantalla,matriz:list,tamaño):
-
    
-
-    for filass in range(len(matriz)):
-        for columnass in range(len(matriz[0])):
-            
-            if matriz[filass][columnass] == 1:
-                rectangulo = pg.Rect(columnass * tamaño, filass * tamaño, tamaño, tamaño)
-                pg.draw.rect(pantalla,(0,0,200),rectangulo)
-                pg.draw.rect(pantalla, (0, 0, 0), rectangulo, 1)
-                
-                
-                    
-    
-    
-
-            
-
-#Teclado:
-def funcion_teclado(evento):
-        if evento.type == pg.KEYDOWN:
-            if evento.key == pg.K_ESCAPE:
-                pass
-                
-            elif evento.key == pg.K_p:
-                pg.mixer.music.pause()
-            elif evento.key == pg.K_m:
-                pg.mixer.music.stop()
-            
-
-        if evento.type == pg.KEYUP:
-            print(" ")
-        
-#Mouse:
-def funcion_mouse(evento):
-    if evento.type == pg.MOUSEBUTTONDOWN:
-        posicion = (evento.pos)
-        print(f"click en{posicion}")
-        if evento.button == 1:
-            print("click izquierdo presionado")
-        if evento.button == 3:
-            print("click derecho presionado")
-    
-    
-
-    
 
 
 def mouse_de_inicio(boton1,boton2,boton3,boton4,evento,posicion):
@@ -467,41 +336,6 @@ def mouse_de_inicio(boton1,boton2,boton3,boton4,evento,posicion):
         return pantalla_actual
 
 
-
-
-#funcion volver atras
-def pausar_juego(evento,pantalla_actual):
-    if evento.type == pg.KEYDOWN:
-        if evento.key == pg.K_ESCAPE:
-            pantalla_actual = "inicio"
-            print("Juego Pausado.")
-    
-    return pantalla_actual
-
-
-
-#pausa - despausa
-def pausar_despausar(evento):
-    if evento.type == pg.KEYDOWN:
-        if evento.key == pg.K_p: # P = pausa 
-            pg.mixer.music.pause()
-            print("sonido pausado")
-        if evento.key == pg.K_o: #O = despausa
-            pg.mixer.music.unpause()
-            print("Sonido reanudado")
-
-
-
-#REINICIAR | requiere que le pase "evento" y "bandera_barcos"
-def reiniciar_partida(evento,booleano,pantalla_actual,disparos_realizados,disparos_acertados,puntaje): 
-    if evento.type == pg.KEYDOWN and evento.key ==pg.K_r:
-        booleano = False
-        disparos_realizados.clear() #vacio la lista de disparos para reiniciar la funcion
-        disparos_acertados.clear()
-        puntaje[0] -= puntaje[0]
-        
-
-    return booleano
 
 
 'DIBUJOS EN PANTALLA'
@@ -697,9 +531,6 @@ def unir_matriz_general(matriz_general):
                 fila_completa += matriz_general[fila_bloque * 3 + col_bloque][fila_interna]
             matriz_9x9.append(fila_completa)
     return matriz_9x9
-
-
-
 
 
 def borrar_repetidos(matrices, repetidos):
