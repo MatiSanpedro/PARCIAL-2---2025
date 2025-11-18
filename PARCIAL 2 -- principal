@@ -80,8 +80,6 @@ while True:
                 celdas_sector_9 = dibujar_cuadrados(pantalla,50,3,3,450,450) #sector 9 
                 
                 dibujar_lineas(pantalla) #son las 4 lineas que separan los 9 espacios de la cuadricula
-        
-                        
                 
                 #dibujar numeros
                 matriz_general_dibujos = dibujar_numeros(pantalla,matriz_general,tamaño, fuente,150,150) #cambiar el parametro 2 "finalita"
@@ -89,16 +87,11 @@ while True:
                 #Detector de colisiones:
                 if evento.type == pg.MOUSEBUTTONDOWN:
                     posicion = (evento.pos) #posicion 
-                    detectar_colisiones_simple(posicion,celdas_sector_1)
-                    detectar_colisiones_simple(posicion,celdas_sector_2)
-                    detectar_colisiones_simple(posicion,celdas_sector_3)
-                    detectar_colisiones_simple(posicion,celdas_sector_4)
-                    detectar_colisiones_simple(posicion,celdas_sector_5)
-                    detectar_colisiones_simple(posicion,celdas_sector_6)
-                    detectar_colisiones_simple(posicion,celdas_sector_7)
-                    detectar_colisiones_simple(posicion,celdas_sector_8)
-                    detectar_colisiones_simple(posicion,celdas_sector_9)
-
+                    detectar_todas_las_colisiones(posicion,celdas_sector_1,celdas_sector_2,celdas_sector_3,
+                                                  celdas_sector_4,celdas_sector_5,celdas_sector_6,
+                                                  celdas_sector_7,celdas_sector_8,celdas_sector_9)
+                
+                    
             case "ver puntaje":
                 pass
             
@@ -117,4 +110,3 @@ while True:
     
 
     pg.display.flip()
-
