@@ -32,7 +32,7 @@ fuente = pg.font.SysFont("Bernard MT Comprimida",50)
 texto_prueba = fuente.render("cosas aca", True, (255,255,255))
 
 
-
+'botones de MENU INICIO'
 #Nivel | boton 1
 nivel = pg.Surface((290,50))
 nivel.fill((117, 83, 76))
@@ -62,6 +62,37 @@ boton_salida.fill((117, 83, 76))
 texto_4 = fuente.render("Salir",True,(250,250,250),(0,0,0))
 boton4 = boton_salida.get_rect(topleft = (300,540))
 
+
+'botones de "SELECCIONAR NIVEL"'
+#facil | boton 1
+nivel_nivel = pg.Surface((290,50))
+nivel_nivel.fill((200,100,100))
+fuente = pg.font.SysFont("Bernard MT Comprimida",50)
+texto_facil = fuente.render("facil",True, (250,250,250))
+boton1_nivel = nivel_nivel.get_rect(topleft = (290,50))
+
+#medio | boton 2 
+medio = pg.Surface((290,50))
+medio.fill((50,0,0))
+texto_medio = fuente.render("Medio",True,(250,250,250))
+boton2_nivel = medio.get_rect(topleft = (250,150))
+
+#Dificil | boton 3 
+dificil = pg.Surface((290,50))
+dificil.fill((0,0,0))
+texto_dificil = fuente.render("Dificil",True,(250,250,250))
+boton3_nivel = dificil.get_rect(topleft = (250,250))
+
+
+#volver| boton 4 
+volver = pg.Surface((290,50))
+volver.fill((150,0,0))
+texto_4_nivel = fuente.render("Volver",True,(250,250,250))
+boton4_nivel = volver.get_rect(topleft = (250,350)) 
+
+correccion_tamaño_nivel = pg.transform.scale(fondo_pantalla,(900,700))
+
+
 #variables de input 
 cuadrado_seleccionado = False
 
@@ -89,6 +120,9 @@ numeros_sector6 = agregar_numeros_al_azar(matriz_sector_6,3)
 numeros_sector7 = agregar_numeros_al_azar(matriz_sector_7,3)
 numeros_sector8 = agregar_numeros_al_azar(matriz_sector_8,3)
 numeros_sector9 = agregar_numeros_al_azar(matriz_sector_9,3)
+
+
+
 
 matrices = [numeros_sector1,numeros_sector2,numeros_sector3,numeros_sector4,numeros_sector5,
             numeros_sector6,numeros_sector7,numeros_sector8,numeros_sector9]
