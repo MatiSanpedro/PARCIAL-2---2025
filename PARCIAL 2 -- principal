@@ -35,7 +35,7 @@ while True:
                 pantalla.blit(boton_salida,(300,540)) #boton4
                 pantalla.blit(texto_4,(360,540))#texto4 
                 
-                #eventos del mouse 
+                #eventos del mouse - pantalla de inicio: 
                 if evento.type == pg.MOUSEBUTTONDOWN: 
                     if evento.button == 1: #click derecho 
                         posicion = evento.pos   #posicion del click
@@ -67,8 +67,9 @@ while True:
                 
                 pantalla_actual = pausar_juego(evento,pantalla_actual) #controlador de pantalla
                 #ESC = volver a inicio - pausar
+                
 
-                #celdas
+                #celdas - cuadrados
                 celdas_sector_1 = dibujar_cuadrados(pantalla,50,3,3,150,150) #sector 1
                 celdas_sector_2 = dibujar_cuadrados(pantalla,50,3,3,300,150) #sector 2
                 celdas_sector_3 = dibujar_cuadrados(pantalla,50,3,3,450,150) #sector 3
@@ -79,6 +80,10 @@ while True:
                 celdas_sector_8 = dibujar_cuadrados(pantalla,50,3,3,300,450) #sector 8
                 celdas_sector_9 = dibujar_cuadrados(pantalla,50,3,3,450,450) #sector 9 
                 
+                todas_las_celdas = (celdas_sector_1 + celdas_sector_2 + celdas_sector_3 +
+                                    celdas_sector_4 + celdas_sector_5 + celdas_sector_6 +
+                                    celdas_sector_7 + celdas_sector_8 + celdas_sector_9)
+
                 dibujar_lineas(pantalla) #son las 4 lineas que separan los 9 espacios de la cuadricula
                 
                 #dibujar numeros
@@ -86,11 +91,15 @@ while True:
                 
                 #Detector de colisiones:
                 if evento.type == pg.MOUSEBUTTONDOWN:
-                    posicion = (evento.pos) #posicion 
-                    detectar_todas_las_colisiones(posicion,celdas_sector_1,celdas_sector_2,celdas_sector_3,
+                    posicion = (evento.pos) #posicion
+                    pant = detectar_colisiones_ingresar_texto(evento,posicion,todas_las_celdas,pantalla, fuente)
+                    
+
+                    '''detectar_todas_las_colisiones(posicion,celdas_sector_1,celdas_sector_2,celdas_sector_3,
                                                   celdas_sector_4,celdas_sector_5,celdas_sector_6,
-                                                  celdas_sector_7,celdas_sector_8,celdas_sector_9)
+                                                  celdas_sector_7,celdas_sector_8,celdas_sector_9)'''
                 
+                    
                     
             case "ver puntaje":
                 pass
