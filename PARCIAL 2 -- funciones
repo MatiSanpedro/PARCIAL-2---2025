@@ -572,6 +572,17 @@ def detectar_colisiones_simple(posicion,cuadrados):
         if rect.collidepoint(posicion):
             print(f"Hiciste clic en la celda número {i} en posición {rect.topleft}")
             
+def detectar_todas_las_colisiones(posicion,celdas_sector_1,celdas_sector_2,celdas_sector_3,celdas_sector_4,celdas_sector_5,celdas_sector_6,celdas_sector_7,celdas_sector_8,celdas_sector_9):
+    detectar_colisiones_simple(posicion,celdas_sector_1)
+    detectar_colisiones_simple(posicion,celdas_sector_2)
+    detectar_colisiones_simple(posicion,celdas_sector_3)
+    detectar_colisiones_simple(posicion,celdas_sector_4)
+    detectar_colisiones_simple(posicion,celdas_sector_5)
+    detectar_colisiones_simple(posicion,celdas_sector_6)
+    detectar_colisiones_simple(posicion,celdas_sector_7)
+    detectar_colisiones_simple(posicion,celdas_sector_8)
+    detectar_colisiones_simple(posicion,celdas_sector_9)
+
 
 def detectar_colisiones_ingresar_texto(evento,pos, cuadrados, pantalla, fuente):
     cuadrado_seleccionado = None
@@ -610,7 +621,7 @@ def dibujar_numeros(pantalla, matriz: list, tamaño, fuente, posicion_x, posicio
         for columna in range(len(matriz[0])):
 
             valor = matriz[fila][columna]
-            if valor != 0:  # Solo dibujo si no es cero
+            if valor != 0:  # solo dibujo si no es cero
 
                 # Calcular posición de la celda actual
                 x = posicion_x + columna * tamaño
@@ -621,17 +632,15 @@ def dibujar_numeros(pantalla, matriz: list, tamaño, fuente, posicion_x, posicio
                 #pg.draw.rect(pantalla, (0, 0, 0), rect, 1)
 
                 # Renderizar el número
-                texto = fuente.render(str(valor), True, (158, 108, 100))
+                numero = fuente.render(str(valor), True, (158, 108, 100))
                 
                 # Centrar el número dentro de la celda
-                texto_rect = texto.get_rect(center=(x + tamaño // 2, y + tamaño // 2))
-                pantalla.blit(texto, texto_rect)
+                texto_rect = numero.get_rect(center=(x + tamaño // 2, y + tamaño // 2))
+                pantalla.blit(numero, texto_rect)
 
                 lista_de_numeros.append(rect)
 
     return lista_de_numeros
-
-
 
 
 #          parametros:     matriz | #cantidad de numeros para agregar
@@ -642,6 +651,7 @@ def agregar_numeros_al_azar(matriz, cantidad):
     columnas = len(matriz[0])
     contador = 0 #contador del bucle
     usados = set() #set de numeros ya usados
+    numeros_repetidos = [] #lista de numeros repetidos
 
     while contador < cantidad: #definida por parametro 
         fila_al_azar = random.randrange(filas)  # fila al azar 
@@ -689,71 +699,11 @@ def unir_matriz_general(matriz_general):
     return matriz_9x9
 
 
-    
-
-def hallar_repetidos_verticales(matriz1, matriz4, matriz7):
-    repetidos = []  # lista donde guardaremos los números repetidos
-
-    # Recorremos columna por columna
-    for col in range(3):  # cada matriz es 3x3
-        numeros_vistos = set()
-
-        # Recorremos las tres matrices en la misma columna
-        for matriz in (matriz1, matriz4, matriz7):
-            for fila in range(3):
-                numero = matriz[fila][col]
-
-                # ignoramos los ceros (casillas vacías)
-                if numero == 0:
-                    continue
-
-                # si ya vimos ese número en la misma columna, está repetido
-                if numero in numeros_vistos:
-                    repetidos.append((numero,fila, col))                       
-
-                else:
-                    numeros_vistos.add(numero)
-    
-    # Mostramos los resultados
-    if repetidos != 0:
-        print("Repetidos encontrados (número, columna):", repetidos)
-    else:
-        print("No hay números repetidos en columnas.")
-
-    return repetidos
 
 
 
 def borrar_repetidos(matrices, repetidos):
     for numero, col, fila in repetidos:
         matrices[numero][fila][col] = 0
-
-
-
-#probar esto, todavia no lo use, mirar si realmente borra los repetidos 
-def quitar_repetidos_verticales(matriz1, matriz4, matriz7):
-    matrices = [matriz1, matriz4, matriz7]
-
-    # Recorre columna por columna
-    for col in range(3):
-        numeros_vistos = {}   # número → (indice_matriz, fila)
-
-        # Recorremos las 3 matrices
-        for idx_matriz, matriz in enumerate(matrices):
-            for fila in range(3):
-                numero = matriz[fila][col]
-
-                if numero == 0:
-                    continue
-
-                if numero not in numeros_vistos:
-                    # Guardamos el primer lugar donde apareció
-                    numeros_vistos[numero] = (idx_matriz, fila)
-                else:
-                    # BORRAMOS la repetición
-                    print(f"Borrando número repetido: {numero} en matriz {idx_matriz}, fila {fila}, columna {col}")
-                    matriz[fila][col] = 0  # lo borramos
-
-    return matriz1, matriz4, matriz7
 
 
