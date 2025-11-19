@@ -350,7 +350,8 @@ def mouse_de_inicio(boton1,boton2,boton3,boton4,evento,posicion):
 #6 Y desde donde comienza a dibujarse
 
 #dibuja los cuadraditos: 
-def dibujar_cuadrados(pantalla, tamaño:int, columna:int, fila:int, x_inicial:int, y_inicial:int):     
+def dibujar_cuadrados(pantalla:pg.surface, tamaño:int, columna:int, fila:int, x_inicial:int, y_inicial:int): 
+    'recibe surface, tamaño de los cuadrados, cantidad de filas, cantidad de columnas , posicion X y posicion Y. Dibuja cuadrados multiplicando '   
     lista_retorno_de_cuadrados = []
 
     for filass in range(fila):
@@ -371,7 +372,8 @@ def dibujar_cuadrados(pantalla, tamaño:int, columna:int, fila:int, x_inicial:in
 
 
 #lineas separadoras:
-def dibujar_lineas(pantalla):
+def dibujar_lineas(pantalla:pg.surface):
+    'recibe un surface pantalla, dibuja 4 lineas en la pantalla para separar los 9 sectores del juego'
     #verticales             #color     #inicio     #fin
     pg.draw.line(pantalla, (0, 0, 0), (450, 150), (450,600), 6)
     pg.draw.line(pantalla, (0, 0, 0), (300, 150), (300,600), 6)
@@ -401,12 +403,15 @@ def dibujar_todos_los_cuadrados(pantalla):
 #recibe el evento del mouse, la posicion y una tupla para iterar con enumerate
 
 def detectar_colisiones_simple(posicion,cuadrados):
+    'recibe la posicion y una lista de rect, detecta las colisiones,clicks en los rect'
     # Detectar clic en cuadrado
     for i, rect in enumerate(cuadrados):
         if rect.collidepoint(posicion):
             print(f"Hiciste clic en la celda número {i} en posición {rect.topleft}")
             
-def detectar_todas_las_colisiones(posicion,celdas_sector_1,celdas_sector_2,celdas_sector_3,celdas_sector_4,celdas_sector_5,celdas_sector_6,celdas_sector_7,celdas_sector_8,celdas_sector_9):
+
+def detectar_todas_las_colisiones(posicion:pg.event,celdas_sector_1:list,celdas_sector_2:list,celdas_sector_3:list,celdas_sector_4:list,celdas_sector_5:list,celdas_sector_6:list,celdas_sector_7:list,celdas_sector_8:list,celdas_sector_9:list):
+    'recibe la posicion del mouse y 9 listas, detecta las colisiones del click y todos los rect dibujados, no retorna'
     detectar_colisiones_simple(posicion,celdas_sector_1)
     detectar_colisiones_simple(posicion,celdas_sector_2)
     detectar_colisiones_simple(posicion,celdas_sector_3)
@@ -420,7 +425,8 @@ def detectar_todas_las_colisiones(posicion,celdas_sector_1,celdas_sector_2,celda
 
 
 
-def detectar_colisiones_ingresar_texto(evento,pos, cuadrados, pantalla, fuente):
+def detectar_colisiones_ingresar_texto(evento:pg.event,pos:pg.event, cuadrados:list, pantalla:pg.surface, fuente:pg.font):
+    'esta funcion recibe el evento.pg, la posicion del mouse, una lista de rect, un surface y una fuente de texto detecta las colisiones del mouse con un rect devuelve un int'
     cuadrado_seleccionado = None
     numero_ingresado = ""
     bandera = False
@@ -431,6 +437,8 @@ def detectar_colisiones_ingresar_texto(evento,pos, cuadrados, pantalla, fuente):
             print(f"clic en la celda numero {i}, posicion {rect.topleft}")
             cuadrado_seleccionado = i
             break
+    return cuadrado_seleccionado
+
 
 
 #probar esto
@@ -455,7 +463,8 @@ def ingresar_texto(evento,cuadrados,cuadrado_seleccionado,fuente,pantalla):
 
 
 
-def dibujar_numeros(pantalla, matriz: list, tamaño, fuente, posicion_x, posicion_y):
+def dibujar_numeros(pantalla:pg.surface, matriz: list, tamaño:int, fuente:pg.font, posicion_x:int, posicion_y:int):
+    ''' esta funcion dibuja numeros,todos excepto el 0, en un surface(pantalla) tomandolos de una matriz. Retorna una lista de rect '''
     lista_de_numeros = []
 
     for fila in range(len(matriz)):
@@ -485,8 +494,9 @@ def dibujar_numeros(pantalla, matriz: list, tamaño, fuente, posicion_x, posicio
 
 
 #          parametros:     matriz | #cantidad de numeros para agregar
-def agregar_numeros_al_azar(matriz, cantidad):
-    #agrega numeros al azar, en lugares al azar en una matriz
+def agregar_numeros_al_azar(matriz:list, cantidad:int)->list:
+    '''agrega numeros al azar, en lugares al azar en una matriz,
+      retorna una matriz'''
 
     filas = len(matriz)
     columnas = len(matriz[0])
