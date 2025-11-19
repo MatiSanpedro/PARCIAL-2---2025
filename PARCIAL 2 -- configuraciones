@@ -128,7 +128,7 @@ matrices = [numeros_sector1,numeros_sector2,numeros_sector3,numeros_sector4,nume
             numeros_sector6,numeros_sector7,numeros_sector8,numeros_sector9]
 
 
-
+ 
 matriz_general = unir_matriz_general(matrices)
 
 #corregir esto, la funcion "dibujar numeros" solo dibuja un sector 3x3, si se agregan mas cosas la funcion
