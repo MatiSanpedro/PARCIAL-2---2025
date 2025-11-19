@@ -141,7 +141,7 @@ while True:
                 if evento.type == pg.MOUSEBUTTONDOWN:
                     posicion = (evento.pos) #posicion
                     pantalones = detectar_colisiones_ingresar_texto(evento,posicion,todas_las_celdas,pantalla, fuente)
-                                   
+                    
 
             case "ver puntaje":
                 pass
