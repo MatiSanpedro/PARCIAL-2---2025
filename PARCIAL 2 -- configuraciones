@@ -122,8 +122,6 @@ numeros_sector8 = agregar_numeros_al_azar(matriz_sector_8,3)
 numeros_sector9 = agregar_numeros_al_azar(matriz_sector_9,3)
 
 
-
-
 matrices = [numeros_sector1,numeros_sector2,numeros_sector3,numeros_sector4,numeros_sector5,
             numeros_sector6,numeros_sector7,numeros_sector8,numeros_sector9]
 
@@ -138,4 +136,3 @@ matriz_general = unir_matriz_general(matrices)
 
 '''
 '''
-
