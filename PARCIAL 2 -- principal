@@ -117,7 +117,7 @@ while True:
                 #ESC = volver a inicio - pausar
                 
 
-                #celdas - cuadrados
+                #dibujos de celdas - cuadrados
                 celdas_sector_1 = dibujar_cuadrados(pantalla,50,3,3,150,150) #sector 1
                 celdas_sector_2 = dibujar_cuadrados(pantalla,50,3,3,300,150) #sector 2
                 celdas_sector_3 = dibujar_cuadrados(pantalla,50,3,3,450,150) #sector 3
@@ -128,20 +128,23 @@ while True:
                 celdas_sector_8 = dibujar_cuadrados(pantalla,50,3,3,300,450) #sector 8
                 celdas_sector_9 = dibujar_cuadrados(pantalla,50,3,3,450,450) #sector 9 
                 
+                #union de matrices:
                 todas_las_celdas = (celdas_sector_1 + celdas_sector_2 + celdas_sector_3 +
                                     celdas_sector_4 + celdas_sector_5 + celdas_sector_6 +
                                     celdas_sector_7 + celdas_sector_8 + celdas_sector_9)
 
                 dibujar_lineas(pantalla) #son las 4 lineas que separan los 9 espacios de la cuadricula
                 
-                #dibujar numeros
-                matriz_general_dibujos = dibujar_numeros(pantalla,matriz_general,tamaño, fuente,150,150) #cambiar el parametro 2 "finalita"
+                #Dibujar numeros:
+                matriz_general_dibujos = dibujar_numeros(pantalla,matriz_general,tamaño, fuente,150,150)
                 
                 #Detector de colisiones:
                 if evento.type == pg.MOUSEBUTTONDOWN:
-                    posicion = (evento.pos) #posicion
-                    pantalones = detectar_colisiones_ingresar_texto(evento,posicion,todas_las_celdas,pantalla, fuente)
-                    
+                    posicion = (evento.pos) #posicion    
+                    celda_seleccionada = detectar_celda(posicion,todas_las_celdas) #detecta celda seleccionada
+                if evento.type == pg.KEYDOWN:
+                    numero_ingresado = input_numero(evento,celda_seleccionada)
+                    dibujar_numero_ingresado(celda_seleccionada,numero_ingresado,todas_las_celdas,pantalla,fuente)
 
             case "ver puntaje":
                 pass
@@ -156,3 +159,22 @@ while True:
     
 
     pg.display.flip()
+
+    #probar reordenamienyo:
+
+
+    for evento in pygame.event.get():
+
+    if evento.type == pg.MOUSEBUTTONDOWN:
+        posicion = evento.pos
+        celda_seleccionada = detectar_celda(posicion, todas_las_celdas)
+
+    if evento.type == pg.KEYDOWN and celda_seleccionada is not None:
+        numero = input_numero(evento, celda_seleccionada)
+
+        if numero is not None:
+            # 1) modificar la matriz
+            escribir_numero_en_celda(matriz_general, celda_seleccionada, numero)
+
+            # 2) dibujar en pantalla (si querés)
+            dibujar_numero_ingresado(celda_seleccionada, numero, todas_las_celdas, pantalla, fuente)
