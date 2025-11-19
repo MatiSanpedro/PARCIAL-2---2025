@@ -208,35 +208,6 @@ def detectar_colisiones_simple(posicion,cuadrados):
             print(f"Hiciste clic en la celda número {i} en posición {rect.topleft}")
             
 
-def detectar_colisiones_ingresar_texto(evento,pos, cuadrados, pantalla, fuente):
-    cuadrado_seleccionado = None
-    numero_ingresado = ""
-
-    # Detectar clic en cuadrado
-    for i, rect in enumerate(cuadrados):
-        if rect.collidepoint(pos):
-            print(f"Hiciste clic en la celda número {i} en posición {rect.topleft}")
-            cuadrado_seleccionado = i
-            break
-
-    # Si se presiona una tecla y hay una celda seleccionada
-    if evento.type == pg.KEYDOWN and cuadrado_seleccionado is not None:
-        if evento.key == pg.K_BACKSPACE:
-            numero_ingresado = ""
-        elif evento.unicode.isdigit():
-            numero_ingresado = evento.unicode
-            if numero_ingresado < "1" or numero_ingresado > "9":
-                numero_ingresado = ""
-
-        # Dibujar el número en pantalla
-        if numero_ingresado:
-            rect = cuadrados[cuadrado_seleccionado]
-            x, y = rect.center
-            texto = fuente.render(numero_ingresado, True, (0, 0, 0))
-            texto_rect = texto.get_rect(center=(x, y))
-            pantalla.blit(texto, texto_rect)
-
-
 
 def dibujar_numeros(pantalla, matriz: list, tamaño, fuente, posicion_x, posicion_y):
     lista_de_numeros = []
@@ -314,7 +285,7 @@ def agregar_numeros_al_azar(matriz, cantidad):
    
 
 
-def mouse_de_inicio(boton1,boton2,boton3,boton4,evento,posicion):
+def mouse_de_inicio(boton1:pg.rect,boton2:pg.rect,boton3:pg.rect,boton4:pg.rect,evento:pg.event,posicion:tuple):
     if evento.type == pg.MOUSEBUTTONDOWN:
         if evento.button ==1:
             print("  ")
@@ -350,24 +321,29 @@ def mouse_de_inicio(boton1,boton2,boton3,boton4,evento,posicion):
 #6 Y desde donde comienza a dibujarse
 
 #dibuja los cuadraditos: 
-def dibujar_cuadrados(pantalla:pg.surface, tamaño:int, columna:int, fila:int, x_inicial:int, y_inicial:int): 
+def dibujar_cuadrados(pantalla:pg.surface, tamaño:int, columna:int, fila:int, x_inicial:int, y_inicial:int)->dict: 
     'recibe surface, tamaño de los cuadrados, cantidad de filas, cantidad de columnas , posicion X y posicion Y. Dibuja cuadrados multiplicando '   
     lista_retorno_de_cuadrados = []
 
     for filass in range(fila):
-        for columnass in range(columna):
+        for columnass in range(columna): 
             rectangulo_azul = pg.Rect(x_inicial + columnass * tamaño, y_inicial + filass * tamaño,tamaño,
                 tamaño 
                 )
             pg.draw.rect(pantalla, (255, 234, 227), rectangulo_azul)      # cuadrados azules
             pg.draw.rect(pantalla, (0, 0, 0), rectangulo_azul, 1)     # bordes negros
+            
+            #retorna los cuadrados para usarlos despues en "detectar celda"
+            #y otras funciones que requieran la posicion
+            lista_retorno_de_cuadrados.append(({
+            "rect": rectangulo_azul,
+            "fila": filass,
+            "columna": columnass
+        }))
+            
 
-            lista_retorno_de_cuadrados.append(rectangulo_azul)
-            #retorna los cuadrados para usarlos despues en .collidepoint
-
-
+    
     return lista_retorno_de_cuadrados
-
 
 
 
@@ -386,7 +362,7 @@ def dibujar_lineas(pantalla:pg.surface):
 
 
 #dibujar todo
-def dibujar_todos_los_cuadrados(pantalla):
+def dibujar_todos_los_cuadrados(pantalla:pg.surface):
     
     celdas_sector_1 = dibujar_cuadrados(pantalla,50,3,3,150,150) #sector 1
     celdas_sector_2 = dibujar_cuadrados(pantalla,50,3,3,300,150) #sector 2
@@ -402,7 +378,7 @@ def dibujar_todos_los_cuadrados(pantalla):
 #detecta las colisiones dentro de los cuadrados 
 #recibe el evento del mouse, la posicion y una tupla para iterar con enumerate
 
-def detectar_colisiones_simple(posicion,cuadrados):
+def detectar_colisiones_simple(posicion:tuple,cuadrados:list):
     'recibe la posicion y una lista de rect, detecta las colisiones,clicks en los rect'
     # Detectar clic en cuadrado
     for i, rect in enumerate(cuadrados):
@@ -410,7 +386,7 @@ def detectar_colisiones_simple(posicion,cuadrados):
             print(f"Hiciste clic en la celda número {i} en posición {rect.topleft}")
             
 
-def detectar_todas_las_colisiones(posicion:pg.event,celdas_sector_1:list,celdas_sector_2:list,celdas_sector_3:list,celdas_sector_4:list,celdas_sector_5:list,celdas_sector_6:list,celdas_sector_7:list,celdas_sector_8:list,celdas_sector_9:list):
+def detectar_todas_las_colisiones(posicion:tuple,celdas_sector_1:list,celdas_sector_2:list,celdas_sector_3:list,celdas_sector_4:list,celdas_sector_5:list,celdas_sector_6:list,celdas_sector_7:list,celdas_sector_8:list,celdas_sector_9:list):
     'recibe la posicion del mouse y 9 listas, detecta las colisiones del click y todos los rect dibujados, no retorna'
     detectar_colisiones_simple(posicion,celdas_sector_1)
     detectar_colisiones_simple(posicion,celdas_sector_2)
@@ -421,23 +397,6 @@ def detectar_todas_las_colisiones(posicion:pg.event,celdas_sector_1:list,celdas_
     detectar_colisiones_simple(posicion,celdas_sector_7)
     detectar_colisiones_simple(posicion,celdas_sector_8)
     detectar_colisiones_simple(posicion,celdas_sector_9)
-
-
-
-
-def detectar_colisiones_ingresar_texto(evento:pg.event,pos:pg.event, cuadrados:list, pantalla:pg.surface, fuente:pg.font):
-    'esta funcion recibe el evento.pg, la posicion del mouse, una lista de rect, un surface y una fuente de texto detecta las colisiones del mouse con un rect devuelve un int'
-    cuadrado_seleccionado = None
-    numero_ingresado = ""
-    bandera = False
-
-    #  detectar clic en cuadrado
-    for i, rect in enumerate(cuadrados):
-        if rect.collidepoint(pos):
-            print(f"clic en la celda numero {i}, posicion {rect.topleft}")
-            cuadrado_seleccionado = i
-            break
-    return cuadrado_seleccionado
 
 
 
@@ -460,6 +419,68 @@ def ingresar_texto(evento,cuadrados,cuadrado_seleccionado,fuente,pantalla):
             texto = fuente.render(numero_ingresado, True, (0, 0, 0))
             texto_rect = texto.get_rect(center=(x, y))
             pantalla.blit(texto, texto_rect)
+
+
+
+def detectar_celda(pos, cuadrados)->dict:
+    'recibe la posicion del mouse y la lista de rects. Detecta la celda clickeada, y arma un diccionario con: indice, rect,fila,columna y posicion de la celda. Retorna un dict'
+    #i = indice | celda = rect 
+    for i, celda in enumerate(cuadrados):
+        rect = celda["rect"]
+        
+        if rect.collidepoint(pos):
+            print(f"clic en la celda numero {i}, posicion {rect.topleft}")
+            
+            
+            return {"indice": i,
+                "rect": rect,
+                "fila": celda["fila"],
+                "columna": celda["columna"],
+                "pos_mouse": pos
+            }
+            
+
+
+
+
+def input_numero(evento:pg.event,cuadrado_seleccionado:dict)->int:
+    'recibe evento pg, el diccionario con la ubicacion del cuadrado seleccionado, la fuente y la pantalla(surface), detecta el ingreso SOLAMENTE DE NUMEROS por teclado. Retorna'
+    #valido evento de teclado solamente
+    if evento.type != pg.KEYDOWN:
+        pass
+
+    # valido celda seleccionada
+    if cuadrado_seleccionado["indice"] == None:
+        return None
+
+    # solo capturo numeros
+    if evento.unicode.isdigit():
+        numero = int(evento.unicode)
+
+        #valido solo del 1 al 9
+        if numero < 1 or numero > 9:
+           numero = ""
+        
+
+    return numero
+
+    
+
+def dibujar_numero_ingresado(celda_seleccionada:dict,numero_ingresado:int,matriz_grande:list,pantalla:pg.surface,fuente:pg.font):
+        if celda_seleccionada["indice"] is None:
+            return ""
+        
+
+        fila = celda_seleccionada["fila"]
+        columna = celda_seleccionada["columna"]
+        rect = celda_seleccionada["rect"]
+        
+        matriz_grande[fila][columna] = numero_ingresado
+        
+        num = fuente.render(str(numero_ingresado),True,(0,0,0))
+        cuadrado_rect = num.get_rect(center = rect.center) 
+        
+        pantalla.blit(num,cuadrado_rect)
 
 
 
@@ -556,5 +577,3 @@ def unir_matriz_general(matriz_general):
 def borrar_repetidos(matrices, repetidos):
     for numero, col, fila in repetidos:
         matrices[numero][fila][col] = 0
-
-
