@@ -333,6 +333,8 @@ def dibujar_cuadrados(pantalla:pg.surface, tamaño:int, columna:int, fila:int, x
             pg.draw.rect(pantalla, (255, 234, 227), rectangulo_azul)      # cuadrados azules
             pg.draw.rect(pantalla, (0, 0, 0), rectangulo_azul, 1)     # bordes negros
             
+            #esto no tiene blits porque usa pg.draw 
+
             #retorna los cuadrados para usarlos despues en "detectar celda"
             #y otras funciones que requieran la posicion
             lista_retorno_de_cuadrados.append(({
@@ -340,7 +342,7 @@ def dibujar_cuadrados(pantalla:pg.surface, tamaño:int, columna:int, fila:int, x
             "fila": filass,
             "columna": columnass
         }))
-            
+    
 
     
     return lista_retorno_de_cuadrados
@@ -358,7 +360,7 @@ def dibujar_lineas(pantalla:pg.surface):
     pg.draw.line(pantalla, (0, 0, 0), (150,300), (600,300), 6)
     pg.draw.line(pantalla, (0, 0, 0), (150,450), (600,450), 6)
 
-
+    #esto no tiene blits porque usa pg.draw
 
 
 #dibujar todo
@@ -483,6 +485,19 @@ def dibujar_numero_ingresado(celda_seleccionada:dict,numero_ingresado:int,matriz
         pantalla.blit(num,cuadrado_rect)
 
 
+def agregar_numero_a_matriz(evento:pg.event,numero_ingresado:int,celda_seleccionada:dict,matriz_grande):  
+    fila = celda_seleccionada["fila"]
+    columna = celda_seleccionada["columna"]
+    rect = celda_seleccionada["rect"]
+
+    if evento == pg.KEYDOWN:
+        if evento.unicode.isdigit():
+            numero_ingresado = int(evento.unicode)
+
+            matriz_grande[fila][columna] = numero_ingresado
+            
+
+
 
 def dibujar_numeros(pantalla:pg.surface, matriz: list, tamaño:int, fuente:pg.font, posicion_x:int, posicion_y:int):
     ''' esta funcion dibuja numeros,todos excepto el 0, en un surface(pantalla) tomandolos de una matriz. Retorna una lista de rect '''
@@ -514,10 +529,10 @@ def dibujar_numeros(pantalla:pg.surface, matriz: list, tamaño:int, fuente:pg.fo
     return lista_de_numeros
 
 
+
 #          parametros:     matriz | #cantidad de numeros para agregar
 def agregar_numeros_al_azar(matriz:list, cantidad:int)->list:
-    '''agrega numeros al azar, en lugares al azar en una matriz,
-      retorna una matriz'''
+    '''recibe una matriz y un numero, agrega numeros al azar, en lugares al azar en una matriz. Retorna una matriz'''
 
     filas = len(matriz)
     columnas = len(matriz[0])
@@ -558,9 +573,6 @@ def agregar_numeros_al_azar(matriz:list, cantidad:int)->list:
 
 
 
-
-
-
 # Probar estas funciones, no se si sirven 
 def unir_matriz_general(matriz_general):
     """Une las 9 matrices 3x3 en una sola 9x9."""
@@ -574,6 +586,170 @@ def unir_matriz_general(matriz_general):
     return matriz_9x9
 
 
-def borrar_repetidos(matrices, repetidos):
-    for numero, col, fila in repetidos:
-        matrices[numero][fila][col] = 0
+
+def limpiar_repetidos_horizontales(matriz_grande:list)->list:
+    'recibe una matriz, inspecciona la matriz en busca de repetidos, si encuentra un numero repetido lo reemplaza por un numero al azar que no este en la lista. '
+    for i in range(len(matriz_grande)):
+        numero_random1 = random.randrange(1,10) #numero random1
+        numero_random2 = random.randrange(1,10) #numero random2
+        numero_random3 = random.randrange(1,10) #numero random3
+        numero_random4 = random.randrange(1,10) #numero random4
+        repetidos = set() #set de repetidos
+        vistos = set() #set de numeros vistos 
+
+        for j in range(len(matriz_grande[i])):
+            numero_inspeccionado = matriz_grande[i][j] #numero inspeccionado 
+
+            if numero_inspeccionado in vistos: #si veo un mismo numero, mas de una vez, esta repetido
+                repetidos.add(numero_inspeccionado)
+
+                if numero_inspeccionado in repetidos: # si el numero esta en repetidos
+                    if numero_random1 in matriz_grande[i]:   #verifico si random1 esta en la fila 
+
+                        if numero_random2 in matriz_grande[i]:  #verifico si random2 esta en la fila
+
+                            if numero_random3 in matriz_grande[i]: #verifico si random3 esta en la fila
+
+                                if numero_random4 in matriz_grande[i]: ##verifico si random2 esta en la fila
+                                    matriz_grande[i][j] = 0   # si estan todos repetidos reemplazo el repetido por 0 
+                                else:
+                                    matriz_grande[i][j] = numero_random4  #reemplazo el repetido por random4
+
+                            else:
+                                matriz_grande[i][j] = numero_random3  #reemplazo el repetido por random3
+                        else:
+                            matriz_grande[i][j] = numero_random2 #reemplazo el repetido por random2
+                    else:
+                        matriz_grande[i][j] = numero_random1 #reemplazo el repetido por random1
+            
+            if matriz_grande[i][j] != 0: #distinto de cero
+                vistos.add(numero_inspeccionado) # agrego a la lista de vistos 
+
+    return matriz_grande
+
+
+
+
+def limpiar_repetidos_verticales(matriz_grande:list)->list:
+    'recibe una matriz, crea una columna e intenta reeemplazar los numeros repetidos por otros generados al azar'
+    for i in range(len(matriz_grande[0])):  
+        numero_random1 = random.randrange(1,10) #numero random1
+        numero_random2 = random.randrange(1,10) #numero random2
+        numero_random3 = random.randrange(1,10) #numero random3
+        numero_random4 = random.randrange(1,10) #numero random4
+        repetidos = set()  #set de numeros repetidos 
+        vistos = set() #set de numeros ya vistos 
+
+       
+        columna_fabricada = [] 
+        for fila in range(9): #solo necesito 9 lugares
+            columna_fabricada.append(matriz_grande[fila][i]) #fabrico 1 columna para revisarla lugar por lugar con for 
+
+        for j in range(len(matriz_grande)):  # filas
+            numero_inspeccionado = matriz_grande[j][i]
+
+            if numero_inspeccionado in vistos:  
+                repetidos.add(numero_inspeccionado)
+
+                if numero_inspeccionado in repetidos:
+
+                    # verifico los numeros en la columna fabricada
+                    if numero_random1 in columna_fabricada:
+
+                        if numero_random2 in columna_fabricada:
+
+                            if numero_random3 in columna_fabricada:
+
+                                if numero_random4 in columna_fabricada:
+                                    matriz_grande[j][i] = 0
+                                else:
+                                    matriz_grande[j][i] = numero_random4
+                                    columna_fabricada[j] = numero_random4  #agrego el numero a la columna fabricada porque estoy comparando con esta misma lista
+                            else:
+                                matriz_grande[j][i] = numero_random3
+                                columna_fabricada[j] = numero_random3
+                        else:
+                            matriz_grande[j][i] = numero_random2
+                            columna_fabricada[j] = numero_random2
+                    else:
+                        matriz_grande[j][i] = numero_random1
+                        columna_fabricada[j] = numero_random1
+
+            if matriz_grande[j][i] != 0:
+                vistos.add(numero_inspeccionado)
+
+    return matriz_grande
+
+
+
+'''grosa = [[1,0,0,0,0,0,0,0,0],
+         [1,0,0,0,0,0,0,0,0],
+         [2,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [2,0,0,0,0,0,0,0,0],
+         [3,0,0,0,0,0,0,0,0],
+         [5,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [5,0,0,0,0,0,0,0,0],
+         ]
+
+
+limpiar_repetidos_verticales(grosa)
+for i in range(len(grosa)):
+    for j in range(len(grosa[i])):
+        print(grosa[j])'''
+
+
+
+def agregar_numeros_al_azar_v2(matriz:list, cantidad:int)->list:
+    '''recibe una matriz y un numero, agrega numeros al azar, en lugares al azar en una matriz. Retorna una matriz'''
+
+    filas = len(matriz)
+    columnas = len(matriz[0])
+    contador = 0
+    usados = set()  
+    numeros_repetidos = []
+
+    while contador < cantidad:
+
+        fila_al_azar = random.randrange(filas)
+        columna_al_azar = random.randrange(columnas)
+        numero_al_azar = random.randint(1, 9)
+
+        # si el lugar ya tiene un número distinto de 0, saltar
+        if matriz[fila_al_azar][columna_al_azar] != 0:
+            continue
+
+        # si ya fue usado antes por la función:
+        if numero_al_azar in usados:
+            continue
+
+        # si el número ya está en la fila:
+        if numero_al_azar in matriz[fila_al_azar]:
+            continue
+
+        # si el número ya está en la columna:
+        repetido = False
+        for j in range(filas):
+            if matriz[j][columna_al_azar] == numero_al_azar:
+                repetido = True
+                break
+        if repetido:
+            continue
+
+        #  ESTA ES LA CORRECCIÓN QUE FALTABA:
+        # verificar si el número ya existe en OTRA parte de la matriz
+        repetido_en_otra_parte = False
+        for f in range(filas):
+            if numero_al_azar in matriz[f]:
+                repetido_en_otra_parte = True
+                break
+        if repetido_en_otra_parte:
+            continue
+
+        # si pasa TODOS LOS FILTROS, lo incluyo
+        matriz[fila_al_azar][columna_al_azar] = numero_al_azar
+        usados.add(numero_al_azar)
+        contador += 1
+
+    return matriz
