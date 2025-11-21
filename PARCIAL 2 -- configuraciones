@@ -1,7 +1,9 @@
 import pygame as pg 
 import pygame.mixer as mixer 
-from PARCIAL_2_funciones import agregar_numeros_al_azar
+from PARCIAL_2_funciones import agregar_numeros_al_azar_v2
 from PARCIAL_2_funciones import unir_matriz_general
+from PARCIAL_2_funciones import limpiar_repetidos_horizontales
+from PARCIAL_2_funciones import limpiar_repetidos_verticales
 import random
 
 
@@ -111,28 +113,35 @@ matriz_sector_8 = [[0,0,0],[0,0,0],[0,0,0]]
 matriz_sector_9 = [[0,0,0],[0,0,0],[0,0,0]]
 
 #con numeros agregados:                        matriz | cantidad de numeros para agregar
-numeros_sector1 = agregar_numeros_al_azar(matriz_sector_1,3)
-numeros_sector2 = agregar_numeros_al_azar(matriz_sector_2,3)
-numeros_sector3 = agregar_numeros_al_azar(matriz_sector_3,3)
-numeros_sector4 = agregar_numeros_al_azar(matriz_sector_4,3)
-numeros_sector5 = agregar_numeros_al_azar(matriz_sector_5,3)
-numeros_sector6 = agregar_numeros_al_azar(matriz_sector_6,3)
-numeros_sector7 = agregar_numeros_al_azar(matriz_sector_7,3)
-numeros_sector8 = agregar_numeros_al_azar(matriz_sector_8,3)
-numeros_sector9 = agregar_numeros_al_azar(matriz_sector_9,3)
+numeros_sector1 = agregar_numeros_al_azar_v2(matriz_sector_1,5)
+numeros_sector2 = agregar_numeros_al_azar_v2(matriz_sector_2,5)
+numeros_sector3 = agregar_numeros_al_azar_v2(matriz_sector_3,5)
+numeros_sector4 = agregar_numeros_al_azar_v2(matriz_sector_4,5)
+numeros_sector5 = agregar_numeros_al_azar_v2(matriz_sector_5,5)
+numeros_sector6 = agregar_numeros_al_azar_v2(matriz_sector_6,5)
+numeros_sector7 = agregar_numeros_al_azar_v2(matriz_sector_7,5)
+numeros_sector8 = agregar_numeros_al_azar_v2(matriz_sector_8,5)
+numeros_sector9 = agregar_numeros_al_azar_v2(matriz_sector_9,5)
 
 
 matrices = [numeros_sector1,numeros_sector2,numeros_sector3,numeros_sector4,numeros_sector5,
             numeros_sector6,numeros_sector7,numeros_sector8,numeros_sector9]
 
-
+#esto se usa para controlar la interaccion entre funcion "input numero" y "dibujar numero ingresado" en el case "jugar"
+celda_seleccionada = None
  
-matriz_general = unir_matriz_general(matrices)
+matriz_general_a = unir_matriz_general(matrices)
+matriz_general_b = limpiar_repetidos_verticales(matriz_general_a)
+matriz_general_fin = limpiar_repetidos_horizontales(matriz_general_b)
+
+
 
 #corregir esto, la funcion "dibujar numeros" solo dibuja un sector 3x3, si se agregan mas cosas la funcion
 # superpone los numeros
 
 
 
+
 '''
 '''
+
