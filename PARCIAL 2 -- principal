@@ -136,16 +136,22 @@ while True:
                 dibujar_lineas(pantalla) #son las 4 lineas que separan los 9 espacios de la cuadricula
                 
                 #Dibujar numeros:
-                matriz_general_dibujos = dibujar_numeros(pantalla,matriz_general,tamaño, fuente,150,150)
+                matriz_general_dibujos = dibujar_numeros(pantalla,matriz_general_fin,tamaño, fuente,150,150)
                 
                 #Detector de colisiones:
                 if evento.type == pg.MOUSEBUTTONDOWN:
                     posicion = (evento.pos) #posicion    
                     celda_seleccionada = detectar_celda(posicion,todas_las_celdas) #detecta celda seleccionada
-                if evento.type == pg.KEYDOWN:
+                #ingresar numero por teclado
+                if evento.type == pg.KEYDOWN and celda_seleccionada is not None:
                     numero_ingresado = input_numero(evento,celda_seleccionada)
-                    dibujar_numero_ingresado(celda_seleccionada,numero_ingresado,todas_las_celdas,pantalla,fuente)
 
+                    if numero_ingresado is not None:
+                        dibujar_numero_ingresado(celda_seleccionada,numero_ingresado,todas_las_celdas,pantalla,fuente)
+                
+                pg.display.update()
+            
+            
             case "ver puntaje":
                 pass
             
@@ -159,22 +165,3 @@ while True:
     
 
     pg.display.flip()
-
-    #probar reordenamienyo:
-
-
-    for evento in pygame.event.get():
-
-    if evento.type == pg.MOUSEBUTTONDOWN:
-        posicion = evento.pos
-        celda_seleccionada = detectar_celda(posicion, todas_las_celdas)
-
-    if evento.type == pg.KEYDOWN and celda_seleccionada is not None:
-        numero = input_numero(evento, celda_seleccionada)
-
-        if numero is not None:
-            # 1) modificar la matriz
-            escribir_numero_en_celda(matriz_general, celda_seleccionada, numero)
-
-            # 2) dibujar en pantalla (si querés)
-            dibujar_numero_ingresado(celda_seleccionada, numero, todas_las_celdas, pantalla, fuente)
