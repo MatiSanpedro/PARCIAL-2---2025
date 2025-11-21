@@ -94,6 +94,13 @@ boton4_nivel = volver.get_rect(topleft = (250,350))
 
 correccion_tamaño_nivel = pg.transform.scale(fondo_pantalla,(900,700))
 
+#texto de puntaje:
+texto_de_puntaje = fuente.render("Puntaje:",True,(0,0,0))
+rect_de_texto_puntaje = texto_de_puntaje.get_rect(topleft = (650,20))
+
+
+
+
 
 #variables de input 
 cuadrado_seleccionado = False
@@ -144,4 +151,3 @@ matriz_general_fin = limpiar_repetidos_horizontales(matriz_general_b)
 
 '''
 '''
-
