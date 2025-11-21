@@ -424,24 +424,21 @@ def ingresar_texto(evento,cuadrados,cuadrado_seleccionado,fuente,pantalla):
 
 
 
-def detectar_celda(pos, cuadrados)->dict:
-    'recibe la posicion del mouse y la lista de rects. Detecta la celda clickeada, y arma un diccionario con: indice, rect,fila,columna y posicion de la celda. Retorna un dict'
-    #i = indice | celda = rect 
+def detectar_celda(pos:tuple, cuadrados:list)->dict:
     for i, celda in enumerate(cuadrados):
         rect = celda["rect"]
-        
+
         if rect.collidepoint(pos):
             print(f"clic en la celda numero {i}, posicion {rect.topleft}")
-            
-            
-            return {"indice": i,
+            return {
+                "indice": i,
                 "rect": rect,
                 "fila": celda["fila"],
                 "columna": celda["columna"],
                 "pos_mouse": pos
             }
-            
 
+    return None   # no hubo clic en ninguna celda
 
 
 
@@ -468,9 +465,9 @@ def input_numero(evento:pg.event,cuadrado_seleccionado:dict)->int:
 
     
 
-def dibujar_numero_ingresado(celda_seleccionada:dict,numero_ingresado:int,matriz_grande:list,pantalla:pg.surface,fuente:pg.font):
+def dibujar_numero_ingresado(celda_seleccionada:dict,numero_ingresado:int,matriz_grande:list,pantalla:pg.surface,fuente:pg.font)->pg.Surface:
         if celda_seleccionada["indice"] is None:
-            return ""
+            return 0
         
 
         fila = celda_seleccionada["fila"]
@@ -481,8 +478,10 @@ def dibujar_numero_ingresado(celda_seleccionada:dict,numero_ingresado:int,matriz
         
         num = fuente.render(str(numero_ingresado),True,(0,0,0))
         cuadrado_rect = num.get_rect(center = rect.center) 
-        
+
         pantalla.blit(num,cuadrado_rect)
+    
+        return num,cuadrado_rect
 
 
 def agregar_numero_a_matriz(evento:pg.event,numero_ingresado:int,celda_seleccionada:dict,matriz_grande):  
@@ -727,6 +726,9 @@ def agregar_numeros_al_azar_v2(matriz:list, cantidad:int)->list:
         # si el número ya está en la fila:
         if numero_al_azar in matriz[fila_al_azar]:
             continue
+        
+        if numero_al_azar in matriz[columna_al_azar]:
+            continue
 
         # si el número ya está en la columna:
         repetido = False
@@ -753,3 +755,15 @@ def agregar_numeros_al_azar_v2(matriz:list, cantidad:int)->list:
         contador += 1
 
     return matriz
+
+
+def ingresar_numero_a_matriz(matriz_general_fin:list,numero:int,celda_seleccionada:dict):
+    fila = celda_seleccionada["fila"]
+    columna = celda_seleccionada["columna"]
+
+    matriz_general_fin[fila][columna] = numero
+        
+    return matriz_general_fin
+
+
+
