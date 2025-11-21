@@ -79,6 +79,9 @@ while True:
                 pantalla.blit(volver, (250, 350)) #rectangulo volver
                 pantalla.blit(texto_4_nivel,(250,350)) #texto volver
                 
+                
+                
+
                 #mouse:
                 if evento.type == pg.MOUSEBUTTONDOWN: 
                         posicion = (evento.pos)
@@ -112,7 +115,7 @@ while True:
             case "jugar":
                 
                 pantalla.fill((189, 162, 162))#color de fondo de pantalla durante el juego
-                
+                pantalla.blit(texto_de_puntaje,rect_de_texto_puntaje)#blit de texto "puntaje"
                 pantalla_actual = pausar_juego(evento,pantalla_actual) #controlador de pantalla
                 #ESC = volver a inicio - pausar
                 
@@ -138,7 +141,7 @@ while True:
                 #Dibujar numeros:
                 matriz_general_dibujos = dibujar_numeros(pantalla,matriz_general_fin,tamaño, fuente,150,150)
                 
-                #Detector de colisiones:
+                  #Detector de colisiones:
                 if evento.type == pg.MOUSEBUTTONDOWN:
                     posicion = (evento.pos) #posicion    
                     celda_seleccionada = detectar_celda(posicion,todas_las_celdas) #detecta celda seleccionada
@@ -147,16 +150,14 @@ while True:
                     numero_ingresado = input_numero(evento,celda_seleccionada)
 
                     if numero_ingresado is not None:
-                        dibujar_numero_ingresado(celda_seleccionada,numero_ingresado,todas_las_celdas,pantalla,fuente)
-                
+                        matriz_general_fin = ingresar_numero_a_matriz(matriz_general_fin,numero_ingresado,celda_seleccionada)
+                        
                 pg.display.update()
             
             
             case "ver puntaje":
                 pass
             
-
-              
         
         
              
