@@ -102,12 +102,12 @@ rect_de_texto_puntaje = texto_de_puntaje.get_rect(topleft = (650,20))
 
 
 
-#variables de input 
+#variables de input, solo se usan en una funcion 
 cuadrado_seleccionado = False
 
 
-
-#MATRICES:
+'MATRICES - Dificil'
+#MATRICES - son lo mismo, pero cambio los nombres para que los datos no se mezclen:
 #vacias:
 matriz_sector_1 = [[0,0,0],[0,0,0],[0,0,0]]
 matriz_sector_2 = [[0,0,0],[0,0,0],[0,0,0]]
