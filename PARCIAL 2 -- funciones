@@ -739,7 +739,7 @@ def agregar_numeros_al_azar_v2(matriz:list, cantidad:int)->list:
 
 
 def ingresar_numero_a_matriz(matriz_general_fin:list,numero:int,celda_seleccionada:dict,tamaño:int,x_inicial=150, y_inicial=150)->list:
-    'recibe la matriz general, el numero ingresado por teclado y un diccionario con direcciones de la celda clickeada. retorna una matriz grande'
+    'recibe la matriz general, el numero ingresado por teclado, un diccionario con datos de la celda clickeada, tamaño(50) . retorna una matriz grande'
 
     indice = celda_seleccionada["indice"] #indice 
     mouse_x,mouse_y = celda_seleccionada["pos_mouse"]
@@ -747,7 +747,7 @@ def ingresar_numero_a_matriz(matriz_general_fin:list,numero:int,celda_selecciona
     columna = (mouse_x - x_inicial) // tamaño #convierto la x en indice: posicion_mouse_x menos x_inicial(150) dividido tamaño(50) 
     columna = int(columna) #redondeo por si acaso 
         
-    fila = (mouse_y - y_inicial) // tamaño 
+    fila = (mouse_y - y_inicial) // tamaño #mismo caso
     fila = int(fila)
     
     if columna < 0 or fila < 0: #si alguno es menor a cero es click fuera del area
@@ -755,7 +755,7 @@ def ingresar_numero_a_matriz(matriz_general_fin:list,numero:int,celda_selecciona
 
     # evito exceder los limites, fila o columna mayor o igual al largo de la matriz 
     if fila >= len(matriz_general_fin) or columna >= len(matriz_general_fin[0]):
-        return matriz_general_fin  # clic fuera, ignorar
+        return matriz_general_fin  # click fuera, ignorar
 
     matriz_general_fin[fila][columna] = numero
     
