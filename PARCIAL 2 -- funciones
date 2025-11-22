@@ -681,25 +681,6 @@ def limpiar_repetidos_verticales(matriz_grande:list)->list:
 
 
 
-'''grosa = [[1,0,0,0,0,0,0,0,0],
-         [1,0,0,0,0,0,0,0,0],
-         [2,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0],
-         [2,0,0,0,0,0,0,0,0],
-         [3,0,0,0,0,0,0,0,0],
-         [5,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0],
-         [5,0,0,0,0,0,0,0,0],
-         ]
-
-
-limpiar_repetidos_verticales(grosa)
-for i in range(len(grosa)):
-    for j in range(len(grosa[i])):
-        print(grosa[j])'''
-
-
-
 def agregar_numeros_al_azar_v2(matriz:list, cantidad:int)->list:
     '''recibe una matriz y un numero, agrega numeros al azar, en lugares al azar en una matriz. Retorna una matriz'''
 
@@ -757,13 +738,31 @@ def agregar_numeros_al_azar_v2(matriz:list, cantidad:int)->list:
     return matriz
 
 
-def ingresar_numero_a_matriz(matriz_general_fin:list,numero:int,celda_seleccionada:dict):
-    fila = celda_seleccionada["fila"]
-    columna = celda_seleccionada["columna"]
+def ingresar_numero_a_matriz(matriz_general_fin:list,numero:int,celda_seleccionada:dict,tamaño:int,x_inicial=150, y_inicial=150)->list:
+    'recibe la matriz general, el numero ingresado por teclado y un diccionario con direcciones de la celda clickeada. retorna una matriz grande'
+
+    indice = celda_seleccionada["indice"] #indice 
+    mouse_x,mouse_y = celda_seleccionada["pos_mouse"]
+        
+    columna = (mouse_x - x_inicial) // tamaño #convierto la x en indice: posicion_mouse_x menos x_inicial(150) dividido tamaño(50) 
+    columna = int(columna) #redondeo por si acaso 
+        
+    fila = (mouse_y - y_inicial) // tamaño 
+    fila = int(fila)
+    
+    if columna < 0 or fila < 0: #si alguno es menor a cero es click fuera del area
+        return matriz_general_fin  # clic fuera del area, no hacer nada
+
+    # evito exceder los limites, fila o columna mayor o igual al largo de la matriz 
+    if fila >= len(matriz_general_fin) or columna >= len(matriz_general_fin[0]):
+        return matriz_general_fin  # clic fuera, ignorar
 
     matriz_general_fin[fila][columna] = numero
-        
+    
     return matriz_general_fin
+
+    
+
 
 
 
