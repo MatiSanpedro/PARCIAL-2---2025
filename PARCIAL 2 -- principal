@@ -114,9 +114,14 @@ while True:
                 
             case "jugar":
                 pantalla.fill((189, 162, 162))#color de fondo de pantalla durante el juego
-                pantalla.blit(texto_de_puntaje,rect_de_texto_puntaje)#blit de texto "puntaje"
-                pantalla_actual = pausar_juego(evento,pantalla_actual) #controlador de pantalla
-                #ESC = volver a inicio - pausar
+                pantalla.blit(validar_celda,(650,200)) #blit de validar celda
+                pantalla.blit(texto_validar_celda,(710,215))#blit de texto validar celda
+                pantalla.blit(texto_de_puntaje,rect_de_texto_puntaje)#blit de texto "puntaje" 
+                pantalla.blit(reset_juego,(650,400))
+                pantalla.blit(texto_reiniciar_juego,(667, 415))
+                
+                pantalla_actual = pausar_juego(evento,pantalla_actual) #controlador de pantalla, #ESC = volver a inicio - pausar
+                
                 
 
                 #dibujos de celdas - cuadrados
@@ -140,10 +145,19 @@ while True:
                 #Dibujar numeros:
                 matriz_general_dibujos = dibujar_numeros(pantalla,matriz_general_fin,tamaño, fuente,150,150)
                 
+                #ingresar numero por teclado
+                if evento.type == pg.KEYDOWN and celda_seleccionada is not None:
+                    numero_ingresado = input_numero(evento,celda_seleccionada)
+
+                    if numero_ingresado is not None:
+                        matriz_general_fin = ingresar_numero_a_matriz(matriz_general_fin,numero_ingresado,celda_seleccionada,tamaño)
+                        print(matriz_general_fin)
+                
                 #Detector de colisiones:
                 if evento.type == pg.MOUSEBUTTONDOWN:
                     posicion = (evento.pos) #posicion    
                     celda_seleccionada = detectar_celda(posicion,todas_las_celdas) #detecta celda seleccionada
+                    dibujar_borde_verde(pantalla,celda_seleccionada) #dibuja un bordecito verde en la celda clickeada
                 
                 #ingresar numero por teclado
                 if evento.type == pg.KEYDOWN and celda_seleccionada is not None:
@@ -152,7 +166,7 @@ while True:
                     if numero_ingresado is not None:
                         matriz_general_fin = ingresar_numero_a_matriz(matriz_general_fin,numero_ingresado,celda_seleccionada,tamaño)
                         print(matriz_general_fin)
-
+                
                 pg.display.update()
 
             case "ver puntaje":
