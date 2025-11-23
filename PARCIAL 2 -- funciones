@@ -363,6 +363,14 @@ def dibujar_lineas(pantalla:pg.surface):
     #esto no tiene blits porque usa pg.draw
 
 
+#dibuja el borde verde de la celda clickeada:
+def dibujar_borde_verde(pantalla:pg.Surface,celda_seleccionada:dict):
+    'recibe pantalla(surface) y un dict de los datos de la celda seleccionada, dibuja un bordecito verde al clickear la celda'
+    rect = celda_seleccionada["rect"]
+    pg.draw.rect(pantalla,(0,200,0),rect,3)
+
+
+
 #dibujar todo
 def dibujar_todos_los_cuadrados(pantalla:pg.surface):
     
@@ -441,47 +449,27 @@ def detectar_celda(pos:tuple, cuadrados:list)->dict:
     return None   # no hubo clic en ninguna celda
 
 
-
-def input_numero(evento:pg.event,cuadrado_seleccionado:dict)->int:
-    'recibe evento pg, el diccionario con la ubicacion del cuadrado seleccionado, la fuente y la pantalla(surface), detecta el ingreso SOLAMENTE DE NUMEROS por teclado. Retorna'
-    #valido evento de teclado solamente
-    if evento.type != pg.KEYDOWN:
-        pass
-
-    # valido celda seleccionada
-    if cuadrado_seleccionado["indice"] == None:
+def input_numero(evento: pg.event, cuadrado_seleccionado: dict) -> int:
+    'recibe evento pg, el diccionario con la ubicacion del cuadrado seleccionado, la fuente y la pantalla(surface), detecta el ingreso SOLAMENTE DE NUMEROS por teclado.'
+    if evento.type != pg.KEYDOWN: #solo evento de teclado 
         return None
 
-    # solo capturo numeros
-    if evento.unicode.isdigit():
-        numero = int(evento.unicode)
+    if cuadrado_seleccionado["indice"] is None: #retorna none si no se selecciona ninguna celda 
+        return None
 
-        #valido solo del 1 al 9
-        if numero < 1 or numero > 9:
-           numero = ""
-        
+    # si la tecla no es número devuelve none, sin este punto tira error el juego entero xD
+    if evento.unicode.isdigit() == False:
+        return None
+
+    numero = int(evento.unicode) 
+
+    # valido rango 1-9
+    if numero < 1 or numero > 9:
+           numero = 0  #si es cero, la funcion "dibujar numeros" no lo dibuja 
 
     return numero
 
-    
 
-def dibujar_numero_ingresado(celda_seleccionada:dict,numero_ingresado:int,matriz_grande:list,pantalla:pg.surface,fuente:pg.font)->pg.Surface:
-        if celda_seleccionada["indice"] is None:
-            return 0
-        
-
-        fila = celda_seleccionada["fila"]
-        columna = celda_seleccionada["columna"]
-        rect = celda_seleccionada["rect"]
-        
-        matriz_grande[fila][columna] = numero_ingresado
-        
-        num = fuente.render(str(numero_ingresado),True,(0,0,0))
-        cuadrado_rect = num.get_rect(center = rect.center) 
-
-        pantalla.blit(num,cuadrado_rect)
-    
-        return num,cuadrado_rect
 
 
 def agregar_numero_a_matriz(evento:pg.event,numero_ingresado:int,celda_seleccionada:dict,matriz_grande):  
@@ -762,7 +750,3 @@ def ingresar_numero_a_matriz(matriz_general_fin:list,numero:int,celda_selecciona
     return matriz_general_fin
 
     
-
-
-
-
