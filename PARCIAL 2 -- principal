@@ -158,13 +158,15 @@ while True:
                     posicion = (evento.pos) #posicion    
                     celda_seleccionada = detectar_celda(posicion,todas_las_celdas) #detecta celda seleccionada
                     dibujar_borde_verde(pantalla,celda_seleccionada) #dibuja un bordecito verde en la celda clickeada
-                
+
                 #ingresar numero por teclado
                 if evento.type == pg.KEYDOWN and celda_seleccionada is not None:
                     numero_ingresado = input_numero(evento,celda_seleccionada)
-
+                    borrar_numero_de_matriz(matriz_general_fin,evento,celda_seleccionada,tamaño,x_inicial=150, y_inicial=150)
                     if numero_ingresado is not None:
+                        
                         matriz_general_fin = ingresar_numero_a_matriz(matriz_general_fin,numero_ingresado,celda_seleccionada,tamaño)
+                        
                         print(matriz_general_fin)
                 
                 pg.display.update()
