@@ -94,10 +94,26 @@ boton4_nivel = volver.get_rect(topleft = (250,350))
 
 correccion_tamaño_nivel = pg.transform.scale(fondo_pantalla,(900,700))
 
-#texto de puntaje:
+#botons de comprobar celdas
+fuente_validar_celda = pg.font.SysFont("Bernard MT Comprimida",30)
+validar_celda = pg.Surface((200,50))
+validar_celda.fill((110, 50, 38))
+texto_validar_celda = fuente_validar_celda.render("validar", True, ((219, 97, 77)))
+boton_validar_celda = validar_celda.get_rect(center = (600,650))
+
+
+#boton de reiniciar juego:
+reset_juego = pg.Surface((200,50))
+reset_juego.fill((110, 50, 38))
+texto_reiniciar_juego = fuente_validar_celda.render("Reiniciar Juego",True, (219, 97, 77))
+boton_reiniciar_juego = reset_juego.get_rect(center = (600,650))
+
+
+#texto de palabra puntaje:
 texto_de_puntaje = fuente.render("Puntaje:",True,(0,0,0))
 rect_de_texto_puntaje = texto_de_puntaje.get_rect(topleft = (650,20))
 
+#texto de numeros puntaje:
 
 
 
@@ -118,6 +134,7 @@ matriz_sector_6 = [[0,0,0],[0,0,0],[0,0,0]]
 matriz_sector_7 = [[0,0,0],[0,0,0],[0,0,0]]
 matriz_sector_8 = [[0,0,0],[0,0,0],[0,0,0]]
 matriz_sector_9 = [[0,0,0],[0,0,0],[0,0,0]]
+
 
 #con numeros agregados:                        matriz | cantidad de numeros para agregar
 numeros_sector1 = agregar_numeros_al_azar_v2(matriz_sector_1,5)
@@ -142,12 +159,3 @@ matriz_general_b = limpiar_repetidos_verticales(matriz_general_a)
 matriz_general_fin = limpiar_repetidos_horizontales(matriz_general_b)
 
 
-
-#corregir esto, la funcion "dibujar numeros" solo dibuja un sector 3x3, si se agregan mas cosas la funcion
-# superpone los numeros
-
-
-
-
-'''
-'''
