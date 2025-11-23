@@ -727,12 +727,12 @@ def agregar_numeros_al_azar_v2(matriz:list, cantidad:int)->list:
 
 
 def ingresar_numero_a_matriz(matriz_general_fin:list,numero:int,celda_seleccionada:dict,tamaño:int,x_inicial=150, y_inicial=150)->list:
-    'recibe la matriz general, el numero ingresado por teclado, un diccionario con datos de la celda clickeada, tamaño(50) . retorna una matriz grande'
+    'recibe la matriz general, el numero ingresado por teclado, un diccionario con datos de la celda clickeada, tamaño(50), x inicial de los rect, y inicial de los rect . retorna una matriz grande'
 
     indice = celda_seleccionada["indice"] #indice 
-    mouse_x,mouse_y = celda_seleccionada["pos_mouse"]
+    mouse_x,mouse_y = celda_seleccionada["pos_mouse"] #extraigo la tupla posicion del mouse 
         
-    columna = (mouse_x - x_inicial) // tamaño #convierto la x en indice: posicion_mouse_x menos x_inicial(150) dividido tamaño(50) 
+    columna = (mouse_x - x_inicial) // tamaño #convierto la x en indices: posicion_mouse_x menos x_inicial(150) dividido tamaño(50) 
     columna = int(columna) #redondeo por si acaso 
         
     fila = (mouse_y - y_inicial) // tamaño #mismo caso
@@ -750,3 +750,33 @@ def ingresar_numero_a_matriz(matriz_general_fin:list,numero:int,celda_selecciona
     return matriz_general_fin
 
     
+def borrar_numero_de_matriz(matriz_general_fin:list,evento:pg.event,celda_seleccionada:dict,tamaño:int,x_inicial=150, y_inicial=150)->list:
+    'recibe la matriz general,evento, un diccionario con datos de la celda clickeada, tamaño(50),x inicial de los rect, y inicial de los rect. Borra un numero de una casilla seleccionada. Retorna una matriz grande'
+
+    indice = celda_seleccionada["indice"] #indice 
+    mouse_x,mouse_y = celda_seleccionada["pos_mouse"]
+        
+    columna = (mouse_x - x_inicial) // tamaño #convierto la x en indices: posicion_mouse_x menos x_inicial(150) dividido tamaño(50) 
+    columna = int(columna) #redondeo por si acaso 
+        
+    fila = (mouse_y - y_inicial) // tamaño #mismo caso
+    fila = int(fila)
+    
+    
+        
+    if columna < 0 or fila < 0: #si alguno es menor a cero es click fuera del area
+        return matriz_general_fin  # clic fuera del area, no hacer nada
+
+    # evito exceder los limites, fila o columna mayor o igual al largo de la matriz 
+    if fila >= len(matriz_general_fin) or columna >= len(matriz_general_fin[0]):
+        return matriz_general_fin  # click fuera, ignorar
+    
+    if evento.type == pg.KEYDOWN:
+        if evento.key == pg.K_BACKSPACE:
+            matriz_general_fin[fila][columna] = 0
+        if evento.key == pg.K_DELETE:
+            matriz_general_fin[fila][columna] = 0
+
+    return matriz_general_fin
+
+
