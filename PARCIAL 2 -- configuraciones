@@ -65,6 +65,7 @@ texto_4 = fuente.render("Salir",True,(250,250,250),(0,0,0))
 boton4 = boton_salida.get_rect(topleft = (300,540))
 
 
+
 'botones de "SELECCIONAR NIVEL"'
 #facil | boton 1
 nivel_nivel = pg.Surface((290,50))
