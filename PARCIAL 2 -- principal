@@ -151,7 +151,9 @@ while True:
 
                     if numero_ingresado is not None:
                         matriz_general_fin = ingresar_numero_a_matriz(matriz_general_fin,numero_ingresado,celda_seleccionada,tamaño)
+                        flag1 = validar_matriz_sector_1(matriz_general_fin)
                         print(matriz_general_fin)
+                        
                 
                 #Detector de colisiones:
                 if evento.type == pg.MOUSEBUTTONDOWN:
