@@ -360,7 +360,7 @@ def dibujar_lineas(pantalla:pg.surface):
     pg.draw.line(pantalla, (0, 0, 0), (150,300), (600,300), 6)
     pg.draw.line(pantalla, (0, 0, 0), (150,450), (600,450), 6)
 
-    #esto no tiene blits porque usa pg.draw
+    #esto no tiene blits porque usa pg.draw.line
 
 
 #dibuja el borde verde de la celda clickeada:
@@ -779,4 +779,250 @@ def borrar_numero_de_matriz(matriz_general_fin:list,evento:pg.event,celda_selecc
 
     return matriz_general_fin
 
+
+
+def validar_matriz_sector_1(matriz_general_fin:list)->bool:
+    'recibe matriz general. recorre un segmento 3x3 de la matriz(ejemplo sector1 = 0-3,0-3) y verifica si hay numeros repetidos. Retorna bool, False si hay repetidos, True si no los hay'
+    bandera = None   
+    repetidos = set()
+    vistos = set()
+    for i in range(0,3):
+        
+        for j in range(0,3):
+            numero_inspeccionado = matriz_general_fin[i][j]
+
+            if numero_inspeccionado in vistos:
+                repetidos.add(numero_inspeccionado)
+            
+            if matriz_general_fin[i][j] != 0:
+                vistos.add(numero_inspeccionado)
+    if len(repetidos) == 0:
+        bandera = True
+    else:
+        bandera = False
+    
+    return bandera
+
+def validar_matriz_sector_2(matriz_general_fin:list)->bool:
+    'recibe matriz general. recorre un segmento 3x3 de la matriz(ejemplo sector1 = 0-3,0-3) y verifica si hay numeros repetidos. Retorna bool, False si hay repetidos, True si no los hay'
+
+    bandera = None   
+    repetidos = set()
+    vistos = set()
+    
+    for i in range(0,3):
+        for j in range(3,6):
+            numero_inspeccionado = matriz_general_fin[i][j]
+
+            if numero_inspeccionado in vistos:
+                repetidos.add(numero_inspeccionado)
+               
+            if matriz_general_fin[i][j] != 0:
+                vistos.add(numero_inspeccionado)
+    if len(repetidos) == 0:
+        bandera = True
+    else:
+        bandera = False
+
+    return bandera 
+
+
+
+def validar_matriz_sector_3(matriz_general_fin:list)->bool:
+    'recibe matriz general. recorre un segmento 3x3 de la matriz(ejemplo sector1 = 0-3,0-3) y verifica si hay numeros repetidos. Retorna bool, False si hay repetidos, True si no los hay'
+
+    bandera = None   
+    repetidos = set()
+    vistos = set()
+    
+    for i in range(0,3):
+        for j in range(6,9):
+            numero_inspeccionado = matriz_general_fin[i][j]
+            
+            if numero_inspeccionado in vistos:
+                repetidos.add(numero_inspeccionado)
+               
+            if matriz_general_fin[i][j] != 0:
+                vistos.add(numero_inspeccionado)
+    if len(repetidos) == 0:
+        bandera = True
+    else:
+        bandera = False
+
+    return bandera 
+
+
+def validar_matriz_sector_4(matriz_general_fin:list)->bool:
+    'recibe matriz general. recorre un segmento 3x3 de la matriz(ejemplo sector1 = 0-3,0-3) y verifica si hay numeros repetidos. Retorna bool, False si hay repetidos, True si no los hay'
+
+    bandera = None   
+    repetidos = set()
+    vistos = set()
+    
+    for i in range(3,6):
+        for j in range(0,3):
+            numero_inspeccionado = matriz_general_fin[i][j]
+           
+            if numero_inspeccionado in vistos:
+                repetidos.add(numero_inspeccionado)
+
+            if matriz_general_fin[i][j] != 0:
+                vistos.add(numero_inspeccionado)
+    if len(repetidos) == 0:
+        bandera = True
+    else:
+        bandera = False
+        
+    return bandera 
+
+
+
+
+def validar_matriz_sector_5(matriz_general_fin:list)->bool:
+    'recibe matriz general. recorre un segmento 3x3 de la matriz(ejemplo sector1 = 0-3,0-3) y verifica si hay numeros repetidos. Retorna bool, False si hay repetidos, True si no los hay'
+
+    bandera = None   
+    repetidos = set()
+    vistos = set()
+    
+    for i in range(3,6):
+        for j in range(3,6):
+            numero_inspeccionado = matriz_general_fin[i][j]
+
+            if numero_inspeccionado in vistos:
+                repetidos.add(numero_inspeccionado)
+                
+            if matriz_general_fin[i][j] != 0:
+                vistos.add(numero_inspeccionado)
+    if len(repetidos) == 0:
+        bandera = True
+    else:
+        bandera = False
+        
+    return bandera 
+
+
+
+def validar_matriz_sector_6(matriz_general_fin:list)->bool:
+    'recibe matriz general. recorre un segmento 3x3 de la matriz(ejemplo sector1 = 0-3,0-3) y verifica si hay numeros repetidos. Retorna bool, False si hay repetidos, True si no los hay'
+
+    bandera = None   
+    repetidos = set()
+    vistos = set()
+
+    for i in range(3,6):
+        for j in range(6,9):
+            numero_inspeccionado = matriz_general_fin[i][j]
+            
+            if numero_inspeccionado in vistos:
+                repetidos.add(numero_inspeccionado)
+                
+            if matriz_general_fin[i][j] != 0:
+                vistos.add(numero_inspeccionado)
+    if len(repetidos) == 0:
+        bandera = True
+    else:
+        bandera = False
+        
+    return bandera 
+
+
+
+def validar_matriz_sector_7(matriz_general_fin:list)->bool:
+    'recibe matriz general. recorre un segmento 3x3 de la matriz(ejemplo sector1 = 0-3,0-3) y verifica si hay numeros repetidos. Retorna bool, False si hay repetidos, True si no los hay'
+
+    bandera = None   
+    repetidos = set()
+    vistos = set()
+    basado = []
+    for i in range(6,9):
+        for j in range(0,3):
+            numero_inspeccionado = matriz_general_fin[i][j]
+            basado.append(matriz_general_fin[i][j])
+            print(basado)
+            if numero_inspeccionado in vistos:
+                repetidos.add(numero_inspeccionado)
+            
+            if matriz_general_fin[i][j] != 0:
+                vistos.add(numero_inspeccionado)
+    if len(repetidos) == 0:
+        bandera = True
+    else:
+        bandera = False
+        
+    return bandera 
+
+
+
+def validar_matriz_sector_8(matriz_general_fin:list)->bool:
+    'recibe matriz general. recorre un segmento 3x3 de la matriz(ejemplo sector1 = 0-3,0-3) y verifica si hay numeros repetidos. Retorna bool, False si hay repetidos, True si no los hay'
+
+    bandera = None   
+    repetidos = set()
+    vistos = set()
+   
+    for i in range(6,9):
+        for j in range(3,6):
+            numero_inspeccionado = matriz_general_fin[i][j]
+            
+            if numero_inspeccionado in vistos:
+                repetidos.add(numero_inspeccionado)
+                
+            if matriz_general_fin[i][j] != 0:
+                vistos.add(numero_inspeccionado)
+    if len(repetidos) == 0:
+        bandera = True
+    else:
+        bandera = False
+        
+    return bandera 
+
+
+
+def validar_matriz_sector_9(matriz_general_fin:list)->bool:
+    'recibe matriz general. recorre un segmento 3x3 de la matriz(ejemplo sector1 = 0-3,0-3) y verifica si hay numeros repetidos. Retorna bool, False si hay repetidos, True si no los hay'
+
+    bandera = None   
+    repetidos = set()
+    vistos = set()
+    
+    for i in range(6,9):
+        for j in range(6,9):
+            numero_inspeccionado = matriz_general_fin[i][j]
+            
+            if numero_inspeccionado in vistos:
+                repetidos.add(numero_inspeccionado)
+               
+            if matriz_general_fin[i][j] != 0:
+                vistos.add(numero_inspeccionado)
+    if len(repetidos) == 0:
+        bandera = True
+    else:
+        bandera = False
+        
+    return bandera 
+
+
+def dibujar_validacion_sector1(pantalla:pg.Surface,celda_seleccionada:dict):
+    'recibe pantalla(surface) y un dict de los datos de la celda seleccionada, dibuja un bordecito verde al clickear la celda'
+    rect = pg.rect()
+    pg.draw.rect(pantalla,(0,150,0),rect,3)
+
+
+
+
+'''
+
+cosita =  [[1, 3, 2, 3, 5, 8, 4, 7, 9],
+            [4, 5, 6, 0, 7, 9, 8, 0, 2],
+            [7, 8, 9, 6, 3, 0, 0, 0, 1],
+            [0, 3, 0, 6, 9, 0, 0, 2, 8], 
+            [6, 0, 7, 0, 8, 4, 2, 0, 0], 
+            [7, 0, 1, 0, 6, 0, 3, 0, 8], 
+            [0, 2, 8, 5, 9, 6, 0, 0, 3],
+            [0, 0, 3, 0, 5, 0, 0, 9, 0],
+            [8, 0, 5, 0, 0, 0, 0, 0, 4]]
+
+
+'''
 
