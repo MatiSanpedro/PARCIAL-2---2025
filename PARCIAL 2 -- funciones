@@ -518,47 +518,6 @@ def dibujar_numeros(pantalla:pg.surface, matriz: list, tamaño:int, fuente:pg.fo
 
 
 
-#          parametros:     matriz | #cantidad de numeros para agregar
-def agregar_numeros_al_azar(matriz:list, cantidad:int)->list:
-    '''recibe una matriz y un numero, agrega numeros al azar, en lugares al azar en una matriz. Retorna una matriz'''
-
-    filas = len(matriz)
-    columnas = len(matriz[0])
-    contador = 0 #contador del bucle
-    usados = set() #set de numeros ya usados
-    numeros_repetidos = [] #lista de numeros repetidos
-
-    while contador < cantidad: #definida por parametro 
-        fila_al_azar = random.randrange(filas)  # fila al azar 
-        columna_al_azar = random.randrange(columnas) #columna al azar 
-        numero_al_azar = random.randint(1, 9) #numero al azar dentro de 1 y 9
-
-        # si el lugar ya tiene un número distinto de 0, saltar
-        if matriz[fila_al_azar][columna_al_azar] != 0:#esto es para no perder numeros en el contador y que al final agregue algo distinto de la cantidad que quiero
-            continue
-        #si el numero esta dentro de la lista de usados lo salto 
-        if numero_al_azar in usados:
-            continue
-
-        # verifico que el numero no este en las filas
-        if numero_al_azar in matriz[fila_al_azar]:
-            continue
-
-        # verifico que el numero no esté en la posicion "j", [0,1,2]
-        repetido = False
-        for j in range(filas): 
-            if matriz[j][columna_al_azar] == numero_al_azar: # mira uno por uno dentro de la lista pequeña [0,1,2]
-                repetido = True #si esta, freno
-                break
-        if repetido:
-            continue #salto ese numero 
-
-        # Si pasa todo esto, lo incluyo 
-        matriz[fila_al_azar][columna_al_azar] = numero_al_azar
-        contador += 1 #sumo 1 al contador y continua el bucle 
-        usados.add(numero_al_azar)
-    return matriz
-
 
 
 # Probar estas funciones, no se si sirven 
@@ -709,7 +668,7 @@ def agregar_numeros_al_azar_v2(matriz:list, cantidad:int)->list:
         if repetido:
             continue
 
-        #  ESTA ES LA CORRECCIÓN QUE FALTABA:
+       
         # verificar si el número ya existe en OTRA parte de la matriz
         repetido_en_otra_parte = False
         for f in range(filas):
@@ -781,8 +740,6 @@ def borrar_numero_de_matriz(matriz_general_fin:list,evento:pg.event,celda_selecc
     return matriz_general_fin
 
 
-def validar_filas(matriz_general_fin:list)->bool:
-    'recibe matriz,revisa solo 3 filas de la matriz, verificando numeros repetidos, devuelve bool '
 def validar_matriz_sector_1(matriz_general_fin:list)->bool:
     'recibe matriz general. recorre un segmento 3x3 de la matriz(ejemplo sector1 = 0-3,0-3) y verifica si hay numeros repetidos. Retorna bool, False si hay repetidos, True si no los hay'
     bandera = None   #bandera de retorno
@@ -1299,13 +1256,4 @@ def verificar_por_columnas_3(matriz)->bool:
     
     return bandera
 
-
-cosita =  [ [1, 3, 2, 6, 5, 8, 4, 7, 9],
-            [4, 5, 6, 1, 2, 3, 8, 9, 7],
-            [7, 8, 9, 6, 5, 4, 3, 2, 1],
-            [0, 3, 0, 6, 9, 0, 0, 2, 8], 
-            [6, 0, 7, 0, 8, 4, 2, 0, 0], 
-            [7, 0, 1, 0, 6, 0, 3, 0, 8], 
-            [0, 2, 8, 5, 9, 6, 0, 0, 3],
-            [0, 0, 3, 0, 5, 0, 0, 9, 0],
-            [8, 0, 5, 0, 0, 0, 0, 0, 4]]
+ 
