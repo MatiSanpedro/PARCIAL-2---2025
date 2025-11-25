@@ -113,13 +113,14 @@ while True:
 
                 
             case "jugar":
+                
                 pantalla.fill((189, 162, 162))#color de fondo de pantalla durante el juego
                 pantalla.blit(validar_celda,(650,200)) #blit de validar celda
                 pantalla.blit(texto_validar_celda,(710,215))#blit de texto validar celda
-                pantalla.blit(texto_de_puntaje,rect_de_texto_puntaje)#blit de texto "puntaje" 
-                pantalla.blit(reset_juego,(650,400))
-                pantalla.blit(texto_reiniciar_juego,(667, 415))
-                
+                pantalla.blit(texto_de_palabra_puntaje,rect_de_texto_de_palabra_puntaje)#blit de texto "puntaje" 
+                pantalla.blit(reset_juego,(650,400)) #blit de boton "reiniciar juego"
+                pantalla.blit(texto_reiniciar_juego,(667, 415)) #texto de "reiniciar juego "
+                pantalla.blit(texto_de_puntaje,rect_de_puntaje) #numeros del puntaje
                 pantalla_actual = pausar_juego(evento,pantalla_actual) #controlador de pantalla, #ESC = volver a inicio - pausar
                 
                 
@@ -146,30 +147,39 @@ while True:
                 matriz_general_dibujos = dibujar_numeros(pantalla,matriz_general_fin,tamaño, fuente,150,150)
                 
                 #ingresar numero por teclado
-                if evento.type == pg.KEYDOWN and celda_seleccionada is not None:
+                if evento.type == pg.KEYDOWN and celda_seleccionada is not None:#verifico que sea evento de telclado y se haya clickeado una celda 
                     numero_ingresado = input_numero(evento,celda_seleccionada)
-
-                    if numero_ingresado is not None:
-                        matriz_general_fin = ingresar_numero_a_matriz(matriz_general_fin,numero_ingresado,celda_seleccionada,tamaño)
-                        flag1 = validar_matriz_sector_1(matriz_general_fin)
+                   
+                    borrar_numero_de_matriz(matriz_general_fin,evento,celda_seleccionada,tamaño,x_inicial=150, y_inicial=150) #funcion borrar numero 
+                    
+                    if numero_ingresado is not None: #si numero es algo
+                        matriz_general_fin = ingresar_numero_a_matriz(matriz_general_fin,numero_ingresado,celda_seleccionada,tamaño) #ingresar numero 
+                        flag_sector_1 = validar_matriz_sector_1(matriz_general_fin)
+                        flag_sector_2 = validar_matriz_sector_2(matriz_general_fin)
+                        flag_sector_3 = validar_matriz_sector_3(matriz_general_fin)
+                        flag_sector_4 = validar_matriz_sector_4(matriz_general_fin)
+                        flag_sector_5 = validar_matriz_sector_5(matriz_general_fin)
+                        flag_sector_6 = validar_matriz_sector_6(matriz_general_fin)
+                        flag_sector_7 = validar_matriz_sector_7(matriz_general_fin)
+                        flag_sector_8 = validar_matriz_sector_8(matriz_general_fin)
+                        flag_sector_9 = validar_matriz_sector_9(matriz_general_fin)
                         print(matriz_general_fin)
                         
                 
                 #Detector de colisiones:
                 if evento.type == pg.MOUSEBUTTONDOWN:
-                    posicion = (evento.pos) #posicion    
+                    posicion = (evento.pos) #posicion
                     celda_seleccionada = detectar_celda(posicion,todas_las_celdas) #detecta celda seleccionada
                     dibujar_borde_verde(pantalla,celda_seleccionada) #dibuja un bordecito verde en la celda clickeada
-
-                #ingresar numero por teclado
-                if evento.type == pg.KEYDOWN and celda_seleccionada is not None:
-                    numero_ingresado = input_numero(evento,celda_seleccionada)
-                    borrar_numero_de_matriz(matriz_general_fin,evento,celda_seleccionada,tamaño,x_inicial=150, y_inicial=150)
-                    if numero_ingresado is not None:
+                    if boton_reiniciar_juego.collidepoint(posicion): #detecta boton "reiniciar juego"
+                        print("reiniciar presionado")
+                    if boton_validar_celda.collidepoint(posicion):#detecta boton "validar celdas"
+                        dibujar_todas_las_validaciones(pantalla,flag_sector_1,flag_sector_2,flag_sector_3,
+                    flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9)
+                        print("validar celda presionado")
                         
-                        matriz_general_fin = ingresar_numero_a_matriz(matriz_general_fin,numero_ingresado,celda_seleccionada,tamaño)
-                        
-                        print(matriz_general_fin)
+                
+                    
                 
                 pg.display.update()
 
