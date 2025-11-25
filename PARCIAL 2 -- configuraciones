@@ -133,6 +133,16 @@ flag_sector_6 = False
 flag_sector_7 = False
 flag_sector_8 = False
 flag_sector_9 = False
+#############
+flag_filas_0_3 = False
+flag_filas_3_6 = False
+flag_filas_6_9 = False
+#############
+flag_columnas_0_3 = False 
+flag_columnas_3_6 = False
+flag_columnas_6_9 = False
+
+
 
 
 
