@@ -629,61 +629,6 @@ def limpiar_repetidos_verticales(matriz_grande:list)->list:
 
 
 
-def agregar_numeros_al_azar_v2(matriz:list, cantidad:int)->list:
-    '''recibe una matriz y un numero, agrega numeros al azar, en lugares al azar en una matriz. Retorna una matriz'''
-
-    filas = len(matriz)
-    columnas = len(matriz[0])
-    contador = 0
-    usados = set()  
-    numeros_repetidos = []
-
-    while contador < cantidad:
-
-        fila_al_azar = random.randrange(filas)
-        columna_al_azar = random.randrange(columnas)
-        numero_al_azar = random.randint(1, 9)
-
-        # si el lugar ya tiene un número distinto de 0, saltar
-        if matriz[fila_al_azar][columna_al_azar] != 0:
-            continue
-
-        # si ya fue usado antes por la función:
-        if numero_al_azar in usados:
-            continue
-
-        # si el número ya está en la fila:
-        if numero_al_azar in matriz[fila_al_azar]:
-            continue
-        
-        if numero_al_azar in matriz[columna_al_azar]:
-            continue
-
-        # si el número ya está en la columna:
-        repetido = False
-        for j in range(filas):
-            if matriz[j][columna_al_azar] == numero_al_azar:
-                repetido = True
-                break
-        if repetido:
-            continue
-
-       
-        # verificar si el número ya existe en OTRA parte de la matriz
-        repetido_en_otra_parte = False
-        for f in range(filas):
-            if numero_al_azar in matriz[f]:
-                repetido_en_otra_parte = True
-                break
-        if repetido_en_otra_parte:
-            continue
-
-        # si pasa TODOS LOS FILTROS, lo incluyo
-        matriz[fila_al_azar][columna_al_azar] = numero_al_azar
-        usados.add(numero_al_azar)
-        contador += 1
-
-    return matriz
 
 
 def ingresar_numero_a_matriz(matriz_general_fin:list,numero:int,celda_seleccionada:dict,tamaño:int,x_inicial=150, y_inicial=150)->list:
@@ -1256,4 +1201,41 @@ def verificar_por_columnas_3(matriz)->bool:
     
     return bandera
 
- 
+
+
+def agregar_numeros_al_azar_v3(matriz:list, cantidad:int) -> list:
+    '''recibe una matriz y un numero, agrega numeros al azar, en lugares al azar en una matriz. Retorna una matriz'''
+    filas = len(matriz)
+    columnas = len(matriz[0])
+    contador = 0
+
+    while contador < cantidad:
+
+        fila = random.randrange(filas)
+        columna = random.randrange(columnas)
+        numero = random.randint(1, 9)
+
+        # si el lugar ya tiene un número distinto de 0, saltar
+        if matriz[fila][columna] != 0:
+            continue
+
+        #si el num ya esta en la fila
+        if numero in matriz[fila]:
+            continue
+
+        # si el numero ya esta en la columna
+        repetido_columna = False
+        for f in range(filas):
+            if matriz[f][columna] == numero:
+                repetido_columna = True
+                break
+        if repetido_columna:
+            continue
+
+        #si pasa todo esto lo coloca
+        matriz[fila][columna] = numero
+        contador += 1
+
+    return matriz
+
+
