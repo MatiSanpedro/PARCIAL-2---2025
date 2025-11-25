@@ -149,11 +149,12 @@ while True:
                 #ingresar numero por teclado
                 if evento.type == pg.KEYDOWN and celda_seleccionada is not None:#verifico que sea evento de telclado y se haya clickeado una celda 
                     numero_ingresado = input_numero(evento,celda_seleccionada)
-                   
-                    borrar_numero_de_matriz(matriz_general_fin,evento,celda_seleccionada,tamaño,x_inicial=150, y_inicial=150) #funcion borrar numero 
+                    borrar_numero_de_matriz(matriz_general_fin,evento,celda_seleccionada,tamaño,x_inicial=150, y_inicial=150) #funcion borrar numero
                     
                     if numero_ingresado is not None: #si numero es algo
+                        
                         matriz_general_fin = ingresar_numero_a_matriz(matriz_general_fin,numero_ingresado,celda_seleccionada,tamaño) #ingresar numero 
+                        #banderas de sectores 3x3 | 
                         flag_sector_1 = validar_matriz_sector_1(matriz_general_fin)
                         flag_sector_2 = validar_matriz_sector_2(matriz_general_fin)
                         flag_sector_3 = validar_matriz_sector_3(matriz_general_fin)
@@ -163,6 +164,16 @@ while True:
                         flag_sector_7 = validar_matriz_sector_7(matriz_general_fin)
                         flag_sector_8 = validar_matriz_sector_8(matriz_general_fin)
                         flag_sector_9 = validar_matriz_sector_9(matriz_general_fin)
+
+                        #banderas de filas
+                        flag_filas_0_3 = verificar_por_filas_1(matriz_general_fin)
+                        flag_filas_3_6 = verificar_por_filas_2(matriz_general_fin)
+                        flag_filas_6_9 = verificar_por_filas_3(matriz_general_fin)
+                        #banderas de columnas 
+                        flag_columnas_0_3 = verificar_por_columnas_1(matriz_general_fin) 
+                        flag_columnas_3_6 = verificar_por_columnas_2(matriz_general_fin)
+                        flag_columnas_6_9 = verificar_por_columnas_3(matriz_general_fin)
+
                         print(matriz_general_fin)
                         
                 
@@ -171,9 +182,9 @@ while True:
                     posicion = (evento.pos) #posicion
                     celda_seleccionada = detectar_celda(posicion,todas_las_celdas) #detecta celda seleccionada
                     dibujar_borde_verde(pantalla,celda_seleccionada) #dibuja un bordecito verde en la celda clickeada
-                    if boton_reiniciar_juego.collidepoint(posicion): #detecta boton "reiniciar juego"
+                    if boton_reiniciar_juego.collidepoint(posicion): #detecta click en  boton "reiniciar juego"
                         print("reiniciar presionado")
-                    if boton_validar_celda.collidepoint(posicion):#detecta boton "validar celdas"
+                    if boton_validar_celda.collidepoint(posicion):#detecta click en boton "validar celdas"
                         dibujar_todas_las_validaciones(pantalla,flag_sector_1,flag_sector_2,flag_sector_3,
                     flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9)
                         print("validar celda presionado")
