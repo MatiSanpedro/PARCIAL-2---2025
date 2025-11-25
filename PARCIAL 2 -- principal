@@ -190,7 +190,7 @@ while True:
                         print("validar celda presionado")
                         
                 
-                    
+                 #falta resolver : reinicio -validacion  - puntaje - nickname    
                 
                 pg.display.update()
 
