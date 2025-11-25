@@ -4,6 +4,7 @@ from PARCIAL_2_funciones import agregar_numeros_al_azar_v2
 from PARCIAL_2_funciones import unir_matriz_general
 from PARCIAL_2_funciones import limpiar_repetidos_horizontales
 from PARCIAL_2_funciones import limpiar_repetidos_verticales
+from PARCIAL_2_funciones import formatear_puntaje
 import random
 
 
@@ -99,22 +100,39 @@ fuente_validar_celda = pg.font.SysFont("Bernard MT Comprimida",30)
 validar_celda = pg.Surface((200,50))
 validar_celda.fill((110, 50, 38))
 texto_validar_celda = fuente_validar_celda.render("validar", True, ((219, 97, 77)))
-boton_validar_celda = validar_celda.get_rect(center = (600,650))
+boton_validar_celda = validar_celda.get_rect(topleft = (600,200))
 
 
 #boton de reiniciar juego:
 reset_juego = pg.Surface((200,50))
 reset_juego.fill((110, 50, 38))
 texto_reiniciar_juego = fuente_validar_celda.render("Reiniciar Juego",True, (219, 97, 77))
-boton_reiniciar_juego = reset_juego.get_rect(center = (600,650))
+boton_reiniciar_juego = reset_juego.get_rect(topleft = (650,400))
 
 
 #texto de palabra puntaje:
-texto_de_puntaje = fuente.render("Puntaje:",True,(0,0,0))
-rect_de_texto_puntaje = texto_de_puntaje.get_rect(topleft = (650,20))
+texto_de_palabra_puntaje = fuente.render("Puntaje:",True,(0,0,0))
+rect_de_texto_de_palabra_puntaje = texto_de_palabra_puntaje.get_rect(topleft = (650,20))
 
 #texto de numeros puntaje:
+puntaje = 0000
+puntaje_str = formatear_puntaje(puntaje)
+texto_de_puntaje = fuente.render(puntaje_str,True,(0,0,0))
+rect_de_puntaje = texto_de_puntaje.get_rect(topleft = (800,20))
 
+
+#banderas de la funcion "validar matriz sector"
+
+flag_sector_1 = False       
+flag_sector_2 = False
+flag_sector_3 = False
+flag_sector_4 = False
+flag_sector_4 = False
+flag_sector_5 = False
+flag_sector_6 = False
+flag_sector_7 = False
+flag_sector_8 = False
+flag_sector_9 = False
 
 
 
