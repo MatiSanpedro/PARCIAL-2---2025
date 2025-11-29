@@ -1,108 +1,7 @@
 import pygame as pg 
 import random 
-
-
-#matrices 
-def iniciar_matriz(cantidad_filas,cantidad_columnas,valor_inicial)->list:
-    matriz = []
-    for i in range(cantidad_filas):
-        fila = [valor_inicial] * cantidad_columnas
-
-        matriz += [fila]
-
-    return matriz 
-
-
-
-#escenario 
-
-def dibujar_escenario_simple(pantalla, tamaño:int,columna:int,fila:int):
-
-    for filass in range(fila):
-        for columnass in range(columna): 
-            rectangulo_agua = pg.Rect(columnass * tamaño, filass * tamaño, tamaño, tamaño)
-            pg.draw.rect(pantalla, (0,0,200), rectangulo_agua) #cuadrados 
-            pg.draw.rect(pantalla, (0,0,0), rectangulo_agua, 1) #lineas, bordes
-            
-
-
-
-#dibujar los barcos (requiere la matriz)
-#esto ademas de dibujarlos en pantalla, devuelve los rectangulos que dibuje en una lista 
-
-
-def dibujar_barcos(pantalla,matriz:list,tamaño):
-
-   
-
-    for filass in range(len(matriz)):
-        for columnass in range(len(matriz[0])):
-            
-            if matriz[filass][columnass] == 1:
-                rectangulo = pg.Rect(columnass * tamaño, filass * tamaño, tamaño, tamaño)
-                pg.draw.rect(pantalla,(0,0,200),rectangulo)
-                pg.draw.rect(pantalla, (0, 0, 0), rectangulo, 1)
-                
-                
-                    
-    
-    
-
-            
-
-#Teclado:
-def funcion_teclado(evento):
-        if evento.type == pg.KEYDOWN:
-            if evento.key == pg.K_ESCAPE:
-                pass
-                
-            elif evento.key == pg.K_p:
-                pg.mixer.music.pause()
-            elif evento.key == pg.K_m:
-                pg.mixer.music.stop()
-            
-
-        if evento.type == pg.KEYUP:
-            print(" ")
-        
-#Mouse:
-def funcion_mouse(evento):
-    if evento.type == pg.MOUSEBUTTONDOWN:
-        posicion = (evento.pos)
-        print(f"click en{posicion}")
-        if evento.button == 1:
-            print("click izquierdo presionado")
-        if evento.button == 3:
-            print("click derecho presionado")
-    
-    
-
-    
-
-
-def mouse_de_inicio(boton1,boton2,boton3,boton4,evento,posicion):
-    if evento.type == pg.MOUSEBUTTONDOWN:
-        if evento.button ==1:
-            print("  ")
-
-        if boton1.collidepoint(posicion):                
-            pantalla_actual = "nivel"
-
-        elif boton2.collidepoint(posicion):
-            pantalla_actual = "jugar"
-            
-        elif boton3.collidepoint(posicion):
-            pantalla_actual = "ver puntaje"
-
-        elif boton4.collidepoint(posicion):
-            pg.quit()
-            quit()
-
-
-        return pantalla_actual
-
-
-
+import json
+import os
 
 #funcion volver atras
 def pausar_juego(evento,pantalla_actual):
@@ -126,19 +25,6 @@ def pausar_despausar(evento):
             print("Sonido reanudado")
 
 
-
-#REINICIAR | requiere que le pase "evento" y "bandera_barcos"
-def reiniciar_partida(evento,booleano,pantalla_actual,disparos_realizados,disparos_acertados,puntaje): 
-    if evento.type == pg.KEYDOWN and evento.key ==pg.K_r:
-        booleano = False
-        disparos_realizados.clear() #vacio la lista de disparos para reiniciar la funcion
-        disparos_acertados.clear()
-        puntaje[0] -= puntaje[0]
-        
-
-    return booleano
-
-
 'DIBUJOS EN PANTALLA'
 
 
@@ -151,7 +37,8 @@ def reiniciar_partida(evento,booleano,pantalla_actual,disparos_realizados,dispar
 #6 Y desde donde comienza a dibujarse
 
 #dibuja los cuadraditos: 
-def dibujar_cuadrados(pantalla, tamaño:int, columna:int, fila:int, x_inicial:int, y_inicial:int):     
+def dibujar_cuadrados(pantalla:pg.Surface, tamaño:int, columna:int, fila:int, x_inicial:int, y_inicial:int)->list:
+    'recibe surface,int tamaño, int columna(cantidad),int fila (cantidad), int X inicial, int Y inicial'     
     lista_retorno_de_cuadrados = []
 
     for filass in range(fila):
@@ -238,51 +125,7 @@ def dibujar_numeros(pantalla, matriz: list, tamaño, fuente, posicion_x, posicio
     return lista_de_numeros
 
 
-
-
-#          parametros:     matriz | #cantidad de numeros para agregar
-def agregar_numeros_al_azar(matriz, cantidad):
-    #agrega numeros al azar, en lugares al azar en una matriz
-
-    filas = len(matriz)
-    columnas = len(matriz[0])
-    contador = 0 #contador del bucle
-    usados = set() #set de numeros ya usados
-
-    while contador < cantidad: #definida por parametro 
-        fila_al_azar = random.randrange(filas)  # fila al azar 
-        columna_al_azar = random.randrange(columnas) #columna al azar 
-        numero_al_azar = random.randint(1, 9) #numero al azar dentro de 1 y 9
-
-        # si el lugar ya tiene un número distinto de 0, saltar
-        if matriz[fila_al_azar][columna_al_azar] != 0:#esto es para no perder numeros en el contador y que al final agregue algo distinto de la cantidad que quiero
-            continue
-        #si el numero esta dentro de la lista de usados lo salto 
-        if numero_al_azar in usados:
-            continue
-
-        # verifico que el numero no este en las filas
-        if numero_al_azar in matriz[fila_al_azar]:
-            continue
-
-        # verifico que el numero no esté en la posicion "j", [0,1,2]
-        repetido = False
-        for j in range(filas): 
-            if matriz[j][columna_al_azar] == numero_al_azar: # mira uno por uno dentro de la lista pequeña [0,1,2]
-                repetido = True #si esta, freno
-                break
-        if repetido:
-            continue #salto ese numero 
-
-        # Si pasa todo esto, lo incluyo 
-        matriz[fila_al_azar][columna_al_azar] = numero_al_azar
-        contador += 1 #sumo 1 al contador y continua el bucle 
-        usados.add(numero_al_azar)
-    return matriz
-
-
-
-   
+  
 
 
 def mouse_de_inicio(boton1:pg.rect,boton2:pg.rect,boton3:pg.rect,boton4:pg.rect,evento:pg.event,posicion:tuple):
@@ -327,6 +170,14 @@ def dibujar_cuadrados(pantalla:pg.surface, tamaño:int, columna:int, fila:int, x
 
     for filass in range(fila):
         for columnass in range(columna): 
+
+            #los valores son x inicial (ejem 150) + indice(ejem 0) * tamaño (ejem 50) 
+            # cada vez que el indice avanza una posicion, 
+            # el inicio donde voy a dibujar el cuadrado siguiente avanza exactamente una anchura de cuadrado 
+            #  X = 150 + ((columnass=0) × 50) = 150  Rect = (150, 150, 50, 50),
+            # X = 150 + ((columnass=1) x 50) = 200   
+            # X =  150 +  ((columnass=2) x50) = 250  
+ 
             rectangulo_azul = pg.Rect(x_inicial + columnass * tamaño, y_inicial + filass * tamaño,tamaño,
                 tamaño 
                 )
@@ -371,10 +222,10 @@ def dibujar_borde_verde(pantalla:pg.Surface,celda_seleccionada:dict):
         pg.draw.rect(pantalla,(0,200,0),rect,3)
 
 
-
+                  #NO USADO 
 #dibujar todo
 def dibujar_todos_los_cuadrados(pantalla:pg.surface):
-    
+    'recibe surface pantalla, esta funcion repite 9 veces "dibujar_cuadrados"'
     celdas_sector_1 = dibujar_cuadrados(pantalla,50,3,3,150,150) #sector 1
     celdas_sector_2 = dibujar_cuadrados(pantalla,50,3,3,300,150) #sector 2
     celdas_sector_3 = dibujar_cuadrados(pantalla,50,3,3,450,150) #sector 3
@@ -411,7 +262,7 @@ def detectar_todas_las_colisiones(posicion:tuple,celdas_sector_1:list,celdas_sec
 
 
 
-#probar esto
+#probar esto,      NO USADO EN EL JUEGO 
 'modificar esto para que funcione, solo dibuja pero no modifica la matriz '
 def ingresar_texto(evento,cuadrados,cuadrado_seleccionado,fuente,pantalla):
     #condicion: si se presiona una tecla y hay una celda seleccionada
@@ -434,6 +285,7 @@ def ingresar_texto(evento,cuadrados,cuadrado_seleccionado,fuente,pantalla):
 
 
 def detectar_celda(pos:tuple, cuadrados:list)->dict:
+    'recibe la tupla posicion y una lista con los rect dibujados, retorna indice, datos del rect, fila, columna, y tupla posicion, retorna None, si no detecta nada'
     for i, celda in enumerate(cuadrados):
         rect = celda["rect"]
 
@@ -473,7 +325,8 @@ def input_numero(evento: pg.event, cuadrado_seleccionado: dict) -> int:
 
 
 
-def agregar_numero_a_matriz(evento:pg.event,numero_ingresado:int,celda_seleccionada:dict,matriz_grande):  
+def agregar_numero_a_matriz(evento:pg.event,numero_ingresado:int,celda_seleccionada:dict,matriz_grande): 
+    'recibe evento.pg, un int, un dict de celda seleccionada y una lista, extrae del diccionario las coordenadas para usar en la matriz, añade el numero a la matriz' 
     fila = celda_seleccionada["fila"]
     columna = celda_seleccionada["columna"]
     rect = celda_seleccionada["rect"]
@@ -497,7 +350,7 @@ def dibujar_numeros(pantalla:pg.surface, matriz: list, tamaño:int, fuente:pg.fo
             valor = matriz[fila][columna]
             if valor != 0:  # solo dibujo si no es cero
 
-                # calcular posición de la celda actual
+                # calcular posición de la celda usando x e y de inicio 
                 x = posicion_x + columna * tamaño
                 y = posicion_y + fila * tamaño
 
@@ -505,10 +358,10 @@ def dibujar_numeros(pantalla:pg.surface, matriz: list, tamaño:int, fuente:pg.fo
                 rect = pg.Rect(x, y, tamaño, tamaño)
                 #pg.draw.rect(pantalla, (0, 0, 0), rect, 1)
 
-                #   Renderiza el número
+                #   Renderiza el numero, castea a str porque sino tira error 
                 numero = fuente.render(str(valor), True, (158, 108, 100))
                 
-                # centrar el número dentro de la celda  (opcional, estetico)
+                # centrar el numero dentro de la celda  (opcional, estetico)
                 texto_rect = numero.get_rect(center=(x + tamaño // 2, y + tamaño // 2))
                 pantalla.blit(numero, texto_rect)
 
@@ -520,13 +373,13 @@ def dibujar_numeros(pantalla:pg.surface, matriz: list, tamaño:int, fuente:pg.fo
 
 
 
-# Probar estas funciones, no se si sirven 
+# Probar estas funciones,
 def unir_matriz_general(matriz_general):
     """Une las 9 matrices 3x3 en una sola 9x9."""
     matriz_9x9 = []
-    for fila_entera in range(3):  # cada bloque de 3 filas
-        for fila_interna in range(3):
-            fila_completa = []
+    for fila_entera in range(3):  # cada bloque de 3 espacios (0, 1, 2)
+        for fila_interna in range(3): # I 0 = (0,1,2) I 1 = (3,4,5), etc
+            fila_completa = []   # fila de len = 9
             for col_bloque in range(3):
                 fila_completa += matriz_general[fila_entera * 3 + col_bloque][fila_interna]
             matriz_9x9.append(fila_completa)
@@ -534,8 +387,9 @@ def unir_matriz_general(matriz_general):
 
 
 
+
 def limpiar_repetidos_horizontales(matriz_grande:list)->list:
-    'recibe una matriz, inspecciona la matriz en busca de repetidos, si encuentra un numero repetido lo reemplaza por un numero al azar que no este en la lista. '
+    'recibe una matriz, inspecciona la matriz en busca de repetidos, si encuentra un numero repetido lo reemplaza por un numero al azar que no este en la lista.retorna matriz '
     for i in range(len(matriz_grande)):
         numero_random1 = random.randrange(1,10) #numero random1
         numero_random2 = random.randrange(1,10) #numero random2
@@ -578,7 +432,7 @@ def limpiar_repetidos_horizontales(matriz_grande:list)->list:
 
 
 def limpiar_repetidos_verticales(matriz_grande:list)->list:
-    'recibe una matriz, crea una columna e intenta reeemplazar los numeros repetidos por otros generados al azar'
+    'recibe una matriz, crea una columna e intenta reeemplazar los numeros repetidos por otros generados al azar, retorna matriz '
     for i in range(len(matriz_grande[0])):  
         numero_random1 = random.randrange(1,10) #numero random1
         numero_random2 = random.randrange(1,10) #numero random2
@@ -1021,7 +875,7 @@ def dibujar_validacion_sector9(pantalla:pg.Surface,bandera_sector1:bool):
 
 
 def dibujar_todas_las_validaciones(pantalla:pg.Surface,bandera_sector1:bool,bandera_sector2:bool,bandera_sector3:bool,
-                    bandera_sector4:bool,bandera_sector5:bool,bandera_sector6:bool,bandera_sector7:bool,bandera_sector8:bool,bandera_sector9:bool):
+                    bandera_sector4:bool,bandera_sector5:bool,bandera_sector6:bool,bandera_sector7:bool,bandera_sector8:bool,bandera_sector9:bool,flag_filas_0_3:bool,flag_filas_3_6:bool):
     'recibe pantalla y 9 bool dibuja los 9 cuadrados segun si bandera es falso o verdadero '
     dibujar_validacion_sector1(pantalla,bandera_sector1)
     dibujar_validacion_sector2(pantalla,bandera_sector2)
@@ -1032,6 +886,8 @@ def dibujar_todas_las_validaciones(pantalla:pg.Surface,bandera_sector1:bool,band
     dibujar_validacion_sector7(pantalla,bandera_sector7)
     dibujar_validacion_sector8(pantalla,bandera_sector8)
     dibujar_validacion_sector9(pantalla,bandera_sector9)
+    dibujar_validacion_sectores123(pantalla,flag_filas_0_3)
+    dibujar_validacion_sectores456(pantalla,flag_filas_3_6)
 
 
 #fuente.render no permite int, y no permite castearlo a str si es un numero con ceros adelante. Tuve que hacer esto
@@ -1237,3 +1093,131 @@ def agregar_numeros_al_azar_v3(matriz:list, cantidad:int) -> list:
         contador += 1
 
     return matriz
+
+#validacion por filas de los primeros 3 sectores 
+def dibujar_validacion_sectores123(pantalla:pg.Surface,flag_filas_0_3:bool):
+    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+    rect = pg.Rect(150,150,450,150)
+    
+    if flag_filas_0_3 :
+        pg.draw.rect(pantalla,(0,150,0),rect,7)
+    else:
+        pg.draw.rect(pantalla,(110,0,0),rect,7)
+
+#validacion por filas de los sectores 4,5,6:
+
+def dibujar_validacion_sectores456(pantalla:pg.Surface,flag_filas_3_6:bool):
+    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+    rect = pg.Rect(150,300,450,150)
+    
+    if flag_filas_3_6 :
+        pg.draw.rect(pantalla,(0,150,0),rect,7)
+    else:
+        pg.draw.rect(pantalla,(110,0,0),rect,7)
+
+
+
+
+
+def descontar_puntaje(bandera1:bool,bandera2:bool,bandera3:bool,bandera4:bool,bandera5:bool,bandera6:bool,bandera7:bool,bandera8:bool,bandera9:bool)->int:
+    'recibe 9 bool, suma 9 por cada bandera verdadera, resta 1 por cada bandera falsa, retorna (int)'
+    todas = [bandera1,bandera2,bandera3,bandera4,bandera5,bandera6,bandera7,bandera8,bandera9]
+    puntaje = 0000
+
+    for i in range(11):
+        bandera_inspeccionada =  todas[i]
+        if bandera_inspeccionada == True:
+            puntaje +=9
+        else:
+            puntaje +=1
+    str(puntaje)
+    
+    return puntaje
+
+
+
+
+
+
+
+
+
+nueva = [[0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         ]
+
+def generar_matriz_completa(matriz:list)->list:
+    validos = [1,2,3,4,5,6,7,8,9]
+    for fila in range(len(matriz)):
+        for columna in range(len(matriz[fila])):
+            matriz[fila][columna] = random.choice(validos)
+
+    return matriz 
+
+
+
+asdas = generar_matriz_completa(nueva)
+
+random.shuffle(asdas)
+print(asdas)
+
+
+#adad = generar_matriz_completa(nueva)
+#print(adad)
+
+
+#guardar
+def guardar_nombre_puntaje_json(nombre):
+    'recibe str, crea un json y guarda el nombre del jugador ingresado dentro del juego por evento.unicode'
+    archivo = "nombres_puntaje.json"
+
+    if os.path.exists(archivo):    
+        with open(archivo, "r", encoding="utf-8") as coso: #encoding = "utf-8 es para que reconozca acentos, ñ y esas cositas "
+            datos = json.load(coso)
+    else:
+        datos = []
+
+    jugador = {
+        "nombre": nombre,
+        "puntaje": 0
+    }
+
+    datos.append(jugador)
+
+    with open(archivo, "w", encoding="utf-8") as coso:
+        json.dump(datos, coso, indent=4, ensure_ascii=False)
+
+#actualizar
+def actualizar_puntaje_json(nombre:str, nuevo_puntaje:int):
+    'recibe str(nombre) e int(puntaje), abre un archivo json '
+    archivo = "nombres_puntaje.json"
+
+    with open(archivo, "r", encoding="utf-8") as coso:
+        datos = json.load(coso)
+
+    for jugador in datos:
+        if jugador.get["nombre"] == nombre:
+            jugador.get["puntaje"] = nuevo_puntaje
+            break
+
+    with open(archivo, "w", encoding="utf-8") as coso:
+        json.dump(datos, coso, indent=4, ensure_ascii=False)
+
+
+
+def leer_json(nombre_del_archivo)->dict:
+    'recibe un archivo .json, extrae los datos del archivo y los guarda en una variable, retorna una variable con los datos. '
+    with open(nombre_del_archivo,'r') as archivo_json:
+        datos = json.load(archivo_json) #carga el contenido en un diccionario
+        print(datos)
+    
+    return datos    
+        
+        
