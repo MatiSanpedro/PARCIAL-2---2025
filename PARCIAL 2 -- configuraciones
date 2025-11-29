@@ -5,6 +5,7 @@ from PARCIAL_2_funciones import unir_matriz_general
 from PARCIAL_2_funciones import limpiar_repetidos_horizontales
 from PARCIAL_2_funciones import limpiar_repetidos_verticales
 from PARCIAL_2_funciones import formatear_puntaje
+from PARCIAL_2_funciones import generar_matriz_completa
 import random
 
 
@@ -27,7 +28,7 @@ fondo_pantalla = pg.image.load("sudoku2.jpg")
 correccion_fondo_pantalla = pg.transform.scale(fondo_pantalla,(900,700))
 
 
-pantalla_actual = "inicio" #esto controla los cambios de pantalla del menu 
+pantalla_actual = "nombre" #esto controla los cambios de pantalla del menu 
 
 #bandera de control de bucles de juego, se usa para reiniciar
 jugando = False
@@ -35,6 +36,12 @@ jugando = False
 #texto
 fuente = pg.font.SysFont("Bernard MT Comprimida",50)
 texto_prueba = fuente.render("cosas aca", True, (255,255,255))
+
+#cuadrado de fondo para ingresar texto 
+cuadrado_de_fondo = pg.Surface((400,100))
+cuadrado_de_fondo.fill((110, 50, 38))
+ingrese_nombre = fuente.render("ingrese su nombre",True, (250,250,250),(0,0,0))
+
 
 
 'botones de MENU INICIO'
@@ -117,7 +124,7 @@ texto_de_palabra_puntaje = fuente.render("Puntaje:",True,(0,0,0))
 rect_de_texto_de_palabra_puntaje = texto_de_palabra_puntaje.get_rect(topleft = (650,20))
 
 #texto de numeros puntaje:
-puntaje = 0000
+puntaje =  0000
 puntaje_str = formatear_puntaje(puntaje)
 texto_de_puntaje = fuente.render(puntaje_str,True,(0,0,0))
 rect_de_puntaje = texto_de_puntaje.get_rect(topleft = (800,20))
@@ -136,10 +143,12 @@ flag_sector_7 = False
 flag_sector_8 = False
 flag_sector_9 = False
 #############
+
 flag_filas_0_3 = False
 flag_filas_3_6 = False
 flag_filas_6_9 = False
 #############
+
 flag_columnas_0_3 = False 
 flag_columnas_3_6 = False
 flag_columnas_6_9 = False
@@ -156,37 +165,29 @@ celda_seleccionada = None
 #vacias:
 
 'MATRICES - Dificil'
-matriz_sector_1 = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_2 = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_3 = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_4 = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_5 = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_6 = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_7 = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_8 = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_9 = [[0,0,0],[0,0,0],[0,0,0]]
 
+matriz_vacia = [[0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         ]
 
-#con numeros agregados:                        matriz | cantidad de numeros para agregar
-numeros_sector1 = agregar_numeros_al_azar_v3(matriz_sector_1,3)
-numeros_sector2 = agregar_numeros_al_azar_v3(matriz_sector_2,3)
-numeros_sector3 = agregar_numeros_al_azar_v3(matriz_sector_3,3)
-numeros_sector4 = agregar_numeros_al_azar_v3(matriz_sector_4,3)
-numeros_sector5 = agregar_numeros_al_azar_v3(matriz_sector_5,3)
-numeros_sector6 = agregar_numeros_al_azar_v3(matriz_sector_6,3)
-numeros_sector7 = agregar_numeros_al_azar_v3(matriz_sector_7,3)
-numeros_sector8 = agregar_numeros_al_azar_v3(matriz_sector_8,3)
-numeros_sector9 = agregar_numeros_al_azar_v3(matriz_sector_9,3)
+nuevita = generar_matriz_completa(matriz_vacia)
 
 celda_seleccionada = None
 
 
-matrices = [numeros_sector1,numeros_sector2,numeros_sector3,numeros_sector4,numeros_sector5,
-            numeros_sector6,numeros_sector7,numeros_sector8,numeros_sector9]
+'''matrices = [numeros_sector1,numeros_sector2,numeros_sector3,numeros_sector4,numeros_sector5,
+            numeros_sector6,numeros_sector7,numeros_sector8,numeros_sector9]'''
 
-matriz_general_a = unir_matriz_general(matrices)
-matriz_general_b = limpiar_repetidos_verticales(matriz_general_a)
-matriz_general_fin = limpiar_repetidos_horizontales(matriz_general_b)
+#matriz_general_a = unir_matriz_general(nuevita)
+#nuevita_a = limpiar_repetidos_verticales(nuevita)
+#nuevita_b = limpiar_repetidos_horizontales(nuevita_a)
 
    
 
@@ -194,7 +195,7 @@ matriz_general_fin = limpiar_repetidos_horizontales(matriz_general_b)
 
 'MATRICES - nivel medio'
 #vacias:
-matriz_sector_1_medio = [[0,0,0],[0,0,0],[0,0,0]]
+matriz_sector_1_medio = [[0,0,0],[0,0,0],[0,0,0]]  
 matriz_sector_2_medio  = [[0,0,0],[0,0,0],[0,0,0]]
 matriz_sector_3_medio  = [[0,0,0],[0,0,0],[0,0,0]]
 matriz_sector_4_medio  = [[0,0,0],[0,0,0],[0,0,0]]
