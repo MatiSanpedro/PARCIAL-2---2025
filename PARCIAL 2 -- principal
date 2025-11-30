@@ -299,36 +299,44 @@ while True:
                                     
                         
 
+                # EVITAR REPETIDOS EN MATRIZ !
                  #reinicio no hecho 
                  # -validacion esta a medias  PRINCIPAL 
-                 # - puntaje no hecho   PRINCIPAL  
-                 #  - nickname no hecho     
+                 # - puntaje falta hacer la parte numerica 
                 # musica no hecha 
-                # evitar repetidos
+                
                 
                 #hacer una funcion aparte para revisar zonas
-                pg.display.update()
+             
                 
             case "ver puntaje":
+                    
+                    if not ver_ranking: #uso esta bandera porque de lo contrario la funcion "leer json se llama mil veces seguidas"
+                        nombre_y_puntaje = leer_json("nombres_puntaje.json")
+                        ver_ranking = True 
+                    if pantalla_actual != "ver puntaje": #cuando cierro el "case, la bandera vuelve a ser false"
+                        ver_ranking = False
+
+
                     pantalla.blit(correccion_fondo_pantalla, (0, 0))#blit de fondo de pantalla
-                    nombre_y_puntaje = leer_json("nombres_puntaje.json")
                     ultimos_4 = nombre_y_puntaje[-4:][::-1] #[-4] significa, desde el ultimo elemento, 4 hacia atras 
                     #[::-1] es lo mismo que sort=reverse, pero escrito en numeros, ordena a la inversa 
-                    y = 250  # posición vertical inicial
+                    y = 250  # posicion vertical inicial, se mueve +40 dentro del for 
 
-                    for jugador in ultimos_4:
-                        ambos_datos = f"{jugador['nombre']} - {jugador['puntaje']}"
-                        surface_ambos_datos = fuente.render(ambos_datos, True, (255, 255, 255))
-                        pantalla.blit(surface_ambos_datos, (300, y))
-                        y += 40
+                    for jugador in ultimos_4: #necesito este for para ver los ultimos 4 casos 
+                        ambos_datos = f"{jugador['nombre']} - {jugador['puntaje']}" #lo paso a string 
+                        surface_ambos_datos = fuente.render(ambos_datos, True, (255, 255, 255))  #render para texto 
+                        pantalla.blit(surface_ambos_datos, (300, y)) #blit de ambos datos 
+                        y += 40 # uso esto para mover las impresiones cada vez que se mueve el for 
 
-                   #teclas para volver atras
-                    if evento.type == pg.KEYDOWN:
+                #teclas para volver atras
+                    if evento.type == pg.KEYDOWN: # tecla presionada 
                         if evento.key == pg.K_ESCAPE: #ESC
-                            pantalla_actual = "inicio"
+                            pantalla_actual = "inicio" 
                         if evento.key == pg.K_SPACE:#ESPACIO
                             pantalla_actual = "inicio"
-                    
+                
+                
                     
                 
 
