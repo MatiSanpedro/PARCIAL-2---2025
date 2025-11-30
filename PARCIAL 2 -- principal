@@ -310,30 +310,26 @@ while True:
                 pg.display.update()
                 
             case "ver puntaje":
-                pantalla.blit(correccion_fondo_pantalla,(0,0)) #fondo de pantalla
-                nombre_y_puntaje = leer_json("nombres_puntaje.json")
-                ultimo_registro_4 = nombre_y_puntaje[-4:]
-                texto_y = 250
-                for jugador in ultimo_registro_4:
-                    namen = jugador["nombre"]
-                    punktzahl = jugador["puntaje"]
+                    pantalla.blit(correccion_fondo_pantalla, (0, 0))#blit de fondo de pantalla
+                    nombre_y_puntaje = leer_json("nombres_puntaje.json")
+                    ultimos_4 = nombre_y_puntaje[-4:][::-1] #[-4] significa, desde el ultimo elemento, 4 hacia atras 
+                    #[::-1] es lo mismo que sort=reverse, pero escrito en numeros, ordena a la inversa 
+                    y = 250  # posición vertical inicial
 
+                    for jugador in ultimos_4:
+                        ambos_datos = f"{jugador['nombre']} - {jugador['puntaje']}"
+                        surface_ambos_datos = fuente.render(ambos_datos, True, (255, 255, 255))
+                        pantalla.blit(surface_ambos_datos, (300, y))
+                        y += 40
 
-                nombre_para_blitear = fuente.render(str(namen),True,(250,250,250),(0,0,0))
-                puntaje_para_blitear = fuente.render(str(punktzahl),True,(250,250,250),(0,0,0))
-                pantalla.blit(nombre_para_blitear,(250,250))
-                pantalla.blit(puntaje_para_blitear,(390,250))
-
-                if evento.type == pg.KEYDOWN:
-                    if evento.key == pg.K_ESCAPE:
-                        pantalla_actual = "inicio"
-                    if evento.key == pg.K_SPACE:
-                        pantalla_actual = "inicio"
-                
-                if evento.type == pg.MOUSEBUTTONDOWN:
-                    posicion = (evento.pos)
-                    if evento.button ==1:
-                            print("click presionado")
+                   #teclas para volver atras
+                    if evento.type == pg.KEYDOWN:
+                        if evento.key == pg.K_ESCAPE: #ESC
+                            pantalla_actual = "inicio"
+                        if evento.key == pg.K_SPACE:#ESPACIO
+                            pantalla_actual = "inicio"
+                    
+                    
                 
 
                 
