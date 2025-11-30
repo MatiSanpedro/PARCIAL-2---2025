@@ -312,19 +312,29 @@ while True:
             case "ver puntaje":
                 pantalla.blit(correccion_fondo_pantalla,(0,0)) #fondo de pantalla
                 nombre_y_puntaje = leer_json("nombres_puntaje.json")
-                namen = nombre_y_puntaje[0]['nombre']
-                skor = nombre_y_puntaje[0]['puntaje']
+                ultimo_registro_4 = nombre_y_puntaje[-4:]
+                texto_y = 250
+                for jugador in ultimo_registro_4:
+                    namen = jugador["nombre"]
+                    punktzahl = jugador["puntaje"]
+
 
                 nombre_para_blitear = fuente.render(str(namen),True,(250,250,250),(0,0,0))
-                puntaje_para_blitear = fuente.render(str(skor),True,(250,250,250),(0,0,0))
+                puntaje_para_blitear = fuente.render(str(punktzahl),True,(250,250,250),(0,0,0))
                 pantalla.blit(nombre_para_blitear,(250,250))
-                pantalla.blit(puntaje_para_blitear,(400,400))
+                pantalla.blit(puntaje_para_blitear,(390,250))
+
                 if evento.type == pg.KEYDOWN:
                     if evento.key == pg.K_ESCAPE:
                         pantalla_actual = "inicio"
                     if evento.key == pg.K_SPACE:
                         pantalla_actual = "inicio"
-                    
+                
+                if evento.type == pg.MOUSEBUTTONDOWN:
+                    posicion = (evento.pos)
+                    if evento.button ==1:
+                            print("click presionado")
+                
 
                 
                          
