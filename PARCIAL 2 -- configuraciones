@@ -130,6 +130,11 @@ texto_de_puntaje = fuente.render(puntaje_str,True,(0,0,0))
 rect_de_puntaje = texto_de_puntaje.get_rect(topleft = (800,20))
 
 
+#bandera de control de punto 4 "ver puntaje"
+ver_ranking = False #esta se usa para que "leer json no se ejecute 700 veces "
+
+
+
 #banderas de la funcion "validar matriz sector"
 
 flag_sector_1 = False       
@@ -179,8 +184,6 @@ matriz_vacia = [[0,0,0,0,0,0,0,0,0],
 
 nuevita = generar_matriz_completa(matriz_vacia)
 
-celda_seleccionada = None
-
 
 '''matrices = [numeros_sector1,numeros_sector2,numeros_sector3,numeros_sector4,numeros_sector5,
             numeros_sector6,numeros_sector7,numeros_sector8,numeros_sector9]'''
@@ -223,6 +226,7 @@ matrices_medio  = [numeros_sector1_medio ,numeros_sector2_medio ,numeros_sector3
 
 #esto se usa para controlar la interaccion entre funcion "input numero" y "dibujar numero ingresado" en el case "jugar"
 celda_seleccionada_medio = None
+
 
 matriz_general_a_medio  = unir_matriz_general(matrices_medio )
 matriz_general_b_medio  = limpiar_repetidos_verticales(matriz_general_a_medio )
