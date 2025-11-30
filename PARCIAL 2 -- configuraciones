@@ -37,7 +37,7 @@ jugando = False
 fuente = pg.font.SysFont("Bernard MT Comprimida",50)
 texto_prueba = fuente.render("cosas aca", True, (255,255,255))
 
-#cuadrado de fondo para ingresar texto 
+#ingresar nombre de jugador: 
 cuadrado_de_fondo = pg.Surface((400,100))
 cuadrado_de_fondo.fill((110, 50, 38))
 ingrese_nombre = fuente.render("ingrese su nombre",True, (250,250,250),(0,0,0))
