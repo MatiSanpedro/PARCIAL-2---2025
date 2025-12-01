@@ -1136,15 +1136,9 @@ def descontar_puntaje(bandera1:bool,bandera2:bool,bandera3:bool,bandera4:bool,ba
 
 
 
-
-
-
-
-
-
-nueva = [[0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0],
+nueva = [[1,3,2,6,8,4,0,0,0],
+         [7,6,5,2,9,1,0,0,0],
+         [9,8,4,3,5,7,0,0,0],
          [0,0,0,0,0,0,0,0,0],
          [0,0,0,0,0,0,0,0,0],
          [0,0,0,0,0,0,0,0,0],
@@ -1153,27 +1147,108 @@ nueva = [[0,0,0,0,0,0,0,0,0],
          [0,0,0,0,0,0,0,0,0],
          ]
 
-def generar_matriz_completa(matriz:list)->list:
-    validos = [1,2,3,4,5,6,7,8,9]
+
+
+#esta funciona bien para evitar repetidos en filas, pero repite mucho en sector y en columnas 
+def generar_matriz_completa_B(matriz: list) -> list:
     for fila in range(len(matriz)):
+        validos = [1,2,3,4,5,6,7,8,9]  # se reinicia por fila
+
         for columna in range(len(matriz[fila])):
-            matriz[fila][columna] = random.choice(validos)
+            elegido = random.choice(validos)
+            matriz[fila][columna] = elegido
+            validos.remove(elegido)  # evita repetidos en la fila
 
-    return matriz 
+    return matriz
+
+#funciona perfecto
+def poblar_sector_1(matriz:list)->list:
+    validos = [1,2,3,4,5,6,7,8,9]  # se reinicia por fila
+    random.shuffle(validos)
+    for fila in range(0,3):
+        for columna in range(0,3):
+            elegido = random.choice(validos)
+            matriz[fila][columna] = elegido
+            validos.remove(elegido)  # evita repetidos en la fila
+    
+    return matriz
+
+
+#parece que funciona, puede fallar 
+def poblar_sector_2(matriz: list) -> list:
+    validos = [1,2,3,4,5,6,7,8,9]
+
+    for i in range(0, 3):        # filas del sector
+        fila = matriz[i]         # fila actual
+
+        for j in range(3, 6):    # columnas del sector
+            elegido = random.choice(validos)
+
+            if elegido not in fila:  # mira la fila entera, si "elegido no esta en la fila lo agrega "
+                matriz[i][j] = elegido
+                validos.remove(elegido)
+            else:
+                elegido2 = random.choice(validos) #si elegido esta en la fila, agrega elegido2(que sale de la lista de validos)
+                matriz[i][j] = elegido2
+                validos.remove(elegido2)
+    return matriz
+
+#funciona joya 
+def poblar_sector_3(matriz: list) -> list:
+    for i in range(0, 3):          # filas del sector
+        fila = matriz[i]
+
+        validos = [1,2,3,4,5,6,7,8,9]
+
+        # borro de validos los numeros que ya estan en la fila
+        for num in fila:
+            if num in validos:
+                validos.remove(num)
+
+        for j in range(6, 9):      # columnas del sector
+            if not validos:
+                break  # evita error si no quedan numeros
+
+            elegido = random.choice(validos)
+            matriz[i][j] = elegido
+            validos.remove(elegido)  # evita repetidos en el sector/fila
+
+    return matriz
 
 
 
-asdas = generar_matriz_completa(nueva)
+def poblar_sector_4(matriz: list) -> list:
+    for i in range(3, 6):          # filas del sector
+        fila = matriz[i]
 
-random.shuffle(asdas)
-print(asdas)
+        validos = [1,2,3,4,5,6,7,8,9]
+
+        # quitar números ya usados en la fila
+        for num in fila:
+            if num in validos:
+                validos.remove(num)
+
+        for j in range(0, 3):      # columnas del sector
+            # quitar números ya usados en la columna j
+            for k in range(len(matriz)):
+                valor = matriz[k][j]
+                if valor in validos:
+                    validos.remove(valor)
+
+            if not validos:
+                break  # evita error
+
+            elegido = random.choice(validos)
+            matriz[i][j] = elegido
+            validos.remove(elegido)
+
+    return matriz
 
 
-#adad = generar_matriz_completa(nueva)
-#print(adad)
 
 
-#guardar
+
+#guardar json
 def guardar_nombre_puntaje_json(nombre):
     'recibe str, crea un json y guarda el nombre del jugador ingresado dentro del juego por evento.unicode'
     archivo = "nombres_puntaje.json"
@@ -1220,4 +1295,7 @@ def leer_json(nombre_del_archivo)->dict:
     
     return datos    
         
-        
+    
+
+
+
