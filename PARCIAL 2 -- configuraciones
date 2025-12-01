@@ -1,11 +1,7 @@
 import pygame as pg 
 import pygame.mixer as mixer 
-from PARCIAL_2_funciones import agregar_numeros_al_azar_v3
-from PARCIAL_2_funciones import unir_matriz_general
-from PARCIAL_2_funciones import limpiar_repetidos_horizontales
-from PARCIAL_2_funciones import limpiar_repetidos_verticales
-from PARCIAL_2_funciones import formatear_puntaje
-from PARCIAL_2_funciones import generar_matriz_completa
+from PARCIAL_2_funciones import *
+
 import random
 
 
@@ -165,10 +161,7 @@ cuadrado_seleccionado = False
 celda_seleccionada = None
 
 
-
-#MATRICES - son lo mismo, pero cambio los nombres para que los datos no se mezclen:
-#vacias:
-
+#MATRICES - cambio los nombres para que los datos no se mezclen:
 'MATRICES - Dificil'
 
 matriz_vacia = [[0,0,0,0,0,0,0,0,0],
@@ -182,90 +175,48 @@ matriz_vacia = [[0,0,0,0,0,0,0,0,0],
          [0,0,0,0,0,0,0,0,0],
          ]
 
-nuevita = generar_matriz_completa(matriz_vacia)
 
-
-'''matrices = [numeros_sector1,numeros_sector2,numeros_sector3,numeros_sector4,numeros_sector5,
-            numeros_sector6,numeros_sector7,numeros_sector8,numeros_sector9]'''
-
-#matriz_general_a = unir_matriz_general(nuevita)
-nuevita_a = limpiar_repetidos_verticales(nuevita)
-nuevita_b = limpiar_repetidos_horizontales(nuevita_a)
-
-   
+matriz_dificil = generar_matriz_completa_C(matriz_vacia) #llena la matriz vacia 
+nuevita = agregar_ceros_final(matriz_dificil,6) #limpia ceros y repeticiones 
 
 
 
 'MATRICES - nivel medio'
-#vacias:
-matriz_sector_1_medio = [[0,0,0],[0,0,0],[0,0,0]]  
-matriz_sector_2_medio  = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_3_medio  = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_4_medio  = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_5_medio  = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_6_medio  = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_7_medio  = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_8_medio  = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_9_medio  = [[0,0,0],[0,0,0],[0,0,0]]
+matriz_vacia_medio = [[0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         ]
 
 
-#con numeros agregados:                        matriz | cantidad de numeros para agregar
-numeros_sector1_medio  = agregar_numeros_al_azar_v3(matriz_sector_1_medio ,4)
-numeros_sector2_medio  = agregar_numeros_al_azar_v3(matriz_sector_2_medio ,4)
-numeros_sector3_medio  = agregar_numeros_al_azar_v3(matriz_sector_3_medio ,4)
-numeros_sector4_medio  = agregar_numeros_al_azar_v3(matriz_sector_4_medio ,4)
-numeros_sector5_medio  = agregar_numeros_al_azar_v3(matriz_sector_5_medio ,4)
-numeros_sector6_medio  = agregar_numeros_al_azar_v3(matriz_sector_6_medio ,4)
-numeros_sector7_medio  = agregar_numeros_al_azar_v3(matriz_sector_7_medio ,4)
-numeros_sector8_medio  = agregar_numeros_al_azar_v3(matriz_sector_8_medio ,4)
-numeros_sector9_medio  = agregar_numeros_al_azar_v3(matriz_sector_9_medio ,4)
-
-
-matrices_medio  = [numeros_sector1_medio ,numeros_sector2_medio ,numeros_sector3_medio  ,numeros_sector4_medio ,numeros_sector5_medio ,
-            numeros_sector6_medio ,numeros_sector7_medio ,numeros_sector8_medio ,numeros_sector9_medio ]
+matriz_medio = generar_matriz_completa_C(matriz_vacia_medio) #llena la matriz vacia 
+matriz_general_fin_medio = agregar_ceros_final(matriz_medio,5) #limpia ceros y repeticiones 
 
 #esto se usa para controlar la interaccion entre funcion "input numero" y "dibujar numero ingresado" en el case "jugar"
 celda_seleccionada_medio = None
 
 
-matriz_general_a_medio  = unir_matriz_general(matrices_medio )
-matriz_general_b_medio  = limpiar_repetidos_verticales(matriz_general_a_medio )
-matriz_general_fin_medio  = limpiar_repetidos_horizontales(matriz_general_b_medio )
-
-
-
-
 'MATRICES - nivel facil'
-#vacias:
-matriz_sector_1_facil = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_2_facil  = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_3_facil  = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_4_facil  = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_5_facil  = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_6_facil  = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_7_facil  = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_8_facil  = [[0,0,0],[0,0,0],[0,0,0]]
-matriz_sector_9_facil  = [[0,0,0],[0,0,0],[0,0,0]]
+
+matriz_vacia_facil = [[0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         [0,0,0,0,0,0,0,0,0],
+         ]
 
 
-#con numeros agregados:                        matriz | cantidad de numeros para agregar
-numeros_sector1_facil  = agregar_numeros_al_azar_v3(matriz_sector_1_facil ,5)
-numeros_sector2_facil  = agregar_numeros_al_azar_v3(matriz_sector_2_facil ,5)
-numeros_sector3_facil  = agregar_numeros_al_azar_v3(matriz_sector_3_facil ,5)
-numeros_sector4_facil  = agregar_numeros_al_azar_v3(matriz_sector_4_facil ,5)
-numeros_sector5_facil  = agregar_numeros_al_azar_v3(matriz_sector_5_facil ,5)
-numeros_sector6_facil  = agregar_numeros_al_azar_v3(matriz_sector_6_facil ,5)
-numeros_sector7_facil  = agregar_numeros_al_azar_v3(matriz_sector_7_facil ,5)
-numeros_sector8_facil  = agregar_numeros_al_azar_v3(matriz_sector_8_facil ,5)
-numeros_sector9_facil  = agregar_numeros_al_azar_v3(matriz_sector_9_facil ,5)
-
-
-matrices_facil  = [numeros_sector1_facil ,numeros_sector2_facil ,numeros_sector3_facil  ,numeros_sector4_facil ,numeros_sector5_facil ,
-            numeros_sector6_facil ,numeros_sector7_facil ,numeros_sector8_facil ,numeros_sector9_facil ]
-
+matriz_facil = generar_matriz_completa_C(matriz_vacia_facil) #llena la matriz vacia 
+matriz_general_fin_facil = agregar_ceros_final(matriz_facil,4) #limpia ceros y repeticiones 
 #esto se usa para controlar la interaccion entre funcion "input numero" y "dibujar numero ingresado" en el case "jugar"
 celda_seleccionada = None
 
-matriz_general_a_facil  = unir_matriz_general(matrices_facil )
-matriz_general_b_facil  = limpiar_repetidos_verticales(matriz_general_a_facil )
-matriz_general_fin_facil  = limpiar_repetidos_horizontales(matriz_general_b_facil )
