@@ -3,6 +3,22 @@ import random
 import json
 import os
 
+
+
+
+
+
+def iniciar_matriz(cantidad_filas,cantidad_columnas,valor_inicial)->list:
+    matriz = []
+    for i in range(cantidad_filas):
+        fila = [valor_inicial] * cantidad_columnas
+
+        matriz += [fila]
+
+    return matriz 
+
+
+
 #funcion volver atras
 def pausar_juego(evento,pantalla_actual):
     if evento.type == pg.KEYDOWN:
@@ -38,7 +54,7 @@ def pausar_despausar(evento):
 
 #dibuja los cuadraditos: 
 def dibujar_cuadrados(pantalla:pg.Surface, tamaño:int, columna:int, fila:int, x_inicial:int, y_inicial:int)->list:
-    'recibe surface,int tamaño, int columna(cantidad),int fila (cantidad), int X inicial, int Y inicial'     
+    'recibe surface,int tamaño, int columna(cantidad),int fila (cantidad), int X inicial, int Y inicial,  retorna lista'     
     lista_retorno_de_cuadrados = []
 
     for filass in range(fila):
@@ -60,6 +76,7 @@ def dibujar_cuadrados(pantalla:pg.Surface, tamaño:int, columna:int, fila:int, x
 
 #lineas separadoras:
 def dibujar_lineas(pantalla):
+    'dibuja las 4 lineas que separan los sectores de la pantalla, NO RETORNA, solo dibuja'
     #verticales             #color     #inicio     #fin
     pg.draw.line(pantalla, (0, 0, 0), (450, 150), (450,600), 6)
     pg.draw.line(pantalla, (0, 0, 0), (300, 150), (300,600), 6)
@@ -1058,42 +1075,6 @@ def verificar_por_columnas_3(matriz)->bool:
     return bandera
 
 
-
-def agregar_numeros_al_azar_v3(matriz:list, cantidad:int) -> list:
-    '''recibe una matriz y un numero, agrega numeros al azar, en lugares al azar en una matriz. Retorna una matriz'''
-    filas = len(matriz)
-    columnas = len(matriz[0])
-    contador = 0
-
-    while contador < cantidad:
-
-        fila = random.randrange(filas)
-        columna = random.randrange(columnas)
-        numero = random.randint(1, 9)
-
-        # si el lugar ya tiene un número distinto de 0, saltar
-        if matriz[fila][columna] != 0:
-            continue
-
-        #si el num ya esta en la fila
-        if numero in matriz[fila]:
-            continue
-
-        # si el numero ya esta en la columna
-        repetido_columna = False
-        for f in range(filas):
-            if matriz[f][columna] == numero:
-                repetido_columna = True
-                break
-        if repetido_columna:
-            continue
-
-        #si pasa todo esto lo coloca
-        matriz[fila][columna] = numero
-        contador += 1
-
-    return matriz
-
 #validacion por filas de los primeros 3 sectores 
 def dibujar_validacion_sectores123(pantalla:pg.Surface,flag_filas_0_3:bool):
     'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
@@ -1114,43 +1095,6 @@ def dibujar_validacion_sectores456(pantalla:pg.Surface,flag_filas_3_6:bool):
         pg.draw.rect(pantalla,(0,150,0),rect,7)
     else:
         pg.draw.rect(pantalla,(110,0,0),rect,7)
-
-
-
-
-
-def descontar_puntaje(bandera1:bool,bandera2:bool,bandera3:bool,bandera4:bool,bandera5:bool,bandera6:bool,bandera7:bool,bandera8:bool,bandera9:bool)->int:
-    'recibe 9 bool, suma 9 por cada bandera verdadera, resta 1 por cada bandera falsa, retorna (int)'
-    todas = [bandera1,bandera2,bandera3,bandera4,bandera5,bandera6,bandera7,bandera8,bandera9]
-    puntaje = 0000
-
-    for i in range(11):
-        bandera_inspeccionada =  todas[i]
-        if bandera_inspeccionada == True:
-            puntaje +=9
-        else:
-            puntaje +=1
-    str(puntaje)
-    
-    return puntaje
-
-
-
-
-
-
-#esta funciona bien para evitar repetidos en filas, pero repite mucho en sector y en columnas 
-def generar_matriz_completa_B(matriz: list) -> list:
-    for fila in range(len(matriz)):
-        validos = [1,2,3,4,5,6,7,8,9]  # se reinicia por fila
-
-        for columna in range(len(matriz[fila])):
-            elegido = random.choice(validos)
-            matriz[fila][columna] = elegido
-            validos.remove(elegido)  # evita repetidos en la fila
-
-    return matriz
-
 
 
 
