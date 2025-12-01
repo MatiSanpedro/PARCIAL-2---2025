@@ -29,11 +29,11 @@ while True:
                 pantalla.blit(ingrese_nombre,(300,250))
 
                 if evento.type == pg.KEYDOWN:
-                    if evento.key == pg.K_BACKSPACE:
-                        texto_para_ingresar = texto_para_ingresar[0:-1]
-                    elif evento.key == pg.K_RETURN:
-                        guardar_nombre_puntaje_json(texto_para_ingresar)
-                        pantalla_actual = "inicio"
+                    if evento.key == pg.K_BACKSPACE: #tecla borrar 
+                        texto_para_ingresar = texto_para_ingresar[0:-1] 
+                    elif evento.key == pg.K_RETURN: #tecla enter 
+                        guardar_nombre_puntaje_json(texto_para_ingresar) #guardo json
+                        pantalla_actual = "inicio" #cambia hacia pantalla de inicio 
                         print("ingresado correctamente")
                     else:
                         texto_para_ingresar += evento.unicode
@@ -311,10 +311,10 @@ while True:
                 
             case "ver puntaje":
                     
-                    if not ver_ranking: #uso esta bandera porque de lo contrario la funcion "leer json se llama mil veces seguidas"
+                    if not ver_ranking: #uso esta bandera porque de lo contrario la funcion "leer json" se llama mil veces seguidas
                         nombre_y_puntaje = leer_json("nombres_puntaje.json")
                         ver_ranking = True 
-                    if pantalla_actual != "ver puntaje": #cuando cierro el "case, la bandera vuelve a ser false"
+                    if pantalla_actual != "ver puntaje": #cuando cierro el "case", la bandera vuelve a ser false"
                         ver_ranking = False
 
 
