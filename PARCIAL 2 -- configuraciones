@@ -189,8 +189,8 @@ nuevita = generar_matriz_completa(matriz_vacia)
             numeros_sector6,numeros_sector7,numeros_sector8,numeros_sector9]'''
 
 #matriz_general_a = unir_matriz_general(nuevita)
-#nuevita_a = limpiar_repetidos_verticales(nuevita)
-#nuevita_b = limpiar_repetidos_horizontales(nuevita_a)
+nuevita_a = limpiar_repetidos_verticales(nuevita)
+nuevita_b = limpiar_repetidos_horizontales(nuevita_a)
 
    
 
