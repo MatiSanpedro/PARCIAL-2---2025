@@ -291,11 +291,94 @@ while True:
                                     flag_columnas_3_6 = verificar_por_columnas_2(matriz_general_fin_medio)
                                     flag_columnas_6_9 = verificar_por_columnas_3(matriz_general_fin_medio)
                                     
-                                    puntaje_mutable = descontar_puntaje(flag_sector_1,flag_sector_2,flag_sector_3,flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9)
+                                    #aca deberia ir la funcion de descontar puntos 
+                                  
                                     
 
                                     print(matriz_general_fin_medio)
-                                
+
+                if modo_dificultad == "facil":
+
+                    pantalla.fill((189, 162, 162))#color de fondo de pantalla durante el juego
+                    pantalla.blit(validar_celda,(650,200)) #blit de validar celda
+                    pantalla.blit(texto_validar_celda,(710,215))#blit de texto validar celda
+                    pantalla.blit(texto_de_palabra_puntaje,rect_de_texto_de_palabra_puntaje)#blit de texto "puntaje" 
+                    pantalla.blit(reset_juego,(650,400)) #blit de boton "reiniciar juego"
+                    pantalla.blit(texto_reiniciar_juego,(667, 415)) #texto de "reiniciar juego "
+                    pantalla.blit(texto_de_puntaje,rect_de_puntaje) #numeros del puntaje
+                    pantalla_actual = pausar_juego(evento,pantalla_actual) #controlador de pantalla, #ESC = volver a inicio - pausar
+                    
+                    
+
+                    #dibujos de celdas - cuadrados
+                    celdas_sector_1_facil = dibujar_cuadrados(pantalla,50,3,3,150,150) #sector 1
+                    celdas_sector_2_facil = dibujar_cuadrados(pantalla,50,3,3,300,150) #sector 2
+                    celdas_sector_3_facil = dibujar_cuadrados(pantalla,50,3,3,450,150) #sector 3
+                    celdas_sector_4_facil = dibujar_cuadrados(pantalla,50,3,3,150,300) #sector 4
+                    celdas_sector_5_facil = dibujar_cuadrados(pantalla,50,3,3,300,300) #sector 5
+                    celdas_sector_6_facil = dibujar_cuadrados(pantalla,50,3,3,450,300) #sector 6
+                    celdas_sector_7_facil = dibujar_cuadrados(pantalla,50,3,3,150,450) #sector 7 
+                    celdas_sector_8_facil = dibujar_cuadrados(pantalla,50,3,3,300,450) #sector 8
+                    celdas_sector_9_facil = dibujar_cuadrados(pantalla,50,3,3,450,450) #sector 9 
+                    
+                    #union de matrices:
+                    todas_las_celdas_facil = (celdas_sector_1_facil + celdas_sector_2_facil + celdas_sector_3_facil +
+                                        celdas_sector_4_facil + celdas_sector_5_facil + celdas_sector_6_facil +
+                                        celdas_sector_7_facil + celdas_sector_8_facil + celdas_sector_9_facil)
+
+                    dibujar_lineas(pantalla) #son las 4 lineas que separan los 9 espacios de la cuadricula
+                    
+                    #Dibujar numeros:
+                    matriz_general_dibujos_facil = dibujar_numeros(pantalla,matriz_general_fin_facil,tamaño, fuente,150,150)
+                    
+                    #Detector de colisiones:
+                    if evento.type == pg.MOUSEBUTTONDOWN:
+                        posicion = (evento.pos) #posicion
+                        celda_seleccionada_facil = detectar_celda(posicion,todas_las_celdas_facil) #detecta celda seleccionada
+                        dibujar_borde_verde(pantalla,celda_seleccionada_facil) #dibuja un bordecito verde en la celda clickeada
+                        if boton_reiniciar_juego.collidepoint(posicion): #detecta click en  boton "reiniciar juego"
+                            
+                            print("reiniciar presionado")
+                            
+                        if boton_validar_celda.collidepoint(posicion):#detecta click en boton "validar celdas"
+                            dibujar_todas_las_validaciones(pantalla,flag_sector_1,flag_sector_2,flag_sector_3,
+                        flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9,flag_filas_0_3,flag_filas_3_6)
+                            print("validar celda presionado")
+
+                            
+                    
+                    #ingresar numero por teclado
+                    if evento.type == pg.KEYDOWN and celda_seleccionada_facil is not None:#verifico que sea evento de telclado y se haya clickeado una celda 
+                        numero_ingresado = input_numero(evento,celda_seleccionada_facil)
+                        matriz_general_fin_facil = borrar_numero_de_matriz(matriz_general_fin_facil,evento,celda_seleccionada_facil,tamaño,x_inicial=150, y_inicial=150) #funcion borrar numero
+                        
+                        if numero_ingresado is not None: #si numero es algo
+                            
+                            matriz_general_fin_facil = ingresar_numero_a_matriz(matriz_general_fin_facil,numero_ingresado,celda_seleccionada_facil,tamaño) #ingresar numero 
+                            #banderas de sectores 3x3 | 
+                            flag_sector_1 = validar_matriz_sector_1(matriz_general_fin_facil)
+                            flag_sector_2 = validar_matriz_sector_2(matriz_general_fin_facil)
+                            flag_sector_3 = validar_matriz_sector_3(matriz_general_fin_facil)
+                            flag_sector_4 = validar_matriz_sector_4(matriz_general_fin_facil)
+                            flag_sector_5 = validar_matriz_sector_5(matriz_general_fin_facil)
+                            flag_sector_6 = validar_matriz_sector_6(matriz_general_fin_facil)
+                            flag_sector_7 = validar_matriz_sector_7(matriz_general_fin_facil)
+                            flag_sector_8 = validar_matriz_sector_8(matriz_general_fin_facil)
+                            flag_sector_9 = validar_matriz_sector_9(matriz_general_fin_facil)
+
+                            #banderas de filas
+                            flag_filas_0_3 = verificar_por_filas_1(matriz_general_fin_facil)
+                            flag_filas_3_6 = verificar_por_filas_2(matriz_general_fin_facil)
+                            flag_filas_6_9 = verificar_por_filas_3(matriz_general_fin_facil)
+                            #banderas de columnas 
+                            flag_columnas_0_3 = verificar_por_columnas_1(matriz_general_fin_facil) 
+                            flag_columnas_3_6 = verificar_por_columnas_2(matriz_general_fin_facil)
+                            flag_columnas_6_9 = verificar_por_columnas_3(matriz_general_fin_facil)
+                            
+                            #aca deberia ir la funcion de descontar puntos 
+
+                            print(matriz_general_fin_facil)
+
                                     
                         
 
@@ -324,7 +407,7 @@ while True:
                     y = 250  # posicion vertical inicial, se mueve +40 dentro del for 
 
                     for jugador in ultimos_4: #necesito este for para ver los ultimos 4 casos 
-                        ambos_datos = f"{jugador['nombre']} - {jugador['puntaje']}" #lo paso a string 
+                        ambos_datos = f"{jugador['nombre']} - {jugador['puntaje']}" #extraigo datos del dict, lo paso a string 
                         surface_ambos_datos = fuente.render(ambos_datos, True, (255, 255, 255))  #render para texto 
                         pantalla.blit(surface_ambos_datos, (300, y)) #blit de ambos datos 
                         y += 40 # uso esto para mover las impresiones cada vez que se mueve el for 
