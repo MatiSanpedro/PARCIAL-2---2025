@@ -903,14 +903,8 @@ def dibujar_todas_las_validaciones(pantalla:pg.Surface,bandera_sector1:bool,band
     dibujar_validacion_sector7(pantalla,bandera_sector7)
     dibujar_validacion_sector8(pantalla,bandera_sector8)
     dibujar_validacion_sector9(pantalla,bandera_sector9)
-    dibujar_validacion_sectores123(pantalla,flag_filas_0_3)
-    dibujar_validacion_sectores456(pantalla,flag_filas_3_6)
-
-
-#fuente.render no permite int, y no permite castearlo a str si es un numero con ceros adelante. Tuve que hacer esto
-def formatear_puntaje(puntaje:int) -> str:
-    'recibe int, convierte a string, retorna string'
-    return f"{puntaje:04d}" #llenar con 4 ceros 
+    #dibujar_validacion_sectores123(pantalla,flag_filas_0_3)
+   # dibujar_validacion_sectores456(pantalla,flag_filas_3_6)
 
 
 
@@ -1549,7 +1543,25 @@ def agregar_ceros_final(matriz:list,cantidad:int)->list:
 
 
 
+def limpiar_repetidos_verticales_0_3(matriz)->bool:
+    'recibe matriz, itera 3 columnas buscando repetidos, True si no hay repetidos, False si hay. Retorna bool'
+    
+    for columna in range(0,3):
+        vistos = set()
+        
+        for fila in range(0,9):
 
+            numero_inspeccionado = (matriz[fila][columna])
+            
+            if numero_inspeccionado in vistos: #  si esta en vistos, esta repetido 
+                matriz[fila][columna] = 0
+
+            if matriz[fila][columna] != 0: #solo me interesan los numeros que no sean cero 
+                vistos.add(numero_inspeccionado)
+                
+      
+    return matriz
+    
 
 
 
@@ -1563,8 +1575,6 @@ nueva = [[1,2,0,0,0,0,0,0,0],
          [0,0,0,0,0,0,0,0,0],
          [0,0,0,0,0,0,0,0,0],
          ]
-
-
 
 
 
@@ -1589,21 +1599,21 @@ def guardar_nombre_puntaje_json(nombre):
     with open(archivo, "w", encoding="utf-8") as coso:
         json.dump(datos, coso, indent=4, ensure_ascii=False)
 
-#actualizar
+#actualizar json
 def actualizar_puntaje_json(nombre:str, nuevo_puntaje:int):
-    'recibe str(nombre) e int(puntaje), abre un archivo json '
     archivo = "nombres_puntaje.json"
 
-    with open(archivo, "r", encoding="utf-8") as coso:
-        datos = json.load(coso)
+    with open(archivo, "r", encoding="utf-8") as f:
+        datos = json.load(f)
 
     for jugador in datos:
-        if jugador.get["nombre"] == nombre:
-            jugador.get["puntaje"] = nuevo_puntaje
+        if jugador.get("nombre") == nombre:
+            jugador["puntaje"] = nuevo_puntaje
             break
 
-    with open(archivo, "w", encoding="utf-8") as coso:
-        json.dump(datos, coso, indent=4, ensure_ascii=False)
+    with open(archivo, "w", encoding="utf-8") as f:
+        json.dump(datos, f, indent=4, ensure_ascii=False)
+
 
 
 
@@ -1616,3 +1626,22 @@ def leer_json(nombre_del_archivo)->dict:
     return datos    
         
     
+
+def sumar_restar_puntaje(flags:list, puntaje:int) -> int:
+    """True  suma 9 puntos | False  resta 1 punto
+    """
+    for flag in flags:
+        if flag:
+            puntaje += 9
+        else:
+            puntaje -= 1
+    
+    return puntaje
+
+
+#fuente.render no permite int, y no permite castearlo a str si es un numero con ceros adelante. Tuve que hacer esto
+def formatear_puntaje(puntaje:int) -> str:
+    'recibe int, convierte a string, retorna string'
+    return f"{puntaje:04d}" #llenar con 4 ceros 
+
+
