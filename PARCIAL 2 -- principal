@@ -313,8 +313,6 @@ while True:
                     pantalla.blit(texto_de_puntaje,rect_de_puntaje) #numeros del puntaje
                     pantalla_actual = pausar_juego(evento,pantalla_actual) #controlador de pantalla, #ESC = volver a inicio - pausar
                     
-                    
-
 
                     #dibujos de celdas - cuadrados
                     celdas_sector_1_facil = dibujar_cuadrados(pantalla,50,3,3,150,150)
@@ -327,19 +325,16 @@ while True:
                     celdas_sector_8_facil = dibujar_cuadrados(pantalla,50,3,3,300,450)
                     celdas_sector_9_facil = dibujar_cuadrados(pantalla,50,3,3,450,450)
 
-                    #union de matrices:
+                    #union de celdas:
                     todas_las_celdas_facil = (
                         celdas_sector_1_facil + celdas_sector_2_facil + celdas_sector_3_facil +
                         celdas_sector_4_facil + celdas_sector_5_facil + celdas_sector_6_facil +
-                        celdas_sector_7_facil + celdas_sector_8_facil + celdas_sector_9_facil
-                    )
+                        celdas_sector_7_facil + celdas_sector_8_facil + celdas_sector_9_facil)
 
-                    
                     dibujar_lineas(pantalla) #son las 4 lineas que separan los 9 espacios de la cuadricula
                     
                     #Dibujar numeros:
                     matriz_general_dibujos_facil = dibujar_numeros(pantalla,matriz_general_fin_facil,tamaño, fuente,150,150)
-                    
                     
                     #ingresar numero por teclado
                     if evento.type == pg.KEYDOWN and celda_seleccionada_facil is not None:#verifico que sea evento de telclado y se haya clickeado una celda 
@@ -381,8 +376,8 @@ while True:
                             dibujar_todas_las_validaciones(pantalla,flag_sector_1,flag_sector_2,flag_sector_3,
                             flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9,flag_filas_0_3,flag_filas_3_6)
                             
-                            puntaje_actualizable = sumar_restar_puntaje(lista_de_banderas,puntaje)
-                            print(f"puntaje: {puntaje_actualizable}")
+                            puntaje = sumar_restar_puntaje(lista_de_banderas,puntaje)
+                            print(f"puntaje: {puntaje}")
                             print("validar celda presionado")
                              
                     
@@ -395,7 +390,7 @@ while True:
                         
                         #reinicio no hecho - no encuentro la manera 
                         # -validacion esta a medias, falta sumar los 81 puntos - PRINCIPAL 
-                        # - puntaje falta acomodar este maldito blit a donde sea que vaya correctamente junto con el final de la partida 
+                        # - puntaje falta hacer el final de la partida  
                         #  y guardar json
                         # musica no hecha 
                         
