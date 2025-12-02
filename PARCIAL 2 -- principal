@@ -222,7 +222,7 @@ while True:
                             pantalla.blit(texto_de_palabra_puntaje,rect_de_texto_de_palabra_puntaje)#blit de texto "puntaje" 
                             pantalla.blit(reset_juego,(650,400)) #blit de boton "reiniciar juego"
                             pantalla.blit(texto_reiniciar_juego,(667, 415)) #texto de "reiniciar juego "
-                            pantalla.blit(texto_de_puntaje,rect_de_puntaje) #numeros del puntaje
+                            
                             pantalla_actual = pausar_juego(evento,pantalla_actual) #controlador de pantalla, #ESC = volver a inicio - pausar
                             
                             
@@ -268,8 +268,8 @@ while True:
                                     rect_de_puntaje = texto_de_puntaje.get_rect(topleft = (800,20))
                                     print(f"puntaje: {puntaje_actualizable}")
                                     print("validar celda presionado")
+                                    pantalla.blit(texto_de_puntaje,rect_de_puntaje) #numeros del puntaje
                                     
-                            
                             #ingresar numero por teclado
                             if evento.type == pg.KEYDOWN and celda_seleccionada_medio is not None:#verifico que sea evento de telclado y se haya clickeado una celda 
                                 numero_ingresado = input_numero(evento,celda_seleccionada_medio)
@@ -297,8 +297,12 @@ while True:
                                     
 
                                     print(matriz_general_fin_medio)
-
+                            
                 if modo_dificultad == "facil":
+                    
+                    texto_de_puntaje = fuente.render(str(puntaje), True, (0,0,0))
+                    rect_de_puntaje = texto_de_puntaje.get_rect(topleft=(800,20))
+                    pantalla.blit(texto_de_puntaje, rect_de_puntaje)
                     
                     pantalla.fill((189, 162, 162))#color de fondo de pantalla durante el juego
                     pantalla.blit(validar_celda,(650,200)) #blit de validar celda
@@ -306,54 +310,37 @@ while True:
                     pantalla.blit(texto_de_palabra_puntaje,rect_de_texto_de_palabra_puntaje)#blit de texto "puntaje" 
                     pantalla.blit(reset_juego,(650,400)) #blit de boton "reiniciar juego"
                     pantalla.blit(texto_reiniciar_juego,(667, 415)) #texto de "reiniciar juego "
-                    #pantalla.blit(texto_de_puntaje,rect_de_puntaje) #numeros del puntaje
+                    pantalla.blit(texto_de_puntaje,rect_de_puntaje) #numeros del puntaje
                     pantalla_actual = pausar_juego(evento,pantalla_actual) #controlador de pantalla, #ESC = volver a inicio - pausar
                     
                     
 
-                    #dibujos de celdas - cuadrados
-                    celdas_sector_1_facil = dibujar_cuadrados(pantalla,50,3,3,150,150) #sector 1
-                    celdas_sector_2_facil = dibujar_cuadrados(pantalla,50,3,3,300,150) #sector 2
-                    celdas_sector_3_facil = dibujar_cuadrados(pantalla,50,3,3,450,150) #sector 3
-                    celdas_sector_4_facil = dibujar_cuadrados(pantalla,50,3,3,150,300) #sector 4
-                    celdas_sector_5_facil = dibujar_cuadrados(pantalla,50,3,3,300,300) #sector 5
-                    celdas_sector_6_facil = dibujar_cuadrados(pantalla,50,3,3,450,300) #sector 6
-                    celdas_sector_7_facil = dibujar_cuadrados(pantalla,50,3,3,150,450) #sector 7 
-                    celdas_sector_8_facil = dibujar_cuadrados(pantalla,50,3,3,300,450) #sector 8
-                    celdas_sector_9_facil = dibujar_cuadrados(pantalla,50,3,3,450,450) #sector 9 
-                    
-                    #union de matrices:
-                    todas_las_celdas_facil = (celdas_sector_1_facil + celdas_sector_2_facil + celdas_sector_3_facil +
-                                        celdas_sector_4_facil + celdas_sector_5_facil + celdas_sector_6_facil +
-                                        celdas_sector_7_facil + celdas_sector_8_facil + celdas_sector_9_facil)
 
+                    #dibujos de celdas - cuadrados
+                    celdas_sector_1_facil = dibujar_cuadrados(pantalla,50,3,3,150,150)
+                    celdas_sector_2_facil = dibujar_cuadrados(pantalla,50,3,3,300,150)
+                    celdas_sector_3_facil = dibujar_cuadrados(pantalla,50,3,3,450,150)
+                    celdas_sector_4_facil = dibujar_cuadrados(pantalla,50,3,3,150,300)
+                    celdas_sector_5_facil = dibujar_cuadrados(pantalla,50,3,3,300,300)
+                    celdas_sector_6_facil = dibujar_cuadrados(pantalla,50,3,3,450,300)
+                    celdas_sector_7_facil = dibujar_cuadrados(pantalla,50,3,3,150,450)
+                    celdas_sector_8_facil = dibujar_cuadrados(pantalla,50,3,3,300,450)
+                    celdas_sector_9_facil = dibujar_cuadrados(pantalla,50,3,3,450,450)
+
+                    #union de matrices:
+                    todas_las_celdas_facil = (
+                        celdas_sector_1_facil + celdas_sector_2_facil + celdas_sector_3_facil +
+                        celdas_sector_4_facil + celdas_sector_5_facil + celdas_sector_6_facil +
+                        celdas_sector_7_facil + celdas_sector_8_facil + celdas_sector_9_facil
+                    )
+
+                    
                     dibujar_lineas(pantalla) #son las 4 lineas que separan los 9 espacios de la cuadricula
                     
                     #Dibujar numeros:
                     matriz_general_dibujos_facil = dibujar_numeros(pantalla,matriz_general_fin_facil,tamaño, fuente,150,150)
                     
-                    #Detector de colisiones:
-                    if evento.type == pg.MOUSEBUTTONDOWN:
-                        posicion = (evento.pos) #posicion
-                        celda_seleccionada_facil = detectar_celda(posicion,todas_las_celdas_facil) #detecta celda seleccionada
-                        dibujar_borde_verde(pantalla,celda_seleccionada_facil) #dibuja un bordecito verde en la celda clickeada
-                        if boton_reiniciar_juego.collidepoint(posicion): #detecta click en  boton "reiniciar juego"
-                            
-                            print("reiniciar presionado")
-                            
-                        if boton_validar_celda.collidepoint(posicion):#detecta click en boton "validar celdas"
-                            dibujar_todas_las_validaciones(pantalla,flag_sector_1,flag_sector_2,flag_sector_3,
-                        flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9,flag_filas_0_3,flag_filas_3_6)
-                            
-                            puntaje_actualizable = sumar_restar_puntaje(lista_de_banderas,puntaje)
-                            
-                            texto_de_puntaje = fuente.render(str(puntaje_actualizable),True,(0,0,0))
-                            rect_de_puntaje = texto_de_puntaje.get_rect(topleft = (800,20))
-                            print(f"puntaje: {puntaje_actualizable}")
-                            print("validar celda presionado")
-                            
-
-
+                    
                     #ingresar numero por teclado
                     if evento.type == pg.KEYDOWN and celda_seleccionada_facil is not None:#verifico que sea evento de telclado y se haya clickeado una celda 
                         numero_ingresado = input_numero(evento,celda_seleccionada_facil)
@@ -376,14 +363,33 @@ while True:
                             
                             
                             lista_de_banderas = [flag_sector_1,flag_sector_2,flag_sector_3,flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9]
-                            
-                            
                             #aca deberia ir la funcion de descontar puntos 
-
                             print(matriz_general_fin_facil)
-
-                                    
                             
+                            #Detector de colisiones:
+                    if evento.type == pg.MOUSEBUTTONDOWN:
+                        posicion = (evento.pos) #posicion
+                        celda_seleccionada_facil = detectar_celda(posicion,todas_las_celdas_facil) #detecta celda seleccionada
+                        dibujar_borde_verde(pantalla,celda_seleccionada_facil) #dibuja un bordecito verde en la celda clickeada
+                        
+                        
+                        if boton_reiniciar_juego.collidepoint(posicion): #detecta click en  boton "reiniciar juego"
+                            
+                            print("reiniciar presionado")
+                            
+                        if boton_validar_celda.collidepoint(posicion):#detecta click en boton "validar celdas"
+                            dibujar_todas_las_validaciones(pantalla,flag_sector_1,flag_sector_2,flag_sector_3,
+                            flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9,flag_filas_0_3,flag_filas_3_6)
+                            
+                            puntaje_actualizable = sumar_restar_puntaje(lista_de_banderas,puntaje)
+                            print(f"puntaje: {puntaje_actualizable}")
+                            print("validar celda presionado")
+                             
+                    
+                            
+                                    
+                       #ORDENAR TODOS LOS DEMAS MODO DIFICULTAD IGUAL QUE ESTE (FACIL) !!!
+
                        # actualizar_puntaje_json(texto_para_ingresar,puntaje_actualizable) #texto para ingresar es el nombre del jugador
                        # pantalla.blit(texto_de_puntaje,(800,20)) #numeros del puntaje
                         
@@ -393,10 +399,10 @@ while True:
                         #  y guardar json
                         # musica no hecha 
                         
-                        
+                           
                         #hacer una funcion aparte para revisar zonas
              
-                   
+                    
             case "ver puntaje":
                     
                     if not ver_ranking: #uso esta bandera porque de lo contrario la funcion "leer json" se llama mil veces seguidas
