@@ -1,7 +1,7 @@
 import pygame as pg 
 import pygame.mixer as mixer 
 from PARCIAL_2_funciones import *
-
+import copy
 import random
 
 
@@ -122,9 +122,10 @@ rect_de_texto_de_palabra_puntaje = texto_de_palabra_puntaje.get_rect(topleft = (
 #texto de numeros puntaje:
 puntaje =  0000
 puntaje_str = formatear_puntaje(puntaje)
-texto_de_puntaje = fuente.render(puntaje_str,True,(0,0,0))
-rect_de_puntaje = texto_de_puntaje.get_rect(topleft = (800,20))
 
+'''texto_de_puntaje = fuente.render(puntaje_str,True,(0,0,0))
+rect_de_puntaje = texto_de_puntaje.get_rect(topleft = (800,20))
+print(f"puntaje: {puntaje_str}")'''
 
 #bandera de control de punto 4 "ver puntaje"
 ver_ranking = False #esta se usa para que "leer json no se ejecute 700 veces "
@@ -155,10 +156,17 @@ flag_columnas_3_6 = False
 flag_columnas_6_9 = False
 
 
+
+
+
+
 #variables de input, solo se usan en una funcion 
 cuadrado_seleccionado = False
 #esto se usa para controlar la interaccion entre funcion "input numero" y "dibujar numero ingresado" en el case "jugar"
 celda_seleccionada = None
+
+
+puntaje = 0
 
 
 #MATRICES - cambio los nombres para que los datos no se mezclen:
@@ -189,3 +197,10 @@ matriz_general_fin_facil = agregar_ceros_final(matriz_facil,4) #limpia ceros y r
 #esto se usa para controlar la interaccion entre funcion "input numero" y "dibujar numero ingresado" en el case "jugar"
 celda_seleccionada_facil = None
 
+reiniciar_juego = False
+
+
+
+nuevita_C = agregar_ceros_final(copy.deepcopy(matriz_dificil), 6)
+matriz_general_fin_facil_C = (copy.deepcopy(matriz_general_fin_facil))
+matriz_general_fin_medio_C = (copy.deepcopy(matriz_general_fin_medio))
