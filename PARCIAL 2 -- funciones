@@ -1637,6 +1637,9 @@ def sumar_restar_puntaje(flags:list, puntaje:int) -> int:
         else:
             puntaje -= 1
 
+    if all(flags) == True:
+        puntaje += 81
+
     return puntaje
 
 
