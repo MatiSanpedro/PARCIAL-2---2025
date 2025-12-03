@@ -1629,8 +1629,8 @@ def leer_json(nombre_del_archivo)->dict:
     
 
 def sumar_restar_puntaje(flags:list, puntaje:int) -> int:
-    """True  suma 9 puntos | False  resta 1 punto
-    """
+    "recibe lista de bandderas, recorre la lista y verifica: True  suma 9 puntos | False  resta 1 punto, retorna int"
+    
     for flag in flags:
         if flag:
             puntaje += 9
@@ -1639,8 +1639,18 @@ def sumar_restar_puntaje(flags:list, puntaje:int) -> int:
 
     if all(flags) == True:
         puntaje += 81
+        
 
     return puntaje
+
+
+def validar_final(lista:list):
+    
+    if all(lista) == True:
+        return True
+    else:
+        return False
+        
 
 
 #fuente.render no permite int, y no permite castearlo a str si es un numero con ceros adelante. Tuve que hacer esto
@@ -1650,9 +1660,5 @@ def formatear_puntaje(puntaje:int) -> str:
 
 
 
-def dibujar_numeros_de_puntaje(pantalla:pg.surface,fuente:pg.font,puntaje_actualizable:int):
-    texto_de_puntaje = fuente.render(str(puntaje_actualizable),True,(0,0,0))
-    rect_de_puntaje = texto_de_puntaje.get_rect(topleft = (800,20))
-    print(f"puntaje: {puntaje_actualizable}")
-    print("validar celda presionado")
-    pantalla.blit(texto_de_puntaje,rect_de_puntaje) #numeros del puntaje
+def final_de_partida(pantalla):
+    pass
