@@ -200,22 +200,33 @@ while True:
                         celda_seleccionada = detectar_celda(posicion,todas_las_celdas) #detecta celda seleccionada
                         dibujar_borde_verde(pantalla,celda_seleccionada) #dibuja un bordecito verde en la celda clickeada
                         
-                        
-                        if boton_reiniciar_juego.collidepoint(posicion): #detecta click en  boton "reiniciar juego"
-                            print("reiniciar presionado")
-                            
+                        #validar celda
                         if boton_validar_celda.collidepoint(posicion):#detecta click en boton "validar celdas"
                             dibujar_todas_las_validaciones(pantalla,flag_sector_1,flag_sector_2,flag_sector_3,
                             flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9,flag_filas_0_3,flag_filas_3_6)
                             
                             puntaje = sumar_restar_puntaje(lista_de_banderas,puntaje)
-                            if puntaje > 162:
+                            bandera_final = validar_final(lista_de_banderas)
+                            if bandera_final:
                                 fin = True
                                 actualizar_puntaje_json(texto_para_ingresar,puntaje)
+                                
                             print(f"puntaje: {puntaje}")
-
                             print("validar celda presionado")
-                        
+
+                        #reiniciar
+                        if boton_reiniciar_juego.collidepoint(posicion): #detecta click en  boton "reiniciar juego"
+                            reiniciar_juego = True
+                            if reiniciar_juego == True:
+                                matriz_vacia = iniciar_matriz(9,9,0) #inicia matriz, | int1 = cantidad de filas| int2 = cantidad de columnas| int3 = numeros que contiene  
+                                matriz_dificil = generar_matriz_completa_C(matriz_vacia) #llena la matriz vacia 
+                                nuevita = agregar_ceros_final(matriz_dificil,6) #limpia ceros y repeticiones 
+                                celda_seleccionada = None
+                                puntaje = 0
+                                reiniciar_juego = False
+                                print("reiniciar presionado")
+
+
                         
                         
                 if modo_dificultad == "medio":
@@ -286,26 +297,38 @@ while True:
                             celda_seleccionada_medio = detectar_celda(posicion,todas_las_celdas_medio) #detecta celda seleccionada
                             dibujar_borde_verde(pantalla,celda_seleccionada_medio) #dibuja un bordecito verde en la celda clickeada
                             
-                            
-                            if boton_reiniciar_juego.collidepoint(posicion): #detecta click en  boton "reiniciar juego"
-                                print("reiniciar presionado")
                                 
                             if boton_validar_celda.collidepoint(posicion):#detecta click en boton "validar celdas"
                                 dibujar_todas_las_validaciones(pantalla,flag_sector_1,flag_sector_2,flag_sector_3,
                                 flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9,flag_filas_0_3,flag_filas_3_6)
                                 
                                 puntaje = sumar_restar_puntaje(lista_de_banderas,puntaje)
-                                if puntaje > 162:
+                                bandera_final = validar_final(lista_de_banderas)
+                                if bandera_final:
                                     fin = True
                                     actualizar_puntaje_json(texto_para_ingresar,puntaje)
-                                print(f"puntaje: {puntaje}")
-                                print("validar celda presionado")
+                                    print(f"puntaje: {puntaje}")
+                                    print("validar celda presionado")
                              
-                    
+                            if boton_reiniciar_juego.collidepoint(posicion): #boton reiniciar
+                                reiniciar_juego = True
+                                if reiniciar_juego == True:
+                                    matriz_vacia_medio = iniciar_matriz(9,9,0)
+                                    matriz_medio = generar_matriz_completa_C(matriz_vacia_medio) #llena la matriz vacia 
+                                    matriz_general_fin_medio = agregar_ceros_final(matriz_medio,5) #limpia ceros y repeticiones 
+
+                                
+                                    celda_seleccionada_medio = None
+                                    puntaje = 0
+                                    reiniciar_juego = False
+                                    print("reiniciar presionado")
+                            
+                                    
 
                 # facil
                 if modo_dificultad == "facil":
                     
+
                     texto_de_puntaje = fuente.render(str(puntaje), True, (0,0,0))
                     rect_de_puntaje = texto_de_puntaje.get_rect(topleft=(800,20))
                     pantalla.blit(texto_de_puntaje, rect_de_puntaje)
@@ -374,8 +397,6 @@ while True:
                         dibujar_borde_verde(pantalla,celda_seleccionada_facil) #dibuja un bordecito verde en la celda clickeada
                         
                         
-                        if boton_reiniciar_juego.collidepoint(posicion): #detecta click en  boton "reiniciar juego"
-                            print("reiniciar presionado")
                             
                         if boton_validar_celda.collidepoint(posicion):#detecta click en boton "validar celdas"
                             dibujar_todas_las_validaciones(pantalla,flag_sector_1,flag_sector_2,flag_sector_3,
@@ -390,13 +411,20 @@ while True:
                             print(f"puntaje: {puntaje}")
                             print("validar celda presionado")
                              
-                    
+                        if boton_reiniciar_juego.collidepoint(posicion): #detecta click en  boton "reiniciar juego"
+                            reiniciar_juego = True
+                            if reiniciar_juego == True:
+                                matriz_vacia_facil = iniciar_matriz(9,9,0)
+                                matriz_facil = generar_matriz_completa_C(matriz_vacia_facil) #llena la matriz vacia 
+                                matriz_general_fin_facil = agregar_ceros_final(matriz_facil,4) #limpia ceros y repeticiones 
+                                #esto se usa para controlar la interaccion entre funcion "input numero" y "dibujar numero ingresado" en el case "jugar"
+                                celda_seleccionada_facil = None
+                                puntaje = 0
+                                reiniciar_juego = False
+                            print("reiniciar presionado")
                             
-                                    
-                       
-                        
                         #reinicio no hecho - no encuentro la manera  PRINCIPAL 
-                        # - puntaje falta hacer el  guardar json  PRINCIPAL 
+                        
                         # musica no hecha  (opcional)
                         
                            
