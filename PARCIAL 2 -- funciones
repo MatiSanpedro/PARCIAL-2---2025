@@ -114,6 +114,7 @@ def detectar_colisiones_simple(posicion,cuadrados):
 
 
 def dibujar_numeros(pantalla, matriz: list, tamaño, fuente, posicion_x, posicion_y):
+    'recibe surface,matriz,int,font, int e int, dibuja todos los numeros que no sean cero en pantalla, calculando su posicion en base a las coordenadas x,y dadas, retorna una lista'
     lista_de_numeros = []
 
     for fila in range(len(matriz)):
@@ -144,7 +145,7 @@ def dibujar_numeros(pantalla, matriz: list, tamaño, fuente, posicion_x, posicio
 
   
 
-
+#No usado en el juego 
 def mouse_de_inicio(boton1:pg.rect,boton2:pg.rect,boton3:pg.rect,boton4:pg.rect,evento:pg.event,posicion:tuple):
     if evento.type == pg.MOUSEBUTTONDOWN:
         if evento.button ==1:
@@ -265,6 +266,7 @@ def detectar_colisiones_simple(posicion:tuple,cuadrados:list):
             print(f"Hiciste clic en la celda número {i} en posición {rect.topleft}")
             
 
+#No usado en el juego 
 def detectar_todas_las_colisiones(posicion:tuple,celdas_sector_1:list,celdas_sector_2:list,celdas_sector_3:list,celdas_sector_4:list,celdas_sector_5:list,celdas_sector_6:list,celdas_sector_7:list,celdas_sector_8:list,celdas_sector_9:list):
     'recibe la posicion del mouse y 9 listas, detecta las colisiones del click y todos los rect dibujados, no retorna'
     detectar_colisiones_simple(posicion,celdas_sector_1)
@@ -385,22 +387,6 @@ def dibujar_numeros(pantalla:pg.surface, matriz: list, tamaño:int, fuente:pg.fo
                 lista_de_numeros.append(rect)
 
     return lista_de_numeros
-
-
-
-
-
-# Probar estas funciones,
-def unir_matriz_general(matriz_general):
-    """Une las 9 matrices 3x3 en una sola 9x9."""
-    matriz_9x9 = []
-    for fila_entera in range(3):  # cada bloque de 3 espacios (0, 1, 2)
-        for fila_interna in range(3): # I 0 = (0,1,2) I 1 = (3,4,5), etc
-            fila_completa = []   # fila de len = 9
-            for col_bloque in range(3):
-                fila_completa += matriz_general[fila_entera * 3 + col_bloque][fila_interna]
-            matriz_9x9.append(fila_completa)
-    return matriz_9x9
 
 
 
@@ -903,8 +889,7 @@ def dibujar_todas_las_validaciones(pantalla:pg.Surface,bandera_sector1:bool,band
     dibujar_validacion_sector7(pantalla,bandera_sector7)
     dibujar_validacion_sector8(pantalla,bandera_sector8)
     dibujar_validacion_sector9(pantalla,bandera_sector9)
-    #dibujar_validacion_sectores123(pantalla,flag_filas_0_3)
-   # dibujar_validacion_sectores456(pantalla,flag_filas_3_6)
+
 
 
 
@@ -1095,6 +1080,7 @@ def dibujar_validacion_sectores456(pantalla:pg.Surface,flag_filas_3_6:bool):
 #esta es la que sirve de verdad, agrega filas enteras con numeros revueltos 
 #importante, No repite numeros en filas
 def generar_matriz_completa_C(matriz):
+    'recibe matriz, agrega una fila completa de numeros del 1 al 9 mezclados, retorna matriz '
     for fila in range(len(matriz)):
         validos = [1,2,3,4,5,6,7,8,9]
         random.shuffle(validos) #mezcla la lista 
@@ -1104,8 +1090,10 @@ def generar_matriz_completa_C(matriz):
     return matriz
 
 
+
 #funciona excelente, agrega cero donde hay un repetido
 def eliminar_repeticiones_sector1(matriz: list) -> int:
+    'recibe matriz, busca numeros repetidos y los reemplaza por un cero, retorna matriz '
     vistos = []
     ceros_agregados = 0
 
@@ -1127,6 +1115,7 @@ def eliminar_repeticiones_sector1(matriz: list) -> int:
 
 
 def eliminar_repeticiones_sector2(matriz: list) -> int:
+    'recibe matriz, busca numeros repetidos y los reemplaza por un cero, retorna matriz '
     vistos = []
     ceros_agregados = 0
 
@@ -1148,6 +1137,7 @@ def eliminar_repeticiones_sector2(matriz: list) -> int:
 
 
 def eliminar_repeticiones_sector3(matriz: list) -> int:
+    'recibe matriz, busca numeros repetidos y los reemplaza por un cero, retorna matriz '
     vistos = []
     ceros_agregados = 0
 
@@ -1168,6 +1158,7 @@ def eliminar_repeticiones_sector3(matriz: list) -> int:
     return matriz
 
 def eliminar_repeticiones_sector4(matriz: list) -> int:
+    'recibe matriz, busca numeros repetidos y los reemplaza por un cero, retorna matriz '
     vistos = []
     ceros_agregados = 0
 
@@ -1188,6 +1179,7 @@ def eliminar_repeticiones_sector4(matriz: list) -> int:
     return matriz
 
 def eliminar_repeticiones_sector5(matriz: list) -> int:
+    'recibe matriz, busca numeros repetidos y los reemplaza por un cero, retorna matriz '
     vistos = []
     ceros_agregados = 0
 
@@ -1208,6 +1200,7 @@ def eliminar_repeticiones_sector5(matriz: list) -> int:
     return matriz
 
 def eliminar_repeticiones_sector6(matriz: list) -> int:
+    'recibe matriz, busca numeros repetidos y los reemplaza por un cero, retorna matriz '
     vistos = []
     ceros_agregados = 0
 
@@ -1229,6 +1222,7 @@ def eliminar_repeticiones_sector6(matriz: list) -> int:
 
 
 def eliminar_repeticiones_sector7(matriz: list) -> int:
+    'recibe matriz, busca numeros repetidos y los reemplaza por un cero, retorna matriz '
     vistos = []
     ceros_agregados = 0
 
@@ -1250,6 +1244,7 @@ def eliminar_repeticiones_sector7(matriz: list) -> int:
 
 
 def eliminar_repeticiones_sector8(matriz: list) -> int:
+    'recibe matriz, busca numeros repetidos y los reemplaza por un cero, retorna matriz '
     vistos = []
     ceros_agregados = 0
 
@@ -1271,6 +1266,7 @@ def eliminar_repeticiones_sector8(matriz: list) -> int:
 
 
 def eliminar_repeticiones_sector9(matriz: list) -> int:
+    'recibe matriz, busca numeros repetidos y los reemplaza por un cero, retorna matriz '
     vistos = []
     ceros_agregados = 0
 
@@ -1295,6 +1291,7 @@ def eliminar_repeticiones_sector9(matriz: list) -> int:
 
 
 def agregar_mas_ceros_sector_1(matriz: list, cantidad_ceros: int) -> list:
+    'recibe matriz e int, recorre un sector de la matriz y agrega ceros, como maximo el numero que se le pase por parametro, retorna matriz'
     contador_ceros = 0
     posiciones = []
 
@@ -1320,6 +1317,7 @@ def agregar_mas_ceros_sector_1(matriz: list, cantidad_ceros: int) -> list:
 
 
 def agregar_mas_ceros_sector_2(matriz: list, cantidad_ceros: int) -> list:
+    'recibe matriz e int, recorre un sector de la matriz y agrega ceros, como maximo el numero que se le pase por parametro, retorna matriz'
     contador_ceros = 0
     posiciones = []
 
@@ -1344,6 +1342,7 @@ def agregar_mas_ceros_sector_2(matriz: list, cantidad_ceros: int) -> list:
 
 
 def agregar_mas_ceros_sector_3(matriz: list, cantidad_ceros: int) -> list:
+    'recibe matriz e int, recorre un sector de la matriz y agrega ceros, como maximo el numero que se le pase por parametro, retorna matriz'
     contador_ceros = 0
     posiciones = []
 
@@ -1369,6 +1368,7 @@ def agregar_mas_ceros_sector_3(matriz: list, cantidad_ceros: int) -> list:
 
 
 def agregar_mas_ceros_sector_4(matriz: list, cantidad_ceros: int) -> list:
+    'recibe matriz e int, recorre un sector de la matriz y agrega ceros, como maximo el numero que se le pase por parametro, retorna matriz'
     contador_ceros = 0
     posiciones = []
 
@@ -1394,6 +1394,7 @@ def agregar_mas_ceros_sector_4(matriz: list, cantidad_ceros: int) -> list:
 
 
 def agregar_mas_ceros_sector_5(matriz: list, cantidad_ceros: int) -> list:
+    'recibe matriz e int, recorre un sector de la matriz y agrega ceros, como maximo el numero que se le pase por parametro, retorna matriz'
     contador_ceros = 0
     posiciones = []
 
@@ -1418,6 +1419,7 @@ def agregar_mas_ceros_sector_5(matriz: list, cantidad_ceros: int) -> list:
 
 
 def agregar_mas_ceros_sector_6(matriz: list, cantidad_ceros: int) -> list:
+    'recibe matriz e int, recorre un sector de la matriz y agrega ceros, como maximo el numero que se le pase por parametro, retorna matriz'
     contador_ceros = 0
     posiciones = []
 
@@ -1443,6 +1445,7 @@ def agregar_mas_ceros_sector_6(matriz: list, cantidad_ceros: int) -> list:
 
 
 def agregar_mas_ceros_sector_7(matriz: list, cantidad_ceros: int) -> list:
+    'recibe matriz e int, recorre un sector de la matriz y agrega ceros, como maximo el numero que se le pase por parametro, retorna matriz'
     contador_ceros = 0
     posiciones = []
 
@@ -1467,6 +1470,7 @@ def agregar_mas_ceros_sector_7(matriz: list, cantidad_ceros: int) -> list:
 
 
 def agregar_mas_ceros_sector_8(matriz: list, cantidad_ceros: int) -> list:
+    'recibe matriz e int, recorre un sector de la matriz y agrega ceros, como maximo el numero que se le pase por parametro, retorna matriz'
     contador_ceros = 0
     posiciones = []
 
@@ -1491,6 +1495,7 @@ def agregar_mas_ceros_sector_8(matriz: list, cantidad_ceros: int) -> list:
 
 
 def agregar_mas_ceros_sector_9(matriz: list, cantidad_ceros: int) -> list:
+    'recibe matriz e int, recorre un sector de la matriz y agrega ceros, como maximo el numero que se le pase por parametro, retorna matriz'
     contador_ceros = 0
     posiciones = []
 
@@ -1565,19 +1570,6 @@ def limpiar_repetidos_verticales_0_3(matriz)->bool:
 
 
 
-nueva = [[1,2,0,0,0,0,0,0,0],
-         [7,0,2,0,0,0,0,0,0],
-         [7,8,3,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0],
-         [0,0,0,0,0,0,0,0,0],
-         ]
-
-
-
 #guardar json
 def guardar_nombre_puntaje_json(nombre):
     'recibe str, crea un json y guarda el nombre del jugador ingresado dentro del juego por evento.unicode'
@@ -1622,7 +1614,7 @@ def leer_json(nombre_del_archivo)->dict:
     'recibe un archivo .json, extrae los datos del archivo y los guarda en una variable, retorna una variable con los datos. '
     with open(nombre_del_archivo,'r') as archivo_json:
         datos = json.load(archivo_json) #carga el contenido en un diccionario
-        print(datos)
+        
     
     return datos    
         
@@ -1662,3 +1654,5 @@ def formatear_puntaje(puntaje:int) -> str:
 
 def final_de_partida(pantalla):
     pass
+
+
