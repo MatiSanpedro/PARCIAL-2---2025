@@ -161,7 +161,7 @@ flag_columnas_6_9 = False
 #variables de input, solo se usan en una funcion 
 cuadrado_seleccionado = False
 #esto se usa para controlar la interaccion entre funcion "input numero" y "dibujar numero ingresado" en el case "jugar"
-celda_seleccionada = None
+
 
 
 puntaje = 0
@@ -171,7 +171,7 @@ puntaje = 0
 matriz_vacia = iniciar_matriz(9,9,0) #inicia matriz, | int1 = cantidad de filas| int2 = cantidad de columnas| int3 = numeros que contiene  
 matriz_dificil = generar_matriz_completa_C(matriz_vacia) #llena la matriz vacia 
 nuevita = agregar_ceros_final(matriz_dificil,6) #limpia ceros y repeticiones 
-
+celda_seleccionada = None
 
 
 'MATRICES - nivel medio'
@@ -182,12 +182,9 @@ matriz_general_fin_medio = agregar_ceros_final(matriz_medio,5) #limpia ceros y r
 #esto se usa para controlar la interaccion entre funcion "input numero" y "dibujar numero ingresado" en el case "jugar"
 celda_seleccionada_medio = None
 
-
 'MATRICES - nivel facil'
 
 matriz_vacia_facil = iniciar_matriz(9,9,0)
-
-
 matriz_facil = generar_matriz_completa_C(matriz_vacia_facil) #llena la matriz vacia 
 matriz_general_fin_facil = agregar_ceros_final(matriz_facil,4) #limpia ceros y repeticiones 
 #esto se usa para controlar la interaccion entre funcion "input numero" y "dibujar numero ingresado" en el case "jugar"
@@ -196,7 +193,7 @@ celda_seleccionada_facil = None
 reiniciar_juego = False
 
 
-
+'''
 nuevita_C = agregar_ceros_final(copy.deepcopy(matriz_dificil), 6)
 matriz_general_fin_facil_C = (copy.deepcopy(matriz_general_fin_facil))
-matriz_general_fin_medio_C = (copy.deepcopy(matriz_general_fin_medio))
+matriz_general_fin_medio_C = (copy.deepcopy(matriz_general_fin_medio))'''
