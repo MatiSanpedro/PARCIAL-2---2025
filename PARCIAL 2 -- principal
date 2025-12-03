@@ -1,7 +1,7 @@
 import pygame as pg
 import time
 from PARCIAL_2_funciones import *
-from PARCIAL_2_configuraciones import * 
+from PARCIAL_2_configuraciones import *
 import json
 import os
 
@@ -19,7 +19,7 @@ while True:
             pg.quit()
             quit()
 
-        match pantalla_actual:
+        match pantalla_actual: 
 
             case "nombre":  #desde este case se guarda el nombre del jugador, al presionar enter salta hacia el menu de inicio
 
@@ -369,7 +369,6 @@ while True:
                         
                         
                         if boton_reiniciar_juego.collidepoint(posicion): #detecta click en  boton "reiniciar juego"
-                            
                             print("reiniciar presionado")
                             
                         if boton_validar_celda.collidepoint(posicion):#detecta click en boton "validar celdas"
@@ -384,15 +383,10 @@ while True:
                             
                                     
                        #ORDENAR TODOS LOS DEMAS MODO DIFICULTAD IGUAL QUE ESTE (FACIL) !!!
-
-                       # actualizar_puntaje_json(texto_para_ingresar,puntaje_actualizable) #texto para ingresar es el nombre del jugador
-                       # pantalla.blit(texto_de_puntaje,(800,20)) #numeros del puntaje
                         
-                        #reinicio no hecho - no encuentro la manera 
-                        # -validacion esta a medias, falta sumar los 81 puntos - PRINCIPAL 
-                        # - puntaje falta hacer el final de la partida  
-                        #  y guardar json
-                        # musica no hecha 
+                        #reinicio no hecho - no encuentro la manera  PRINCIPAL 
+                        # - puntaje falta hacer el final de la partida  y guardar json  PRINCIPAL 
+                        # musica no hecha  (opcional)
                         
                            
                         #hacer una funcion aparte para revisar zonas
