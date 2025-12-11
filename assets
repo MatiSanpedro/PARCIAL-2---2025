@@ -86,3 +86,70 @@ asda = poblar_matriz(meretriz)
 asda1 = limpiar_repetidos_verticales(asda)
 asda2 = limpiar_repetidos_horizontales(asda1)
 print(asda2,end = "\n")
+
+
+
+def eliminar_verticales_columnas_1(matriz)->bool:
+    'recibe matriz, itera 3 columnas buscando repetidos, True si no hay repetidos, False si hay. Retorna bool'
+    
+    ceros_agregados = 0
+    for columna in range(0,3):
+        vistos = []
+        for fila in range(0,9):
+
+            numero = matriz[fila][columna]
+
+            if numero == 0:
+                continue
+
+            if numero in vistos:
+                matriz[fila][columna] = 0
+                ceros_agregados += 1
+            else:
+                vistos.append(numero)
+
+    return matriz
+
+
+def eliminar_verticales_columnas_2(matriz)->bool:
+    'recibe matriz, itera 3 columnas buscando repetidos, True si no hay repetidos, False si hay. Retorna bool'
+    ceros_agregados = 0
+    
+    for columna in range(3,6):
+        vistos = []
+        for fila in range(0,9):
+
+           numero = matriz[fila][columna]
+
+           if numero == 0:
+               continue
+
+           if numero in vistos:
+               matriz[fila][columna] = 0
+               ceros_agregados += 1
+           else:
+               vistos.append(numero)
+
+    return matriz
+
+
+def eliminar_verticales_columnas_3(matriz)->bool:
+    'recibe matriz, itera 3 columnas buscando repetidos, True si no hay repetidos, False si hay. Retorna bool'
+    ceros_agregados = 0
+    
+    for columna in range(6,9):
+        vistos = []
+        for fila in range(0,9):
+
+           numero = matriz[fila][columna]
+
+           if numero == 0:
+               continue
+
+           if numero in vistos:
+               matriz[fila][columna] = 0
+               ceros_agregados += 1
+           else:
+               vistos.append(numero)
+
+    return matriz
