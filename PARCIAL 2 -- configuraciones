@@ -23,6 +23,12 @@ tamaño = 50
 fondo_pantalla = pg.image.load("sudoku2.jpg")
 correccion_fondo_pantalla = pg.transform.scale(fondo_pantalla,(900,700))
 
+#musica
+mixer.music.load(r'C:\Users\Kaio\Documents\Prog1\musiquita_sudoku.mp3')
+mixer.music.set_volume(0.6)
+
+mixer.music.play()
+pg.mixer.music.play(-1)
 
 pantalla_actual = "nombre" #esto controla los cambios de pantalla del menu 
 
@@ -135,6 +141,7 @@ ver_ranking = False #esta se usa para que "leer json no se ejecute 700 veces "
 
 #banderas de la funcion "validar matriz sector"
 
+
 flag_sector_1 = False       
 flag_sector_2 = False
 flag_sector_3 = False
@@ -145,6 +152,7 @@ flag_sector_6 = False
 flag_sector_7 = False
 flag_sector_8 = False
 flag_sector_9 = False
+lista_de_banderas = [flag_sector_1,flag_sector_2,flag_sector_3,flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9]
 #############
 
 flag_filas_0_3 = False
