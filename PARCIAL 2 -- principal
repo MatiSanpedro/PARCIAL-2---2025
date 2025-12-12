@@ -41,7 +41,7 @@ while True:
                         
             
             case "inicio": #este case es la pantalla principal del menu
-            
+                pausar_despausar(evento)
                 pantalla.blit(correccion_fondo_pantalla,(0,0)) #fondo de pantalla
 
                 pantalla.blit(nivel,(300,100)) #boton 1 
@@ -132,7 +132,7 @@ while True:
             case "jugar":
                 
                 if modo_dificultad == "dificil":
-                    
+                    pausar_despausar(evento)
                     texto_de_puntaje = fuente.render(str(puntaje), True, (0,0,0))
                     rect_de_puntaje = texto_de_puntaje.get_rect(topleft=(800,20))
                     pantalla.blit(texto_de_puntaje, rect_de_puntaje)
@@ -192,7 +192,7 @@ while True:
                             
                             lista_de_banderas = [flag_sector_1,flag_sector_2,flag_sector_3,flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9]
                             #aca deberia ir la funcion de descontar puntos 
-                            print(nuevita)
+                            
                             
                             #Detector de colisiones:
                     if evento.type == pg.MOUSEBUTTONDOWN:
@@ -210,7 +210,6 @@ while True:
                             if bandera_final:
                                 fin = True
                                 actualizar_puntaje_json(texto_para_ingresar,puntaje)
-                                
                             print(f"puntaje: {puntaje}")
                             print("validar celda presionado")
 
@@ -230,6 +229,7 @@ while True:
                         
                         
                 if modo_dificultad == "medio":
+                        pausar_despausar(evento)
                         texto_de_puntaje = fuente.render(str(puntaje), True, (0,0,0))
                         rect_de_puntaje = texto_de_puntaje.get_rect(topleft=(800,20))
                         pantalla.blit(texto_de_puntaje, rect_de_puntaje)
@@ -307,8 +307,8 @@ while True:
                                 if bandera_final:
                                     fin = True
                                     actualizar_puntaje_json(texto_para_ingresar,puntaje)
-                                    print(f"puntaje: {puntaje}")
-                                    print("validar celda presionado")
+                                print(f"puntaje: {puntaje}")
+                                print("validar celda presionado")
                              
                             if boton_reiniciar_juego.collidepoint(posicion): #boton reiniciar
                                 reiniciar_juego = True
@@ -327,7 +327,7 @@ while True:
 
                 # facil
                 if modo_dificultad == "facil":
-                    
+                    pausar_despausar(evento)
 
                     texto_de_puntaje = fuente.render(str(puntaje), True, (0,0,0))
                     rect_de_puntaje = texto_de_puntaje.get_rect(topleft=(800,20))
@@ -405,8 +405,8 @@ while True:
                             puntaje = sumar_restar_puntaje(lista_de_banderas,puntaje)
                             bandera_final = validar_final(lista_de_banderas)
                             if bandera_final:
-                                    fin = True
-                                    actualizar_puntaje_json(texto_para_ingresar,puntaje)
+                                fin = True
+                                actualizar_puntaje_json(texto_para_ingresar,puntaje)
 
                             print(f"puntaje: {puntaje}")
                             print("validar celda presionado")
@@ -423,29 +423,29 @@ while True:
                                 reiniciar_juego = False
                             print("reiniciar presionado")
                             
-                        #reinicio no hecho - no encuentro la manera  PRINCIPAL 
-                        
-                        # musica no hecha  (opcional)
-                        
+                         
+                                          
                            
-                        #hacer una funcion aparte para revisar zonas
+                       
              
                     
             case "ver puntaje":
                     
                     if not ver_ranking: #uso esta bandera porque de lo contrario la funcion "leer json" se llama mil veces seguidas
                         nombre_y_puntaje = leer_json("nombres_puntaje.json")
+                        datos_ordenados = ordenar_puntaje(nombre_y_puntaje)
+                        
                         ver_ranking = True 
                     if pantalla_actual != "ver puntaje": #cuando cierro el "case", la bandera vuelve a ser false"
                         ver_ranking = False
 
 
                     pantalla.blit(correccion_fondo_pantalla, (0, 0))#blit de fondo de pantalla
-                    ultimos_4 = nombre_y_puntaje[-5:][::-1] #[-5] significa, desde el ultimo elemento, 5 hacia atras 
+                    datos_ordenados[-5:][::-1] #[-5] significa, desde el ultimo elemento, 5 hacia atras 
                     #[::-1] es lo mismo que sort=reverse, pero escrito en numeros, ordena a la inversa 
                     y = 250  # posicion vertical inicial, se mueve +40 dentro del for 
 
-                    for jugador in ultimos_4: #necesito este for para ver los ultimos 4 casos 
+                    for jugador in datos_ordenados: #necesito este for para ver los ultimos 4 casos 
                         ambos_datos = f"{jugador['nombre']} - {jugador['puntaje']}" #extraigo datos del dict, lo paso a string 
                         surface_ambos_datos = fuente.render(ambos_datos, True, (255, 255, 255),(0,0,0))  #render para texto 
                         pantalla.blit(surface_ambos_datos, (300, y)) #blit de ambos datos 
@@ -461,9 +461,18 @@ while True:
                 
                     
                 
-
                 
                          
     
 
     pg.display.flip()
+
+
+
+
+
+    
+
+
+    
+
