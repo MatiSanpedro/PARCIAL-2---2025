@@ -1526,25 +1526,30 @@ def agregar_mas_ceros_sector_9(matriz: list, cantidad_ceros: int) -> list:
 
 def agregar_ceros_final(matriz:list,cantidad:int)->list:
     'recibe matriz e int(cantidad), limpia repetidos y agrega ceros a los sectores de la matriz 9x9, retorna matriz'
-    
-    sec1 = eliminar_repeticiones_sector1(matriz)
-    sec1 = agregar_mas_ceros_sector_1(matriz,cantidad)
-    sec2 = eliminar_repeticiones_sector2(matriz)
-    sec2 = agregar_mas_ceros_sector_2(matriz,cantidad)
-    sec3 = eliminar_repeticiones_sector3(matriz)
-    sec3 = agregar_mas_ceros_sector_3(matriz,cantidad)
-    sec4 = eliminar_repeticiones_sector4(matriz)
-    sec4 = agregar_mas_ceros_sector_4(matriz,cantidad)
-    sec5 = eliminar_repeticiones_sector5(matriz)
-    sec5 = agregar_mas_ceros_sector_5(matriz,cantidad)
-    sec6 = eliminar_repeticiones_sector6(matriz)
-    sec6 = agregar_mas_ceros_sector_6(matriz,cantidad)
-    sec7 = eliminar_repeticiones_sector7(matriz)
-    sec7 = agregar_mas_ceros_sector_7(matriz,cantidad)
-    sec8 = eliminar_repeticiones_sector8(matriz)
-    sec8 = agregar_mas_ceros_sector_8(matriz,cantidad)
-    sec9 = eliminar_repeticiones_sector9(matriz)
-    sec9 = agregar_mas_ceros_sector_9(matriz,cantidad)
+    #columnas
+    matriz = eliminar_verticales_columnas_1(matriz)
+    matriz = eliminar_verticales_columnas_2(matriz)
+    matriz = eliminar_verticales_columnas_3(matriz)
+
+    #sectores
+    matriz = eliminar_repeticiones_sector1(matriz)
+    matriz = agregar_mas_ceros_sector_1(matriz,cantidad)
+    matriz = eliminar_repeticiones_sector2(matriz)
+    matriz = agregar_mas_ceros_sector_2(matriz,cantidad)
+    matriz = eliminar_repeticiones_sector3(matriz)
+    matriz = agregar_mas_ceros_sector_3(matriz,cantidad)
+    matriz = eliminar_repeticiones_sector4(matriz)
+    matriz = agregar_mas_ceros_sector_4(matriz,cantidad)
+    matriz = eliminar_repeticiones_sector5(matriz)
+    matriz = agregar_mas_ceros_sector_5(matriz,cantidad)
+    matriz = eliminar_repeticiones_sector6(matriz)
+    matriz = agregar_mas_ceros_sector_6(matriz,cantidad)
+    matriz = eliminar_repeticiones_sector7(matriz)
+    matriz = agregar_mas_ceros_sector_7(matriz,cantidad)
+    matriz = eliminar_repeticiones_sector8(matriz)
+    matriz = agregar_mas_ceros_sector_8(matriz,cantidad)
+    matriz = eliminar_repeticiones_sector9(matriz)
+    matriz = agregar_mas_ceros_sector_9(matriz,cantidad)
 
 
     return matriz 
@@ -1679,7 +1684,7 @@ def ordenar_puntaje(nombre_y_puntaje:dict)->dict:
 
 
 
-def eliminar_verticales_columnas_1(matriz)->bool:
+def eliminar_verticales_columnas_1(matriz)->list:
     'recibe matriz, itera 3 columnas buscando repetidos, True si no hay repetidos, False si hay. Retorna bool'
     
     ceros_agregados = 0
@@ -1701,7 +1706,7 @@ def eliminar_verticales_columnas_1(matriz)->bool:
     return matriz
 
 
-def eliminar_verticales_columnas_2(matriz)->bool:
+def eliminar_verticales_columnas_2(matriz)->list:
     'recibe matriz, itera 3 columnas buscando repetidos, True si no hay repetidos, False si hay. Retorna bool'
     ceros_agregados = 0
     
@@ -1723,7 +1728,7 @@ def eliminar_verticales_columnas_2(matriz)->bool:
     return matriz
 
 
-def eliminar_verticales_columnas_3(matriz)->bool:
+def eliminar_verticales_columnas_3(matriz)->list:
     'recibe matriz, itera 3 columnas buscando repetidos, True si no hay repetidos, False si hay. Retorna bool'
     ceros_agregados = 0
     
