@@ -155,15 +155,15 @@ flag_sector_9 = False
 lista_de_banderas = [flag_sector_1,flag_sector_2,flag_sector_3,flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9]
 #############
 
-flag_filas_0_3 = False
-flag_filas_3_6 = False
-flag_filas_6_9 = False
-#############
-
-flag_columnas_0_3 = False 
-flag_columnas_3_6 = False
-flag_columnas_6_9 = False
-
+bandera_fila1 = False
+bandera_fila2 = False
+bandera_fila3 = False
+bandera_fila4 = False
+bandera_fila5 = False
+bandera_fila6 = False
+bandera_fila7 = False
+bandera_fila8 = False
+bandera_fila9 = False
 
 
 #variables de input, solo se usan en una funcion 
