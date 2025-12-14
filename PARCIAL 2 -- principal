@@ -132,7 +132,7 @@ while True:
             case "jugar":
                 
                 if modo_dificultad == "dificil":
-                    pausar_despausar(evento)
+                    pausar_despausar(evento) #pausa/despausa 
                     texto_de_puntaje = fuente.render(str(puntaje), True, (0,0,0))
                     rect_de_puntaje = texto_de_puntaje.get_rect(topleft=(800,20))
                     pantalla.blit(texto_de_puntaje, rect_de_puntaje)
@@ -190,8 +190,20 @@ while True:
 
                             
                             
-                            lista_de_banderas = [flag_sector_1,flag_sector_2,flag_sector_3,flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9]
-                            #aca deberia ir la funcion de descontar puntos 
+                    lista_de_banderas_sectores = [flag_sector_1,flag_sector_2,flag_sector_3,flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9]
+                            
+                    bandera_fila1 = validar_matriz_fila_1(nuevita)
+                    bandera_fila2 = validar_matriz_fila_2(nuevita)
+                    bandera_fila3 = validar_matriz_fila_3(nuevita)
+                    bandera_fila4 = validar_matriz_fila_4(nuevita)
+                    bandera_fila5 = validar_matriz_fila_5(nuevita)
+                    bandera_fila6 = validar_matriz_fila_6(nuevita)
+                    bandera_fila7 = validar_matriz_fila_7(nuevita)
+                    bandera_fila8 = validar_matriz_fila_8(nuevita)
+                    bandera_fila9 = validar_matriz_fila_9(nuevita)
+
+                    lista_de_banderas_filas = [bandera_fila1,bandera_fila2,bandera_fila3,bandera_fila4,bandera_fila5,bandera_fila6,bandera_fila7,bandera_fila8,bandera_fila9]
+                            
                             
                             
                             #Detector de colisiones:
@@ -202,11 +214,13 @@ while True:
                         
                         #validar celda
                         if boton_validar_celda.collidepoint(posicion):#detecta click en boton "validar celdas"
-                            dibujar_todas_las_validaciones(pantalla,flag_sector_1,flag_sector_2,flag_sector_3,
-                            flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9,flag_filas_0_3,flag_filas_3_6)
+                            dibujar_todas_las_validaciones_sectores(pantalla,flag_sector_1,flag_sector_2,flag_sector_3,
+                            flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9)
                             
-                            puntaje = sumar_restar_puntaje(lista_de_banderas,puntaje)
-                            bandera_final = validar_final(lista_de_banderas)
+                            
+                            puntaje = sumar_restar_puntaje(lista_de_banderas_sectores,puntaje)
+
+                            bandera_final = validar_final(lista_de_banderas_sectores)
                             if bandera_final:
                                 fin = True
                                 actualizar_puntaje_json(texto_para_ingresar,puntaje)
@@ -287,7 +301,7 @@ while True:
 
                                 
                                 
-                                lista_de_banderas = [flag_sector_1,flag_sector_2,flag_sector_3,flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9]
+                        lista_de_banderas_sectores = [flag_sector_1,flag_sector_2,flag_sector_3,flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9]
                                 #aca deberia ir la funcion de descontar puntos 
                                 
                                 
@@ -299,11 +313,11 @@ while True:
                             
                                 
                             if boton_validar_celda.collidepoint(posicion):#detecta click en boton "validar celdas"
-                                dibujar_todas_las_validaciones(pantalla,flag_sector_1,flag_sector_2,flag_sector_3,
-                                flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9,flag_filas_0_3,flag_filas_3_6)
+                                dibujar_todas_las_validaciones_sectores(pantalla,flag_sector_1,flag_sector_2,flag_sector_3,
+                                flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9,)
                                 
-                                puntaje = sumar_restar_puntaje(lista_de_banderas,puntaje)
-                                bandera_final = validar_final(lista_de_banderas)
+                                puntaje = sumar_restar_puntaje(lista_de_banderas_sectores,puntaje)
+                                bandera_final = validar_final(lista_de_banderas_sectores)
                                 if bandera_final:
                                     fin = True
                                     actualizar_puntaje_json(texto_para_ingresar,puntaje)
@@ -399,8 +413,8 @@ while True:
                         
                             
                         if boton_validar_celda.collidepoint(posicion):#detecta click en boton "validar celdas"
-                            dibujar_todas_las_validaciones(pantalla,flag_sector_1,flag_sector_2,flag_sector_3,
-                            flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9,flag_filas_0_3,flag_filas_3_6)
+                            dibujar_todas_las_validaciones_sectores(pantalla,flag_sector_1,flag_sector_2,flag_sector_3,
+                            flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9,)
                             
                             puntaje = sumar_restar_puntaje(lista_de_banderas,puntaje)
                             bandera_final = validar_final(lista_de_banderas)
@@ -424,9 +438,6 @@ while True:
                             print("reiniciar presionado")
                             
                          
-                                          
-                           
-                       
              
                     
             case "ver puntaje":
@@ -462,7 +473,7 @@ while True:
                     
                 
                 
-                     
+                         
     
 
     pg.display.flip()
