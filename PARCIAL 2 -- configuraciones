@@ -180,15 +180,15 @@ bandera_columna9 = False
 
 
 
-sumar1 = True
-sumar2 = True
-sumar3 = True
-sumar4 = True
-sumar5 = True
-sumar6 = True
-sumar7 = True
-sumar8 = True
-sumar9 = True
+sumar1 = False
+sumar2 = False
+sumar3 = False
+sumar4 = False
+sumar5 = False
+sumar6 = False
+sumar7 = False
+sumar8 = False
+sumar9 = False
 
 
 #variables de input, solo se usan en una funcion 
