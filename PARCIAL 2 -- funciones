@@ -1055,7 +1055,7 @@ def dibujar_validacion_fila1(pantalla:pg.Surface,bandera_fila1:bool):
     if bandera_fila1 :
         pg.draw.rect(pantalla,(0,0,140),rect,3)
     else:
-        pg.draw.rect(pantalla,(120,0,),rect,3)
+        pg.draw.rect(pantalla,(120,0,0),rect,3)
 
 def dibujar_validacion_fila2(pantalla:pg.Surface,bandera_fila1:bool):
     'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
@@ -2395,8 +2395,63 @@ def sumar_9_zona_1(puntaje:int,bandera_sector1:bool,bandera_fila1:bool,bandera_f
     return puntaje 
 
 
+def sumar_9_zona_2(puntaje:int,bandera_sector2:bool,bandera_fila1:bool,bandera_fila2:bool,bandera_fila3:bool,bandera_columna4:bool,bandera_columna5:bool,bandera_columna6:bool)->int:
+    'recibe int(puntaje) y 7 bool: sector1, filas 123 y columnas 123, verifica si todas son verdaderas para sumar +9 al puntaje. Retorna Int'
+    
+    banderas = [bandera_sector2,bandera_fila1,bandera_fila2,bandera_fila3,bandera_columna4,bandera_columna5,bandera_columna6]
+    
+
+    if all(banderas) == True:
+        puntaje +=9
+    else:
+        puntaje = puntaje
 
 
+    return puntaje 
+
+
+def sumar_9_zona_3(puntaje:int,bandera_sector3:bool,bandera_fila1:bool,bandera_fila2:bool,bandera_fila3:bool,bandera_columna7:bool,bandera_columna8:bool,bandera_columna9:bool)->int:
+    'recibe int(puntaje) y 7 bool: sector1, filas 123 y columnas 123, verifica si todas son verdaderas para sumar +9 al puntaje. Retorna Int'
+    
+    banderas = [bandera_sector3,bandera_fila1,bandera_fila2,bandera_fila3,bandera_columna7,bandera_columna8,bandera_columna9]
+    
+
+    if all(banderas) == True:
+        puntaje +=9
+    else:
+        puntaje = puntaje
+
+
+    return puntaje 
+
+def sumar_9_zona_4(puntaje:int,bandera_sector4:bool,bandera_fila4:bool,bandera_fila5:bool,bandera_fila6:bool,bandera_columna1:bool,bandera_columna2:bool,bandera_columna3:bool)->int:
+    'recibe int(puntaje) y 7 bool: sector1, filas 123 y columnas 123, verifica si todas son verdaderas para sumar +9 al puntaje. Retorna Int'
+    
+    banderas = [bandera_sector4,bandera_fila4,bandera_fila4,bandera_fila6,bandera_columna1,bandera_columna2,bandera_columna3]
+    
+
+    if all(banderas) == True:
+        puntaje +=9
+    else:
+        puntaje = puntaje
+
+
+    return puntaje 
+
+
+def sumar_9_zona_5(puntaje:int,bandera_sector5:bool,bandera_fila4:bool,bandera_fila5:bool,bandera_fila6:bool,bandera_columna4:bool,bandera_columna5:bool,bandera_columna6:bool)->int:
+    'recibe int(puntaje) y 7 bool: sector1, filas 123 y columnas 123, verifica si todas son verdaderas para sumar +9 al puntaje. Retorna Int'
+    
+    banderas = [bandera_sector5,bandera_fila4,bandera_fila4,bandera_fila6,bandera_columna4,bandera_columna5,bandera_columna6]
+    
+
+    if all(banderas) == True:
+        puntaje +=9
+    else:
+        puntaje = puntaje
+
+
+    return puntaje 
 
 
 #validar por fila y columna, y numero incorrecto
