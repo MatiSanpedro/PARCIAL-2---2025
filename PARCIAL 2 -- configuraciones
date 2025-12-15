@@ -141,7 +141,7 @@ ver_ranking = False #esta se usa para que "leer json no se ejecute 700 veces "
 
 #banderas de la funcion "validar matriz sector"
 
-
+#banderas - sectores/zonas
 flag_sector_1 = False       
 flag_sector_2 = False
 flag_sector_3 = False
@@ -155,15 +155,28 @@ flag_sector_9 = False
 lista_de_banderas = [flag_sector_1,flag_sector_2,flag_sector_3,flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9]
 #############
 
-bandera_fila1 = False
-bandera_fila2 = False
-bandera_fila3 = False
-bandera_fila4 = False
-bandera_fila5 = False
-bandera_fila6 = False
-bandera_fila7 = False
-bandera_fila8 = False
-bandera_fila9 = False
+#banderas - filas
+bandera_fila1 = True
+bandera_fila2 = True
+bandera_fila3 = True
+bandera_fila4 = True
+bandera_fila5 = True
+bandera_fila6 = True
+bandera_fila7 = True
+bandera_fila8 = True
+bandera_fila9 = True
+
+#banderas - columnas
+
+bandera_columna1 = True
+bandera_columna2 = True
+bandera_columna3 = True
+bandera_columna4 = True
+bandera_columna5 = True
+bandera_columna6 = True
+bandera_columna7 = True
+bandera_columna8 = True
+bandera_columna9 = True
 
 
 #variables de input, solo se usan en una funcion 
