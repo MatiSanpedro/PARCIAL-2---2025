@@ -362,8 +362,8 @@ def agregar_numero_a_matriz(evento:pg.event,numero_ingresado:int,celda_seleccion
 
 
 
-def dibujar_numeros(pantalla:pg.surface, matriz: list, tamaño:int, fuente:pg.font, posicion_x:int, posicion_y:int):
-    ''' esta funcion dibuja numeros,todos excepto el 0, en un surface(pantalla) tomandolos de una matriz. Retorna una lista de rect '''
+def dibujar_numeros(pantalla:pg.surface, matriz: list, tamaño:int, fuente:pg.font, posicion_x:int, posicion_y:int)->list:
+    '''recibe surface, lista, int, fuente, int(posicionx) e int(posicion y) esta funcion dibuja numeros,todos excepto el 0, en un surface(pantalla) tomandolos de una matriz. Retorna una lista de rect '''
     lista_de_numeros = []
 
     for fila in range(len(matriz)):
@@ -390,103 +390,6 @@ def dibujar_numeros(pantalla:pg.surface, matriz: list, tamaño:int, fuente:pg.fo
                 lista_de_numeros.append(rect)
 
     return lista_de_numeros
-
-
-
-
-def limpiar_repetidos_horizontales(matriz_grande:list)->list:
-    'recibe una matriz, inspecciona la matriz en busca de repetidos, si encuentra un numero repetido lo reemplaza por un numero al azar que no este en la lista.retorna matriz '
-    for i in range(len(matriz_grande)):
-        numero_random1 = random.randrange(1,10) #numero random1
-        numero_random2 = random.randrange(1,10) #numero random2
-        numero_random3 = random.randrange(1,10) #numero random3
-        numero_random4 = random.randrange(1,10) #numero random4
-        repetidos = set() #set de repetidos
-        vistos = set() #set de numeros vistos 
-
-        for j in range(len(matriz_grande[i])):
-            numero_inspeccionado = matriz_grande[i][j] #numero inspeccionado 
-
-            if numero_inspeccionado in vistos: #si veo un mismo numero, mas de una vez, esta repetido
-                repetidos.add(numero_inspeccionado)
-
-                if numero_inspeccionado in repetidos: # si el numero esta en repetidos
-                    if numero_random1 in matriz_grande[i]:   #verifico si random1 esta en la fila 
-
-                        if numero_random2 in matriz_grande[i]:  #verifico si random2 esta en la fila
-
-                            if numero_random3 in matriz_grande[i]: #verifico si random3 esta en la fila
-
-                                if numero_random4 in matriz_grande[i]: ##verifico si random2 esta en la fila
-                                    matriz_grande[i][j] = 0   # si estan todos repetidos reemplazo el repetido por 0 
-                                else:
-                                    matriz_grande[i][j] = numero_random4  #reemplazo el repetido por random4
-
-                            else:
-                                matriz_grande[i][j] = numero_random3  #reemplazo el repetido por random3
-                        else:
-                            matriz_grande[i][j] = numero_random2 #reemplazo el repetido por random2
-                    else:
-                        matriz_grande[i][j] = numero_random1 #reemplazo el repetido por random1
-            
-            if matriz_grande[i][j] != 0: #distinto de cero
-                vistos.add(numero_inspeccionado) # agrego a la lista de vistos 
-
-    return matriz_grande
-
-
-
-
-def limpiar_repetidos_verticales(matriz_grande:list)->list:
-    'recibe una matriz, crea una columna e intenta reeemplazar los numeros repetidos por otros generados al azar, retorna matriz '
-    for i in range(len(matriz_grande[0])):  
-        numero_random1 = random.randrange(1,10) #numero random1
-        numero_random2 = random.randrange(1,10) #numero random2
-        numero_random3 = random.randrange(1,10) #numero random3
-        numero_random4 = random.randrange(1,10) #numero random4
-        repetidos = set()  #set de numeros repetidos 
-        vistos = set() #set de numeros ya vistos 
-
-       
-        columna_fabricada = [] 
-        for fila in range(9): #solo necesito 9 lugares
-            columna_fabricada.append(matriz_grande[fila][i]) #fabrico 1 columna para revisarla lugar por lugar con for 
-
-        for j in range(len(matriz_grande)):  # filas
-            numero_inspeccionado = matriz_grande[j][i]
-
-            if numero_inspeccionado in vistos:  
-                repetidos.add(numero_inspeccionado)
-
-                if numero_inspeccionado in repetidos:
-
-                    # verifico los numeros en la columna fabricada
-                    if numero_random1 in columna_fabricada:
-
-                        if numero_random2 in columna_fabricada:
-
-                            if numero_random3 in columna_fabricada:
-
-                                if numero_random4 in columna_fabricada:
-                                    matriz_grande[j][i] = 0
-                                else:
-                                    matriz_grande[j][i] = numero_random4
-                                    columna_fabricada[j] = numero_random4  #agrego el numero a la columna fabricada porque estoy comparando con esta misma lista
-                            else:
-                                matriz_grande[j][i] = numero_random3
-                                columna_fabricada[j] = numero_random3
-                        else:
-                            matriz_grande[j][i] = numero_random2
-                            columna_fabricada[j] = numero_random2
-                    else:
-                        matriz_grande[j][i] = numero_random1
-                        columna_fabricada[j] = numero_random1
-
-            if matriz_grande[j][i] != 0:
-                vistos.add(numero_inspeccionado)
-
-    return matriz_grande
-
 
 
 
@@ -922,7 +825,7 @@ def validar_matriz_fila_1(matriz_general_fin:list)->bool:
         if matriz_general_fin[0][i] != 0: #solo me interesan los numeros que no sean cero 
             vistos.add(numero_inspeccionado)
 
-    if len(repetidos) == 0 and not hay_ceros: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
+    if len(repetidos) == 0: # si el largo de repetidos es 0 
         bandera = True
     else:
         bandera = False
@@ -948,7 +851,7 @@ def validar_matriz_fila_2(matriz_general_fin:list)->bool:
         if matriz_general_fin[1][i] != 0: #solo me interesan los numeros que no sean cero 
             vistos.add(numero_inspeccionado)
 
-    if len(repetidos) == 0 and not hay_ceros: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
+    if len(repetidos) == 0: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
         bandera = True
     else:
         bandera = False
@@ -975,7 +878,7 @@ def validar_matriz_fila_3(matriz_general_fin:list)->bool:
         if matriz_general_fin[2][i] != 0: #solo me interesan los numeros que no sean cero 
             vistos.add(numero_inspeccionado)
 
-    if len(repetidos) == 0 and not hay_ceros: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
+    if len(repetidos) == 0: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
         bandera = True
     else:
         bandera = False
@@ -1002,7 +905,7 @@ def validar_matriz_fila_4(matriz_general_fin:list)->bool:
         if matriz_general_fin[3][i] != 0: #solo me interesan los numeros que no sean cero 
             vistos.add(numero_inspeccionado)
 
-    if len(repetidos) == 0 and not hay_ceros: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
+    if len(repetidos) == 0: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
         bandera = True
     else:
         bandera = False
@@ -1029,7 +932,7 @@ def validar_matriz_fila_5(matriz_general_fin:list)->bool:
         if matriz_general_fin[4][i] != 0: #solo me interesan los numeros que no sean cero 
             vistos.add(numero_inspeccionado)
 
-    if len(repetidos) == 0 and not hay_ceros: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
+    if len(repetidos) == 0: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
         bandera = True
     else:
         bandera = False
@@ -1056,7 +959,7 @@ def validar_matriz_fila_6(matriz_general_fin:list)->bool:
         if matriz_general_fin[5][i] != 0: #solo me interesan los numeros que no sean cero 
             vistos.add(numero_inspeccionado)
 
-    if len(repetidos) == 0 and not hay_ceros: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
+    if len(repetidos) == 0: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
         bandera = True
     else:
         bandera = False
@@ -1083,7 +986,7 @@ def validar_matriz_fila_7(matriz_general_fin:list)->bool:
         if matriz_general_fin[6][i] != 0: #solo me interesan los numeros que no sean cero 
             vistos.add(numero_inspeccionado)
 
-    if len(repetidos) == 0 and not hay_ceros: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
+    if len(repetidos) == 0: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
         bandera = True
     else:
         bandera = False
@@ -1110,7 +1013,7 @@ def validar_matriz_fila_8(matriz_general_fin:list)->bool:
         if matriz_general_fin[7][i] != 0: #solo me interesan los numeros que no sean cero 
             vistos.add(numero_inspeccionado)
 
-    if len(repetidos) == 0 and not hay_ceros: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
+    if len(repetidos) == 0: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
         bandera = True
     else:
         bandera = False
@@ -1137,7 +1040,7 @@ def validar_matriz_fila_9(matriz_general_fin:list)->bool:
         if matriz_general_fin[8][i] != 0: #solo me interesan los numeros que no sean cero 
             vistos.add(numero_inspeccionado)
 
-    if len(repetidos) == 0 and not hay_ceros: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
+    if len(repetidos) == 0: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
         bandera = True
     else:
         bandera = False
@@ -1150,75 +1053,74 @@ def dibujar_validacion_fila1(pantalla:pg.Surface,bandera_fila1:bool):
     'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
     rect = pg.Rect(150,150,450,50)
     if bandera_fila1 :
-        pg.draw.rect(pantalla,(0,140,0),rect,3)
+        pg.draw.rect(pantalla,(0,0,140),rect,3)
     else:
-        pg.draw.rect(pantalla,(140,0,0),rect,3)
+        pg.draw.rect(pantalla,(120,0,),rect,3)
 
 def dibujar_validacion_fila2(pantalla:pg.Surface,bandera_fila1:bool):
     'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
     rect = pg.Rect(150,200,450,50)
     if bandera_fila1 :
-        pg.draw.rect(pantalla,(0,140,0),rect,3)
+        pg.draw.rect(pantalla,(0,0,140),rect,3)
     else:
-        pg.draw.rect(pantalla,(140,0,0),rect,3)
+        pg.draw.rect(pantalla,(120,0,0),rect,3)
 
 def dibujar_validacion_fila3(pantalla:pg.Surface,bandera_fila1:bool):
     'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
     rect = pg.Rect(150,250,450,50)
     if bandera_fila1 :
-        pg.draw.rect(pantalla,(0,140,0),rect,3)
+        pg.draw.rect(pantalla,(0,0,140),rect,3)
     else:
-        pg.draw.rect(pantalla,(140,0,0),rect,3)
+        pg.draw.rect(pantalla,(120,0,0),rect,3)
 
 
 def dibujar_validacion_fila4(pantalla:pg.Surface,bandera_fila1:bool):
     'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
     rect = pg.Rect(150,300,450,50)
     if bandera_fila1 :
-        pg.draw.rect(pantalla,(0,140,0),rect,3)
+        pg.draw.rect(pantalla,(0,0,140),rect,3)
     else:
-        pg.draw.rect(pantalla,(140,0,0),rect,3)
+        pg.draw.rect(pantalla,(120,0,0),rect,3)
 
 def dibujar_validacion_fila5(pantalla:pg.Surface,bandera_fila1:bool):
     'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
     rect = pg.Rect(150,350,450,50)
     if bandera_fila1 :
-        pg.draw.rect(pantalla,(0,140,0),rect,3)
+        pg.draw.rect(pantalla,(0,0,140),rect,3)
     else:
-        pg.draw.rect(pantalla,(140,0,0),rect,3)
+        pg.draw.rect(pantalla,(120,0,0),rect,3)
 
 def dibujar_validacion_fila6(pantalla:pg.Surface,bandera_fila1:bool):
     'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
     rect = pg.Rect(150,400,450,50)
     if bandera_fila1 :
-        pg.draw.rect(pantalla,(0,140,0),rect,3)
+        pg.draw.rect(pantalla,(0,0,140),rect,3)
     else:
-        pg.draw.rect(pantalla,(140,0,0),rect,3)
+        pg.draw.rect(pantalla,(120,0,0),rect,3)
 
 def dibujar_validacion_fila7(pantalla:pg.Surface,bandera_fila1:bool):
     'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
     rect = pg.Rect(150,450,450,50)
     if bandera_fila1 :
-        pg.draw.rect(pantalla,(0,140,0),rect,3)
+        pg.draw.rect(pantalla,(0,0,140),rect,3)
     else:
-        pg.draw.rect(pantalla,(140,0,0),rect,3)
+        pg.draw.rect(pantalla,(120,0,0),rect,3)
 
 def dibujar_validacion_fila8(pantalla:pg.Surface,bandera_fila1:bool):
     'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
     rect = pg.Rect(150,500,450,50)
     if bandera_fila1 :
-        pg.draw.rect(pantalla,(0,140,0),rect,3)
+        pg.draw.rect(pantalla,(0,0,140),rect,3)
     else:
-        pg.draw.rect(pantalla,(140,0,0),rect,3)
+        pg.draw.rect(pantalla,(120,0,0),rect,3)
 
 def dibujar_validacion_fila9(pantalla:pg.Surface,bandera_fila1:bool):
     'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
     rect = pg.Rect(150,550,450,50)
     if bandera_fila1 :
-        pg.draw.rect(pantalla,(0,140,0),rect,3)
+        pg.draw.rect(pantalla,(0,0,140),rect,3)
     else:
-        pg.draw.rect(pantalla,(140,0,0),rect,3)
-
+        pg.draw.rect(pantalla,(120,0,0),rect,3)
 
 
 
@@ -1238,191 +1140,267 @@ def dibujar_todas_las_validaciones_filas(pantalla:pg.Surface,bandera_fila1:bool,
     dibujar_validacion_fila9(pantalla,bandera_fila9)
 
 
+#verificaciones_banderas - columnas 
 
 
+# verificaciones_banderas  - Columnas: 
+ 
+def verificar_columna_1(matriz)->bool:
+    'recibe matriz, itera la primer columna buscando numeros repetidos, retorna False si encuentra repetidos, True si no encuentra'
+    bandera = True
+    vistos = []
+    for fila in range(0,9):
+        
+        for j in range(1):
+            numero = matriz[fila][j]
 
+            if numero == 0:
+                continue
 
-#NO USADO 
-def verificar_por_filas_1(matriz)->bool:
-    'verifica las filas 0, 1, 2 y arroja True si no hay repetidos, false si hay repetidos'
-    bandera = False
-    hay_repetidos = False
-    for fila in range(0,3):
-        vistos = set()
-        repetidos = set()
-        for columna in range(0,9):
-
-            numero_inspeccionado = (matriz[fila][columna])
-            
-            if numero_inspeccionado in vistos: #  si esta en vistos, esta repetido 
-               repetidos.add(numero_inspeccionado)
-               hay_repetidos = True
-            if matriz[fila][columna] != 0: #solo me interesan los numeros que no sean cero 
-                vistos.add(numero_inspeccionado)
-                
-    if len(repetidos) == 0 and not hay_repetidos:
-        bandera = True
-    else: bandera = False
-    print("repetidos en filas 0-3 encontrados")
-    return bandera
-                
-
-
-#NO USADO 
-           
-def verificar_por_filas_2(matriz)->bool:
-    'verifica las filas y arroja True si no hay repetidos, false si hay repetidos'
-    bandera = False
-    hay_repetidos = False
-    
-    for fila in range(3,6):
-        vistos = set()
-        repetidos = set()
-        for columna in range(0,9):
-
-            numero_inspeccionado = (matriz[fila][columna])
-            
-            if numero_inspeccionado in vistos: #  si esta en vistos, esta repetido 
-               repetidos.add(numero_inspeccionado)
-               hay_repetidos = True
-            if matriz[fila][columna] != 0: #solo me interesan los numeros que no sean cero 
-                vistos.add(numero_inspeccionado)
-                
-    if len(repetidos) == 0 and not hay_repetidos:
-        bandera = True
-    else: bandera = False
-    print("repetidos en filas 3-6 encontrados")
-    return bandera
-                
-#NO USADO 
-def verificar_por_filas_3(matriz)->bool:
-    bandera = False
-    hay_repetidos = False
-    
-    for fila in range(6,9):
-        vistos = set()
-        repetidos = set()
-        for columna in range(0,9):
-
-            numero_inspeccionado = (matriz[fila][columna])
-            
-            if numero_inspeccionado in vistos: #  si esta en vistos, esta repetido 
-               repetidos.add(numero_inspeccionado)
-               hay_repetidos = True
-            if matriz[fila][columna] != 0: #solo me interesan los numeros que no sean cero 
-                vistos.add(numero_inspeccionado)
-                
-    if len(repetidos) == 0 and not hay_repetidos:
-        bandera = True
-    else: bandera = False 
-    print("repetidos en filas 6-9 encontrados")
+            if numero in vistos:
+                bandera = False
+            else:
+                vistos.append(numero)
 
     return bandera
-                
 
- #NO usado 
-def verificar_por_columnas_1(matriz)->bool:
-    'recibe matriz, itera 3 columnas buscando repetidos, True si no hay repetidos, False si hay. Retorna bool'
-    bandera = False
-    hay_repetidos = False
+
+def verificar_columna_2(matriz)->bool:
+    'recibe matriz, itera la segunda columna buscando numeros repetidos, retorna False si encuentra repetidos, True si no encuentra'
+    bandera = True
+    vistos = []
+    for fila in range(0,9):
     
-    for columna in range(0,3):
-        vistos = set()
-        repetidos = set()
-        for fila in range(0,9):
+        numero = matriz[fila][1]
 
-            numero_inspeccionado = (matriz[fila][columna])
-            
-            if numero_inspeccionado in vistos: #  si esta en vistos, esta repetido 
-               repetidos.add(numero_inspeccionado)
-               hay_repetidos = True
-            if matriz[fila][columna] != 0: #solo me interesan los numeros que no sean cero 
-                vistos.add(numero_inspeccionado)
-                
-    if len(repetidos) == 0 and not hay_repetidos:
-        bandera = True
-    else: bandera = False 
-    print("repetidos en columnas 0,3 encontrados")
-    
-    return bandera
-    
+        if numero == 0:
+            continue
 
+        if numero in vistos:
+            bandera = False
+        else:
+            vistos.append(numero)
 
-
-#NO USADO 
-def verificar_por_columnas_2(matriz)->bool:
-    'recibe matriz, itera 3 columnas buscando repetidos, True si no hay repetidos, False si hay. Retorna bool'
-    bandera = False
-    hay_repetidos = False
-    
-    for columna in range(3,6):
-        vistos = set()
-        repetidos = set()
-        for fila in range(0,9):
-
-            numero_inspeccionado = (matriz[fila][columna])
-            
-            if numero_inspeccionado in vistos: #  si esta en vistos, esta repetido 
-               repetidos.add(numero_inspeccionado)
-               hay_repetidos = True
-            if matriz[fila][columna] != 0: #solo me interesan los numeros que no sean cero 
-                vistos.add(numero_inspeccionado)
-                
-    if len(repetidos) == 0 and not hay_repetidos:
-        bandera = True
-    else: bandera = False 
-    print("repetidos en columnas 3,6 encontrados")
-    
     return bandera
 
-
-#NO USADO 
-def verificar_por_columnas_3(matriz)->bool:
-    'recibe matriz, itera 3 columnas buscando repetidos, True si no hay repetidos, False si hay. Retorna bool'
-    bandera = False
-    hay_repetidos = False
+def verificar_columna_3(matriz)->bool:
+    'recibe matriz, itera la tercer columna buscando numeros repetidos, retorna False si encuentra repetidos, True si no encuentra'
+    bandera = True
+    vistos = []
+    for fila in range(0,9):
     
-    for columna in range(6,9):
-        vistos = set()
-        repetidos = set()
-        for fila in range(0,9):
+        numero = matriz[fila][2]
 
-            numero_inspeccionado = (matriz[fila][columna])
-            
-            if numero_inspeccionado in vistos: #  si esta en vistos, esta repetido 
-               repetidos.add(numero_inspeccionado)
-               hay_repetidos = True
-            if matriz[fila][columna] != 0: #solo me interesan los numeros que no sean cero 
-                vistos.add(numero_inspeccionado)
-                
-    if len(repetidos) == 0 and not hay_repetidos:
-        bandera = True
-    else: bandera = False 
-    print("repetidos en columnas 6,9 encontrados")
-    
+        if numero == 0:
+            continue
+
+        if numero in vistos:
+            bandera = False
+        else:
+            vistos.append(numero)
+
     return bandera
 
-#NO USADO 
-#validacion por filas de los primeros 3 sectores 
-def dibujar_validacion_sectores123(pantalla:pg.Surface,flag_filas_0_3:bool):
+def verificar_columna_4(matriz)->bool:
+    'recibe matriz, itera la cuarta columna buscando numeros repetidos, retorna False si encuentra repetidos, True si no encuentra'
+    bandera = True
+    vistos = []
+    for fila in range(0,9):
+    
+        numero = matriz[fila][3]
+
+        if numero == 0:
+            continue
+
+        if numero in vistos:
+            bandera = False
+        else:
+            vistos.append(numero)
+
+    return bandera
+
+def verificar_columna_5(matriz)->bool:
+    'recibe matriz, itera la quinta columna buscando numeros repetidos, retorna False si encuentra repetidos, True si no encuentra'
+    bandera = True
+    vistos = []
+    for fila in range(0,9):
+    
+        numero = matriz[fila][4]
+
+        if numero == 0:
+            continue
+
+        if numero in vistos:
+            bandera = False
+        else:
+            vistos.append(numero)
+
+    return bandera
+
+def verificar_columna_6(matriz)->bool:
+    'recibe matriz, itera la sexta columna buscando numeros repetidos, retorna False si encuentra repetidos, True si no encuentra'
+    bandera = True
+    vistos = []
+    for fila in range(0,9):
+    
+        numero = matriz[fila][5]
+
+        if numero == 0:
+            continue
+
+        if numero in vistos:
+            bandera = False
+        else:
+            vistos.append(numero)
+
+    return bandera
+
+def verificar_columna_7(matriz)->bool:
+    'recibe matriz, itera la septima columna buscando numeros repetidos, retorna False si encuentra repetidos, True si no encuentra'
+    bandera = True
+    vistos = []
+    for fila in range(0,9):
+    
+        numero = matriz[fila][6]
+
+        if numero == 0:
+            continue
+
+        if numero in vistos:
+            bandera = False
+        else:
+            vistos.append(numero)
+
+    return bandera
+
+def verificar_columna_8(matriz)->bool:
+    'recibe matriz, itera la octava columna buscando numeros repetidos, retorna False si encuentra repetidos, True si no encuentra'
+    bandera = True
+    vistos = []
+    for fila in range(0,9):
+    
+        numero = matriz[fila][7]
+
+        if numero == 0:
+            continue
+
+        if numero in vistos:
+            bandera = False
+        else:
+            vistos.append(numero)
+
+    return bandera
+
+def verificar_columna_9(matriz)->bool:
+    'recibe matriz, itera la novena columna buscando numeros repetidos, retorna False si encuentra repetidos, True si no encuentra'
+    bandera = True
+    vistos = []
+    for fila in range(0,9):
+    
+        numero = matriz[fila][8]
+
+        if numero == 0:
+            continue
+
+        if numero in vistos:
+            bandera = False
+        else:
+            vistos.append(numero)
+
+    return bandera
+
+
+
+#dibujos - columnas 
+def dibujar_validacion_columna1(pantalla:pg.Surface,bandera_columna1:bool):
     'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
-    rect = pg.Rect(150,150,450,150)
-    
-    if flag_filas_0_3 :
-        pg.draw.rect(pantalla,(0,150,0),rect,7)
+    rect = pg.Rect(150,150,50,450)
+    if bandera_columna1 :
+        pg.draw.rect(pantalla,(0,130,0),rect,3)
     else:
-        pg.draw.rect(pantalla,(110,0,0),rect,7)
+        pg.draw.rect(pantalla,(130,0,0),rect,3)
 
-#validacion por filas de los sectores 4,5,6:
-#no usado 
-def dibujar_validacion_sectores456(pantalla:pg.Surface,flag_filas_3_6:bool):
+def dibujar_validacion_columna2(pantalla:pg.Surface,bandera_columna2:bool):
     'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
-    rect = pg.Rect(150,300,450,150)
-    
-    if flag_filas_3_6 :
-        pg.draw.rect(pantalla,(0,150,0),rect,7)
+    rect = pg.Rect(200,150,50,450)
+    if bandera_columna2 :
+        pg.draw.rect(pantalla,(0,130,0),rect,3)
     else:
-        pg.draw.rect(pantalla,(110,0,0),rect,7)
+        pg.draw.rect(pantalla,(130,0,0),rect,3)
+
+def dibujar_validacion_columna3(pantalla:pg.Surface,bandera_columna3:bool):
+    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+    rect = pg.Rect(250,150,50,450)
+    if bandera_columna3 :
+        pg.draw.rect(pantalla,(0,130,0),rect,3)
+    else:
+        pg.draw.rect(pantalla,(130,0,0),rect,3)
+
+def dibujar_validacion_columna4(pantalla:pg.Surface,bandera_columna4:bool):
+    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+    rect = pg.Rect(300,150,50,450)
+    if bandera_columna4 :
+        pg.draw.rect(pantalla,(0,130,0),rect,3)
+    else:
+        pg.draw.rect(pantalla,(130,0,0),rect,3)
+
+
+def dibujar_validacion_columna5(pantalla:pg.Surface,bandera_columna5:bool):
+    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+    rect = pg.Rect(350,150,50,450)
+    if bandera_columna5 :
+        pg.draw.rect(pantalla,(0,130,0),rect,3)
+    else:
+        pg.draw.rect(pantalla,(130,0,0),rect,3)
+
+def dibujar_validacion_columna6(pantalla:pg.Surface,bandera_columna6:bool):
+    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+    rect = pg.Rect(400,150,50,450)
+    if bandera_columna6 :
+        pg.draw.rect(pantalla,(0,130,0),rect,3)
+    else:
+        pg.draw.rect(pantalla,(130,0,0),rect,3)
+
+def dibujar_validacion_columna7(pantalla:pg.Surface,bandera_columna7:bool):
+    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+    rect = pg.Rect(450,150,50,450)
+    if bandera_columna7 :
+        pg.draw.rect(pantalla,(0,130,0),rect,3)
+    else:
+        pg.draw.rect(pantalla,(130,0,0),rect,3)
+
+def dibujar_validacion_columna8(pantalla:pg.Surface,bandera_columna8:bool):
+    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+    rect = pg.Rect(500,150,50,450)
+    if bandera_columna8 :
+        pg.draw.rect(pantalla,(0,130,0),rect,3)
+    else:
+        pg.draw.rect(pantalla,(130,0,0),rect,3)
+
+
+def dibujar_validacion_columna9(pantalla:pg.Surface,bandera_columna9:bool):
+    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+    rect = pg.Rect(550,150,50,450)
+    if bandera_columna9 :
+        pg.draw.rect(pantalla,(0,130,0),rect,3)
+    else:
+        pg.draw.rect(pantalla,(130,0,0),rect,3)
+
+
+def dibujar_todas_las_validaciones_columnas(pantalla:pg.Surface,bandera_columna1:bool,bandera_columna2:bool,bandera_columna3:bool,
+                    bandera_columna4:bool,bandera_columna5:bool,bandera_columna6:bool,bandera_columna7:bool,bandera_columna8:bool,bandera_columna9:bool):
+    'recibe pantalla y 9 bool dibuja los 9 rectangulos verticales, verde o rojo segun si bandera es falso o verdadero '
+
+    dibujar_validacion_columna1(pantalla,bandera_columna1)
+    dibujar_validacion_columna2(pantalla,bandera_columna2)
+    dibujar_validacion_columna3(pantalla,bandera_columna3)
+    dibujar_validacion_columna4(pantalla,bandera_columna4)
+    dibujar_validacion_columna5(pantalla,bandera_columna5)
+    dibujar_validacion_columna6(pantalla,bandera_columna6)
+    dibujar_validacion_columna7(pantalla,bandera_columna7)
+    dibujar_validacion_columna8(pantalla,bandera_columna8)
+    dibujar_validacion_columna9(pantalla,bandera_columna9)
+
 
 
 
@@ -1902,27 +1880,6 @@ def agregar_ceros_final(matriz:list,cantidad:int)->list:
 
 
 
-#NO USADO 
-def limpiar_repetidos_verticales_0_3(matriz)->bool:
-    'recibe matriz, itera 3 columnas buscando repetidos, True si no hay repetidos, False si hay. Retorna bool'
-    
-    for columna in range(0,3):
-        vistos = set()
-        
-        for fila in range(0,9):
-
-            numero_inspeccionado = (matriz[fila][columna])
-            
-            if numero_inspeccionado in vistos: #  si esta en vistos, esta repetido 
-                matriz[fila][columna] = 0
-
-            if matriz[fila][columna] != 0: #solo me interesan los numeros que no sean cero 
-                vistos.add(numero_inspeccionado)
-                
-      
-    return matriz
-    
-
 
 
 #guardar json
@@ -1974,21 +1931,7 @@ def leer_json(nombre_del_archivo)->dict:
     return datos    
         
     
-#control de puntaje
-def sumar_restar_puntaje(flags:list, puntaje:int) -> int:
-    "recibe lista de bandderas, recorre la lista y verifica: True  suma 9 puntos | False  resta 1 punto, retorna int"
-    
-    for flag in flags:
-        if flag:
-            puntaje += 9
-        else:
-            puntaje -= 1
 
-    if all(flags) == True:
-        puntaje += 81
-        
-
-    return puntaje
 
 
 def validar_final(lista:list):
@@ -2122,171 +2065,304 @@ def verificar_todas_las_filas(matriz)->bool:
 
     return bandera
                 
-#usar esta para verificar la columna1 
-def verificar_columna_1(matriz)->bool:
-    'recibe matriz, itera la primer columna buscando numeros repetidos, retorna False si encuentra repetidos, True si no encuentra'
-    bandera = True
+def encontrar_cantidad_de_repetidos_sector1(matriz)->bool:
+    'recibe lista, recorre un sector 3x3 buscando repetidos,acumula la cantidad de repetidos en una lista, devuelve (int) la cantidad de numeros repetidos '
+    
+    repetidos = []
     vistos = []
-    for fila in range(0,9):
+    for fila in range(0,3):
         
-        for j in range(1):
-            numero = matriz[fila][j]
+        
+        for columna in range(0,3):
 
-            if numero == 0:
-                continue
+            numero_inspeccionado = (matriz[fila][columna])
+            
+            if numero_inspeccionado in vistos: #  si esta en vistos, esta repetido 
+               repetidos.append(numero_inspeccionado)
+               
+            if matriz[fila][columna] != 0: #solo me interesan los numeros que no sean cero 
+                vistos.append(numero_inspeccionado)
+                
+    retorno = len(repetidos)
 
-            if numero in vistos:
-                bandera = False
-            else:
-                vistos.append(numero)
+    return retorno
 
-    return bandera
 
-#usar esta para verificar la columna2 
-def verificar_columna_2(matriz)->bool:
-    'recibe matriz, itera la segunda columna buscando numeros repetidos, retorna False si encuentra repetidos, True si no encuentra'
-    bandera = True
-    vistos = []
-    for fila in range(0,9):
+def encontrar_cantidad_de_repetidos_sector2(matriz)->bool:
+    'recibe lista, recorre todas las filas buscando repetidos,acumula la cantidad de repetidos en una lista, devuelve (int) la cantidad de numeros repetidos '
     
-        numero = matriz[fila][1]
-
-        if numero == 0:
-            continue
-
-        if numero in vistos:
-            bandera = False
-        else:
-            vistos.append(numero)
-
-    return bandera
-
-def verificar_columna_3(matriz)->bool:
-    'recibe matriz, itera la tercer columna buscando numeros repetidos, retorna False si encuentra repetidos, True si no encuentra'
-    bandera = True
+    repetidos = []
     vistos = []
-    for fila in range(0,9):
+    for fila in range(0,3):
+        
+        
+        for columna in range(3,6):
+
+            numero_inspeccionado = (matriz[fila][columna])
+            
+            if numero_inspeccionado in vistos: #  si esta en vistos, esta repetido 
+               repetidos.append(numero_inspeccionado)
+               
+            if matriz[fila][columna] != 0: #solo me interesan los numeros que no sean cero 
+                vistos.append(numero_inspeccionado)
+                
+    retorno = len(repetidos)
+
+    return retorno
+
+
+def encontrar_cantidad_de_repetidos_sector3(matriz)->bool:
+    'recibe lista, recorre todas las filas buscando repetidos,acumula la cantidad de repetidos en una lista, devuelve (int) la cantidad de numeros repetidos '
     
-        numero = matriz[fila][2]
-
-        if numero == 0:
-            continue
-
-        if numero in vistos:
-            bandera = False
-        else:
-            vistos.append(numero)
-
-    return bandera
-
-def verificar_columna_4(matriz)->bool:
-    'recibe matriz, itera la cuarta columna buscando numeros repetidos, retorna False si encuentra repetidos, True si no encuentra'
-    bandera = True
+    repetidos = []
     vistos = []
-    for fila in range(0,9):
+    for fila in range(0,3):
+        
+        
+        for columna in range(6,9):
+
+            numero_inspeccionado = (matriz[fila][columna])
+            
+            if numero_inspeccionado in vistos: #  si esta en vistos, esta repetido 
+               repetidos.append(numero_inspeccionado)
+               
+            if matriz[fila][columna] != 0: #solo me interesan los numeros que no sean cero 
+                vistos.append(numero_inspeccionado)
+                
+    retorno = len(repetidos)
+
+    return retorno
+
+def encontrar_cantidad_de_repetidos_sector4(matriz)->bool:
+    'recibe lista, recorre todas las filas buscando repetidos,acumula la cantidad de repetidos en una lista, devuelve (int) la cantidad de numeros repetidos '
     
-        numero = matriz[fila][3]
-
-        if numero == 0:
-            continue
-
-        if numero in vistos:
-            bandera = False
-        else:
-            vistos.append(numero)
-
-    return bandera
-
-def verificar_columna_5(matriz)->bool:
-    'recibe matriz, itera la quinta columna buscando numeros repetidos, retorna False si encuentra repetidos, True si no encuentra'
-    bandera = True
+    repetidos = []
     vistos = []
-    for fila in range(0,9):
+    for fila in range(3,6):
+        
+        for columna in range(0,3):
+
+            numero_inspeccionado = (matriz[fila][columna])
+            
+            if numero_inspeccionado in vistos: #  si esta en vistos, esta repetido 
+               repetidos.append(numero_inspeccionado)
+               
+            if matriz[fila][columna] != 0: #solo me interesan los numeros que no sean cero 
+                vistos.append(numero_inspeccionado)
+                
+    retorno = len(repetidos)
+
+    return retorno
+
+
+def encontrar_cantidad_de_repetidos_sector5(matriz)->bool:
+    'recibe lista, recorre todas las filas buscando repetidos,acumula la cantidad de repetidos en una lista, devuelve (int) la cantidad de numeros repetidos '
     
-        numero = matriz[fila][4]
-
-        if numero == 0:
-            continue
-
-        if numero in vistos:
-            bandera = False
-        else:
-            vistos.append(numero)
-
-    return bandera
-
-def verificar_columna_6(matriz)->bool:
-    'recibe matriz, itera la sexta columna buscando numeros repetidos, retorna False si encuentra repetidos, True si no encuentra'
-    bandera = True
+    repetidos = []
     vistos = []
-    for fila in range(0,9):
+    for fila in range(3,6):
+        
+        for columna in range(3,6):
+
+            numero_inspeccionado = (matriz[fila][columna])
+            
+            if numero_inspeccionado in vistos: #  si esta en vistos, esta repetido 
+               repetidos.append(numero_inspeccionado)
+               
+            if matriz[fila][columna] != 0: #solo me interesan los numeros que no sean cero 
+                vistos.append(numero_inspeccionado)
+                
+    retorno = len(repetidos)
+
+    return retorno
+
+def encontrar_cantidad_de_repetidos_sector6(matriz)->bool:
+    'recibe lista, recorre todas las filas buscando repetidos,acumula la cantidad de repetidos en una lista, devuelve (int) la cantidad de numeros repetidos '
     
-        numero = matriz[fila][5]
-
-        if numero == 0:
-            continue
-
-        if numero in vistos:
-            bandera = False
-        else:
-            vistos.append(numero)
-
-    return bandera
-
-def verificar_columna_7(matriz)->bool:
-    'recibe matriz, itera la septima columna buscando numeros repetidos, retorna False si encuentra repetidos, True si no encuentra'
-    bandera = True
+    repetidos = []
     vistos = []
-    for fila in range(0,9):
+    for fila in range(3,6):
+        
+        for columna in range(6,9):
+
+            numero_inspeccionado = (matriz[fila][columna])
+            
+            if numero_inspeccionado in vistos: #  si esta en vistos, esta repetido 
+               repetidos.append(numero_inspeccionado)
+               
+            if matriz[fila][columna] != 0: #solo me interesan los numeros que no sean cero 
+                vistos.append(numero_inspeccionado)
+                
+    retorno = len(repetidos)
+
+    return retorno
+
+
+def encontrar_cantidad_de_repetidos_sector7(matriz)->bool:
+    'recibe lista, recorre todas las filas buscando repetidos,acumula la cantidad de repetidos en una lista, devuelve (int) la cantidad de numeros repetidos '
     
-        numero = matriz[fila][6]
-
-        if numero == 0:
-            continue
-
-        if numero in vistos:
-            bandera = False
-        else:
-            vistos.append(numero)
-
-    return bandera
-
-def verificar_columna_8(matriz)->bool:
-    'recibe matriz, itera la octava columna buscando numeros repetidos, retorna False si encuentra repetidos, True si no encuentra'
-    bandera = True
+    repetidos = []
     vistos = []
-    for fila in range(0,9):
+    for fila in range(6,9):
+        
+        for columna in range(0,3):
+
+            numero_inspeccionado = (matriz[fila][columna])
+            
+            if numero_inspeccionado in vistos: #  si esta en vistos, esta repetido 
+               repetidos.append(numero_inspeccionado)
+               
+            if matriz[fila][columna] != 0: #solo me interesan los numeros que no sean cero 
+                vistos.append(numero_inspeccionado)
+                
+    retorno = len(repetidos)
+
+    return retorno
+
+
+
+def encontrar_cantidad_de_repetidos_sector8(matriz)->bool:
+    'recibe lista, recorre todas las filas buscando repetidos,acumula la cantidad de repetidos en una lista, devuelve (int) la cantidad de numeros repetidos '
     
-        numero = matriz[fila][7]
-
-        if numero == 0:
-            continue
-
-        if numero in vistos:
-            bandera = False
-        else:
-            vistos.append(numero)
-
-    return bandera
-
-def verificar_columna_9(matriz)->bool:
-    'recibe matriz, itera la novena columna buscando numeros repetidos, retorna False si encuentra repetidos, True si no encuentra'
-    bandera = True
+    repetidos = []
     vistos = []
-    for fila in range(0,9):
+    for fila in range(6,9):
+        
+        for columna in range(3,6):
+
+            numero_inspeccionado = (matriz[fila][columna])
+            
+            if numero_inspeccionado in vistos: #  si esta en vistos, esta repetido 
+               repetidos.append(numero_inspeccionado)
+               
+            if matriz[fila][columna] != 0: #solo me interesan los numeros que no sean cero 
+                vistos.append(numero_inspeccionado)
+                
+    retorno = len(repetidos)
+
+    return retorno
+
+
+def encontrar_cantidad_de_repetidos_sector9(matriz)->bool:
+    'recibe lista, recorre todas las filas buscando repetidos,acumula la cantidad de repetidos en una lista, devuelve (int) la cantidad de numeros repetidos '
     
-        numero = matriz[fila][8]
+    repetidos = []
+    vistos = []
+    for fila in range(6,9):
+        
+        for columna in range(6,9):
 
-        if numero == 0:
-            continue
+            numero_inspeccionado = (matriz[fila][columna])
+            
+            if numero_inspeccionado in vistos: #  si esta en vistos, esta repetido 
+               repetidos.append(numero_inspeccionado)
+               
+            if matriz[fila][columna] != 0: #solo me interesan los numeros que no sean cero 
+                vistos.append(numero_inspeccionado)
+                
+    retorno = len(repetidos)
 
-        if numero in vistos:
-            bandera = False
-        else:
-            vistos.append(numero)
+    return retorno
 
-    return bandera
 
+
+# VERIFICAR y RESTAR LOS PUNTOS DE LOS NUMEROS REPETIDOS EN FILAS  
+def encontrar_cantidad_de_repetidos_por_filas(matriz)->bool:
+    'recibe lista, recorre todas las filas buscando repetidos,acumula la cantidad de repetidos en una lista, devuelve (int) la cantidad de numeros repetidos '
+    
+    repetidos = []
+    
+    for fila in range(0,9):
+        vistos = set()
+        
+        for columna in range(0,9):
+
+            numero_inspeccionado = (matriz[fila][columna])
+            
+            if numero_inspeccionado in vistos: #  si esta en vistos, esta repetido 
+               repetidos.append(numero_inspeccionado)
+               
+            if matriz[fila][columna] != 0: #solo me interesan los numeros que no sean cero 
+                vistos.add(numero_inspeccionado)
+                
+    retorno = len(repetidos)
+
+    return retorno
+                
+
+
+# VERIFICAR y RESTAR LOS PUNTOS DE LOS NUMEROS REPETIDOS EN COLUMNAS 
+def encontrar_cantidad_de_repetidos_por_columnas(matriz)->int:
+    'recibe lista, recorre todas las columnas buscando repetidos,acumula la cantidad de repetidos en una lista, devuelve (int) la cantidad de numeros repetidos '
+    
+    repetidos = []
+    
+    for fila in range(0,9):
+        vistos = set()
+        
+        for columna in range(0,9):
+
+            numero_inspeccionado = (matriz[columna][fila])
+            
+            if numero_inspeccionado in vistos: #  si esta en vistos, esta repetido 
+               repetidos.append(numero_inspeccionado)
+               
+            if matriz[columna][fila] != 0: #solo me interesan los numeros que no sean cero 
+                vistos.add(numero_inspeccionado)
+                
+    retorno = len(repetidos)
+
+    return retorno
+                
+
+#control de puntaje
+def sumar_restar_puntaje(matriz:list,flags:list, puntaje:int) -> int:
+    "recibe lista de bandderas, recorre la lista y verifica: True  suma 9 puntos | False  resta 1 punto, retorna int"
+    repetidos_columnas = encontrar_cantidad_de_repetidos_por_columnas(matriz)
+    repetidos_filas = encontrar_cantidad_de_repetidos_por_filas(matriz)
+    repetidos_sec1 = encontrar_cantidad_de_repetidos_sector1(matriz)
+    repetidos_sec2 = encontrar_cantidad_de_repetidos_sector2(matriz)
+    repetidos_sec3 = encontrar_cantidad_de_repetidos_sector3(matriz)
+    repetidos_sec4 = encontrar_cantidad_de_repetidos_sector4(matriz)
+    repetidos_sec5 = encontrar_cantidad_de_repetidos_sector5(matriz)
+    repetidos_sec6 = encontrar_cantidad_de_repetidos_sector6(matriz)
+    repetidos_sec7 = encontrar_cantidad_de_repetidos_sector7(matriz)
+    repetidos_sec8 = encontrar_cantidad_de_repetidos_sector8(matriz)
+    repetidos_sec9 = encontrar_cantidad_de_repetidos_sector9(matriz)
+
+    puntaje -= repetidos_filas
+    puntaje -= repetidos_columnas
+    puntaje -= repetidos_sec1
+    puntaje -= repetidos_sec2
+    puntaje -= repetidos_sec3
+    puntaje -= repetidos_sec4
+    puntaje -= repetidos_sec5
+    puntaje -= repetidos_sec6
+    puntaje -= repetidos_sec7
+    puntaje -= repetidos_sec8
+    puntaje -= repetidos_sec9
+
+    
+    '''for flag in flags:
+        if flag:
+            puntaje += 9'''
+
+    if all(flags) == True:
+        puntaje += 81
+        
+
+    return puntaje
+
+
+
+def sumar_9_zona_1(puntaje:int,bandera_sector_1:bool,bandera_fila1:bool,bandera_fila2:bool,bandera_fila3:bool,bandera_columna1:bool,bandera_columna2:bool,bandera_columna3:bool)->int:
+    'recibe int(puntaje) y 7 bool: sector1, filas 123 y columnas 123, verifica si todas son verdaderas para sumar +9 al puntaje. Retorna Int'
+    banderas = [bandera_sector_1,bandera_fila1,bandera_fila2,bandera_fila3,bandera_columna1,bandera_columna2,bandera_columna3]
+
+    if all(banderas) == True:
+        puntaje +=9 
+
+    return puntaje 
 
 
 #validar por fila y columna, y numero incorrecto
