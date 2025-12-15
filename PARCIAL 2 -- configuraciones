@@ -156,27 +156,39 @@ lista_de_banderas = [flag_sector_1,flag_sector_2,flag_sector_3,flag_sector_4,fla
 #############
 
 #banderas - filas
-bandera_fila1 = True
-bandera_fila2 = True
-bandera_fila3 = True
-bandera_fila4 = True
-bandera_fila5 = True
-bandera_fila6 = True
-bandera_fila7 = True
-bandera_fila8 = True
-bandera_fila9 = True
+bandera_fila1 = False
+bandera_fila2 = False
+bandera_fila3 = False
+bandera_fila4 = False
+bandera_fila5 = False
+bandera_fila6 = False
+bandera_fila7 = False
+bandera_fila8 = False
+bandera_fila9 = False
 
 #banderas - columnas
 
-bandera_columna1 = True
-bandera_columna2 = True
-bandera_columna3 = True
-bandera_columna4 = True
-bandera_columna5 = True
-bandera_columna6 = True
-bandera_columna7 = True
-bandera_columna8 = True
-bandera_columna9 = True
+bandera_columna1 = False
+bandera_columna2 = False
+bandera_columna3 = False
+bandera_columna4 = False
+bandera_columna5 = False
+bandera_columna6 = False
+bandera_columna7 = False
+bandera_columna8 = False
+bandera_columna9 = False
+
+
+
+sumar1 = True
+sumar2 = True
+sumar3 = True
+sumar4 = True
+sumar5 = True
+sumar6 = True
+sumar7 = True
+sumar8 = True
+sumar9 = True
 
 
 #variables de input, solo se usan en una funcion 
