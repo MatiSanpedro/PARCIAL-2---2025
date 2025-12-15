@@ -460,7 +460,7 @@ def validar_matriz_sector_1(matriz_general_fin:list)->bool:
     vistos = set() #set de numeros vistos 
     hay_ceros = False #bandera que comprueba si existen ceros 
 
-    for i in range(0,9): 
+    for i in range(0,3): 
         
         for j in range(0,3):
             numero_inspeccionado = matriz_general_fin[i][j] 
@@ -2342,7 +2342,7 @@ def sumar_restar_puntaje(matriz:list,flags:list, puntaje:int) -> int:
     puntaje -= repetidos_sec8
     puntaje -= repetidos_sec9
 
-    
+
     '''for flag in flags:
         if flag:
             puntaje += 9'''
@@ -2355,14 +2355,48 @@ def sumar_restar_puntaje(matriz:list,flags:list, puntaje:int) -> int:
 
 
 
-def sumar_9_zona_1(puntaje:int,bandera_sector_1:bool,bandera_fila1:bool,bandera_fila2:bool,bandera_fila3:bool,bandera_columna1:bool,bandera_columna2:bool,bandera_columna3:bool)->int:
+
+
+def sumar_9_zona_1_v2(puntaje:int,matriz:list)->int:
     'recibe int(puntaje) y 7 bool: sector1, filas 123 y columnas 123, verifica si todas son verdaderas para sumar +9 al puntaje. Retorna Int'
-    banderas = [bandera_sector_1,bandera_fila1,bandera_fila2,bandera_fila3,bandera_columna1,bandera_columna2,bandera_columna3]
+    bandera_sector1 = validar_matriz_sector_1(matriz)
+    bandera_fila1 = validar_matriz_fila_1(matriz)
+    bandera_fila2  = validar_matriz_fila_2(matriz)
+    bandera_fila3 = validar_matriz_fila_3(matriz)
+
+    bandera_columna1 = verificar_columna_1(matriz)
+    bandera_columna2 = verificar_columna_2(matriz)
+    bandera_columna3 = verificar_columna_3(matriz)
+
+    banderas = [bandera_sector1,bandera_fila1,bandera_fila2,bandera_fila3,bandera_columna1,bandera_columna2,bandera_columna3]
+    
 
     if all(banderas) == True:
-        puntaje +=9 
+        puntaje +=9
+    else:
+        puntaje = puntaje
+
 
     return puntaje 
+
+
+def sumar_9_zona_1(puntaje:int,bandera_sector1:bool,bandera_fila1:bool,bandera_fila2:bool,bandera_fila3:bool,bandera_columna1:bool,bandera_columna2:bool,bandera_columna3:bool)->int:
+    'recibe int(puntaje) y 7 bool: sector1, filas 123 y columnas 123, verifica si todas son verdaderas para sumar +9 al puntaje. Retorna Int'
+    
+    banderas = [bandera_sector1,bandera_fila1,bandera_fila2,bandera_fila3,bandera_columna1,bandera_columna2,bandera_columna3]
+    
+
+    if all(banderas) == True:
+        puntaje +=9
+    else:
+        puntaje = puntaje
+
+
+    return puntaje 
+
+
+
+
 
 
 #validar por fila y columna, y numero incorrecto
