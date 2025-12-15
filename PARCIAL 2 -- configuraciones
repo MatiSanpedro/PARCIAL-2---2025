@@ -179,7 +179,7 @@ bandera_columna8 = False
 bandera_columna9 = False
 
 
-
+#banderas de control para sumar 9 en puntaje
 sumar1 = False
 sumar2 = False
 sumar3 = False
@@ -225,8 +225,3 @@ celda_seleccionada_facil = None
 
 reiniciar_juego = False
 
-
-'''
-nuevita_C = agregar_ceros_final(copy.deepcopy(matriz_dificil), 6)
-matriz_general_fin_facil_C = (copy.deepcopy(matriz_general_fin_facil))
-matriz_general_fin_medio_C = (copy.deepcopy(matriz_general_fin_medio))'''
