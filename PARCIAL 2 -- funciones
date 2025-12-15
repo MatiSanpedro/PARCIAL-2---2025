@@ -851,7 +851,7 @@ def validar_matriz_fila_2(matriz_general_fin:list)->bool:
         if matriz_general_fin[1][i] != 0: #solo me interesan los numeros que no sean cero 
             vistos.add(numero_inspeccionado)
 
-    if len(repetidos) == 0: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
+    if len(repetidos) == 0: # si el largo de repetidos es 0 
         bandera = True
     else:
         bandera = False
@@ -878,7 +878,7 @@ def validar_matriz_fila_3(matriz_general_fin:list)->bool:
         if matriz_general_fin[2][i] != 0: #solo me interesan los numeros que no sean cero 
             vistos.add(numero_inspeccionado)
 
-    if len(repetidos) == 0: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
+    if len(repetidos) == 0: # si el largo de repetidos es 0 
         bandera = True
     else:
         bandera = False
@@ -905,7 +905,7 @@ def validar_matriz_fila_4(matriz_general_fin:list)->bool:
         if matriz_general_fin[3][i] != 0: #solo me interesan los numeros que no sean cero 
             vistos.add(numero_inspeccionado)
 
-    if len(repetidos) == 0: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
+    if len(repetidos) == 0: # si el largo de repetidos es 0 
         bandera = True
     else:
         bandera = False
@@ -932,7 +932,7 @@ def validar_matriz_fila_5(matriz_general_fin:list)->bool:
         if matriz_general_fin[4][i] != 0: #solo me interesan los numeros que no sean cero 
             vistos.add(numero_inspeccionado)
 
-    if len(repetidos) == 0: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
+    if len(repetidos) == 0: # si el largo de repetidos es 0 
         bandera = True
     else:
         bandera = False
@@ -959,7 +959,7 @@ def validar_matriz_fila_6(matriz_general_fin:list)->bool:
         if matriz_general_fin[5][i] != 0: #solo me interesan los numeros que no sean cero 
             vistos.add(numero_inspeccionado)
 
-    if len(repetidos) == 0: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
+    if len(repetidos) == 0: # si el largo de repetidos es 0 
         bandera = True
     else:
         bandera = False
@@ -986,7 +986,7 @@ def validar_matriz_fila_7(matriz_general_fin:list)->bool:
         if matriz_general_fin[6][i] != 0: #solo me interesan los numeros que no sean cero 
             vistos.add(numero_inspeccionado)
 
-    if len(repetidos) == 0: # si el largo de repetidos es 0 y a la vez no hay ceros en la matriz(osea espacios en blanco)
+    if len(repetidos) == 0: # si el largo de repetidos es 0
         bandera = True
     else:
         bandera = False
@@ -1050,84 +1050,75 @@ def validar_matriz_fila_9(matriz_general_fin:list)->bool:
 
 #todas las filas 
 def dibujar_validacion_fila1(pantalla:pg.Surface,bandera_fila1:bool):
-    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+    'recibe pantalla(surface) y un bool, dibuja un rectangulo rojo si es falso '
     rect = pg.Rect(150,150,450,50)
-    if bandera_fila1 :
-        pg.draw.rect(pantalla,(0,0,140),rect,3)
-    else:
-        pg.draw.rect(pantalla,(120,0,0),rect,3)
+    if bandera_fila1 == False :
+        pg.draw.rect(pantalla,(120,0,0),rect,6)
+    
 
-def dibujar_validacion_fila2(pantalla:pg.Surface,bandera_fila1:bool):
-    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+def dibujar_validacion_fila2(pantalla:pg.Surface,bandera_fila2:bool):
+    'recibe pantalla(surface) y un bool, dibuja un rectangulo rojo si es falso '
     rect = pg.Rect(150,200,450,50)
-    if bandera_fila1 :
-        pg.draw.rect(pantalla,(0,0,140),rect,3)
-    else:
-        pg.draw.rect(pantalla,(120,0,0),rect,3)
+    if bandera_fila2 == False :
+        pg.draw.rect(pantalla,(120,0,0),rect,6)
+    
 
-def dibujar_validacion_fila3(pantalla:pg.Surface,bandera_fila1:bool):
-    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+def dibujar_validacion_fila3(pantalla:pg.Surface,bandera_fila3:bool):
+    'recibe pantalla(surface) y un bool, dibuja un rectangulo rojo si es falso '
     rect = pg.Rect(150,250,450,50)
-    if bandera_fila1 :
-        pg.draw.rect(pantalla,(0,0,140),rect,3)
-    else:
-        pg.draw.rect(pantalla,(120,0,0),rect,3)
+    if bandera_fila3 == False:
+        pg.draw.rect(pantalla,(120,0,0),rect,6)
+    
 
 
-def dibujar_validacion_fila4(pantalla:pg.Surface,bandera_fila1:bool):
-    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+def dibujar_validacion_fila4(pantalla:pg.Surface,bandera_fila4:bool):
+    'recibe pantalla(surface) y un bool, dibuja un rectangulo rojo si es falso '
     rect = pg.Rect(150,300,450,50)
-    if bandera_fila1 :
-        pg.draw.rect(pantalla,(0,0,140),rect,3)
-    else:
-        pg.draw.rect(pantalla,(120,0,0),rect,3)
+    if bandera_fila4 == False:
+        pg.draw.rect(pantalla,(120,0,0),rect,6)
+    
 
-def dibujar_validacion_fila5(pantalla:pg.Surface,bandera_fila1:bool):
-    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+def dibujar_validacion_fila5(pantalla:pg.Surface,bandera_fila5:bool):
+    'recibe pantalla(surface) y un bool, dibuja un rectangulo rojo si es falso '
     rect = pg.Rect(150,350,450,50)
-    if bandera_fila1 :
-        pg.draw.rect(pantalla,(0,0,140),rect,3)
-    else:
-        pg.draw.rect(pantalla,(120,0,0),rect,3)
+    if bandera_fila5 == False :
+        pg.draw.rect(pantalla,(120,0,0),rect,6)
 
-def dibujar_validacion_fila6(pantalla:pg.Surface,bandera_fila1:bool):
-    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+
+def dibujar_validacion_fila6(pantalla:pg.Surface,bandera_fila6:bool):
+    'recibe pantalla(surface) y un bool, dibuja un rectangulo rojo si es falso '
     rect = pg.Rect(150,400,450,50)
-    if bandera_fila1 :
-        pg.draw.rect(pantalla,(0,0,140),rect,3)
-    else:
-        pg.draw.rect(pantalla,(120,0,0),rect,3)
+    if bandera_fila6 == False :
+        pg.draw.rect(pantalla,(120,0,0),rect,6)
 
-def dibujar_validacion_fila7(pantalla:pg.Surface,bandera_fila1:bool):
-    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+
+def dibujar_validacion_fila7(pantalla:pg.Surface,bandera_fila7:bool):
+    'recibe pantalla(surface) y un bool, dibuja un rectangulo rojo si es falso '
     rect = pg.Rect(150,450,450,50)
-    if bandera_fila1 :
-        pg.draw.rect(pantalla,(0,0,140),rect,3)
-    else:
-        pg.draw.rect(pantalla,(120,0,0),rect,3)
+    if bandera_fila7 == False :
+        pg.draw.rect(pantalla,(120,0,0),rect,6)
 
-def dibujar_validacion_fila8(pantalla:pg.Surface,bandera_fila1:bool):
-    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+
+def dibujar_validacion_fila8(pantalla:pg.Surface,bandera_fila8:bool):
+    'recibe pantalla(surface) y un bool, dibuja un rectangulo rojo si es falso '
     rect = pg.Rect(150,500,450,50)
-    if bandera_fila1 :
-        pg.draw.rect(pantalla,(0,0,140),rect,3)
-    else:
-        pg.draw.rect(pantalla,(120,0,0),rect,3)
+    if bandera_fila8 == False :
+        pg.draw.rect(pantalla,(120,0,0),rect,6)
 
-def dibujar_validacion_fila9(pantalla:pg.Surface,bandera_fila1:bool):
-    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+
+def dibujar_validacion_fila9(pantalla:pg.Surface,bandera_fila9:bool):
+    'recibe pantalla(surface) y un bool, dibuja un rectangulo rojo si es falso '
     rect = pg.Rect(150,550,450,50)
-    if bandera_fila1 :
-        pg.draw.rect(pantalla,(0,0,140),rect,3)
-    else:
-        pg.draw.rect(pantalla,(120,0,0),rect,3)
+    if bandera_fila9 == False :
+        pg.draw.rect(pantalla,(120,0,0),rect,6)
+
 
 
 
 #TODAS LAS FILAS
 def dibujar_todas_las_validaciones_filas(pantalla:pg.Surface,bandera_fila1:bool,bandera_fila2:bool,bandera_fila3:bool,
                     bandera_fila4:bool,bandera_fila5:bool,bandera_fila6:bool,bandera_fila7:bool,bandera_fila8:bool,bandera_fila9:bool):
-    'recibe pantalla y 9 bool dibuja los 9 rectangulos segun si bandera es falso o verdadero '
+    'recibe pantalla y 9 bool dibuja los 9 rectangulos si bandera  es falso  '
 
     dibujar_validacion_fila1(pantalla,bandera_fila1)
     dibujar_validacion_fila2(pantalla,bandera_fila2)
@@ -1140,7 +1131,6 @@ def dibujar_todas_las_validaciones_filas(pantalla:pg.Surface,bandera_fila1:bool,
     dibujar_validacion_fila9(pantalla,bandera_fila9)
 
 
-#verificaciones_banderas - columnas 
 
 
 # verificaciones_banderas  - Columnas: 
@@ -1313,83 +1303,70 @@ def verificar_columna_9(matriz)->bool:
 
 #dibujos - columnas 
 def dibujar_validacion_columna1(pantalla:pg.Surface,bandera_columna1:bool):
-    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+    'recibe pantalla(surface) y un bool, dibuja un rectangulo rojo si es falso '
     rect = pg.Rect(150,150,50,450)
-    if bandera_columna1 :
-        pg.draw.rect(pantalla,(0,130,0),rect,3)
-    else:
-        pg.draw.rect(pantalla,(130,0,0),rect,3)
+    if bandera_columna1 == False :
+        pg.draw.rect(pantalla,(130,0,0),rect,6)
+
 
 def dibujar_validacion_columna2(pantalla:pg.Surface,bandera_columna2:bool):
-    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+    'recibe pantalla(surface) y un bool, dibuja un rectangulo rojo si es falso '
     rect = pg.Rect(200,150,50,450)
-    if bandera_columna2 :
-        pg.draw.rect(pantalla,(0,130,0),rect,3)
-    else:
-        pg.draw.rect(pantalla,(130,0,0),rect,3)
+    if bandera_columna2 == False :
+        pg.draw.rect(pantalla,(120,0,0),rect,6)
+
 
 def dibujar_validacion_columna3(pantalla:pg.Surface,bandera_columna3:bool):
-    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+    'recibe pantalla(surface) y un bool, dibuja un rectangulo rojo si es falso '
     rect = pg.Rect(250,150,50,450)
-    if bandera_columna3 :
-        pg.draw.rect(pantalla,(0,130,0),rect,3)
-    else:
-        pg.draw.rect(pantalla,(130,0,0),rect,3)
+    if bandera_columna3 == False :
+        pg.draw.rect(pantalla,(120,0,0),rect,6)
+
 
 def dibujar_validacion_columna4(pantalla:pg.Surface,bandera_columna4:bool):
-    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+    'recibe pantalla(surface) y un bool, dibuja un rectangulo rojo si es falso '
     rect = pg.Rect(300,150,50,450)
-    if bandera_columna4 :
-        pg.draw.rect(pantalla,(0,130,0),rect,3)
-    else:
-        pg.draw.rect(pantalla,(130,0,0),rect,3)
+    if bandera_columna4 == False:
+        pg.draw.rect(pantalla,(120,0,0),rect,6)
 
 
 def dibujar_validacion_columna5(pantalla:pg.Surface,bandera_columna5:bool):
-    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+    'recibe pantalla(surface) y un bool, dibuja un rectangulo rojo si es falso '
     rect = pg.Rect(350,150,50,450)
-    if bandera_columna5 :
-        pg.draw.rect(pantalla,(0,130,0),rect,3)
-    else:
-        pg.draw.rect(pantalla,(130,0,0),rect,3)
+    if bandera_columna5 == False:
+        pg.draw.rect(pantalla,(120,0,0),rect,6)
+
 
 def dibujar_validacion_columna6(pantalla:pg.Surface,bandera_columna6:bool):
-    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+    'recibe pantalla(surface) y un bool, dibuja un rectangulo rojo si es falso '
     rect = pg.Rect(400,150,50,450)
-    if bandera_columna6 :
-        pg.draw.rect(pantalla,(0,130,0),rect,3)
-    else:
-        pg.draw.rect(pantalla,(130,0,0),rect,3)
+    if bandera_columna6 == False:
+        pg.draw.rect(pantalla,(120,0,0),rect,6)
+
 
 def dibujar_validacion_columna7(pantalla:pg.Surface,bandera_columna7:bool):
-    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+    'recibe pantalla(surface) y un bool, dibuja un rectangulo rojo si es falso '
     rect = pg.Rect(450,150,50,450)
-    if bandera_columna7 :
-        pg.draw.rect(pantalla,(0,130,0),rect,3)
-    else:
-        pg.draw.rect(pantalla,(130,0,0),rect,3)
+    if bandera_columna7 == False :
+        pg.draw.rect(pantalla,(120,0,0),rect,6)
 
 def dibujar_validacion_columna8(pantalla:pg.Surface,bandera_columna8:bool):
-    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+    'recibe pantalla(surface) y un bool, dibuja un rectangulo rojo si es falso '
     rect = pg.Rect(500,150,50,450)
-    if bandera_columna8 :
-        pg.draw.rect(pantalla,(0,130,0),rect,3)
-    else:
-        pg.draw.rect(pantalla,(130,0,0),rect,3)
+    if bandera_columna8 == False :
+        pg.draw.rect(pantalla,(120,0,0),rect,6)
 
 
 def dibujar_validacion_columna9(pantalla:pg.Surface,bandera_columna9:bool):
-    'recibe pantalla(surface) y un bool, dibuja un bordecito verde si el bool es verdadero o rojo si es falso '
+    'recibe pantalla(surface) y un bool, dibuja un rectangulo rojo si es falso '
     rect = pg.Rect(550,150,50,450)
-    if bandera_columna9 :
-        pg.draw.rect(pantalla,(0,130,0),rect,3)
-    else:
-        pg.draw.rect(pantalla,(130,0,0),rect,3)
+    if bandera_columna9 == False :
+        pg.draw.rect(pantalla,(120,0,0),rect,6)
 
 
 def dibujar_todas_las_validaciones_columnas(pantalla:pg.Surface,bandera_columna1:bool,bandera_columna2:bool,bandera_columna3:bool,
                     bandera_columna4:bool,bandera_columna5:bool,bandera_columna6:bool,bandera_columna7:bool,bandera_columna8:bool,bandera_columna9:bool):
-    'recibe pantalla y 9 bool dibuja los 9 rectangulos verticales, verde o rojo segun si bandera es falso o verdadero '
+    'recibe pantalla y 9 bool dibuja los 9 rectangulos verticales rojos si bandera es falso '
 
     dibujar_validacion_columna1(pantalla,bandera_columna1)
     dibujar_validacion_columna2(pantalla,bandera_columna2)
@@ -2343,10 +2320,6 @@ def sumar_restar_puntaje(matriz:list,flags:list, puntaje:int) -> int:
     puntaje -= repetidos_sec9
 
 
-    '''for flag in flags:
-        if flag:
-            puntaje += 9'''
-
     if all(flags) == True:
         puntaje += 81
         
@@ -2356,7 +2329,7 @@ def sumar_restar_puntaje(matriz:list,flags:list, puntaje:int) -> int:
 
 
 
-
+#NO USADO, BORRAR
 def sumar_9_zona_1_v2(puntaje:int,matriz:list)->int:
     'recibe int(puntaje) y 7 bool: sector1, filas 123 y columnas 123, verifica si todas son verdaderas para sumar +9 al puntaje. Retorna Int'
     bandera_sector1 = validar_matriz_sector_1(matriz)
