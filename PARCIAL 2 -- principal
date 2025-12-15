@@ -259,11 +259,24 @@ while True:
                                 puntaje = sumar_9_zona_5(puntaje,flag_sector_5,bandera_fila4,bandera_fila5,bandera_fila6,bandera_columna4,bandera_columna5,bandera_columna6)
                                 sumar5 = True
                             
+                            if flag_sector_6 and not sumar6:
+                                puntaje = sumar_9_zona_6(puntaje,flag_sector_6,bandera_fila4,bandera_fila5,bandera_fila6,bandera_columna7,bandera_columna8,bandera_columna9)
+                                sumar6 = True
                             
-                            #condicion fundamental: sector lleno = True + bandera sumar = False -> entra al if  
-                                
+                            if flag_sector_7 and not sumar7:
+                                puntaje = sumar_9_zona_7(puntaje,flag_sector_7,bandera_fila7,bandera_fila8,bandera_fila9,bandera_columna1,bandera_columna2,bandera_columna3)
+                                sumar7 = True
+                            
+                            if flag_sector_8 and not sumar8:
+                                puntaje = sumar_9_zona_7(puntaje,flag_sector_8,bandera_fila7,bandera_fila8,bandera_fila9,bandera_columna4,bandera_columna5,bandera_columna6)
+                                sumar8 = True
+                            
+                            if flag_sector_9 and not sumar9:
+                                puntaje = sumar_9_zona_9(puntaje,flag_sector_9,bandera_fila7,bandera_fila8,bandera_fila9,bandera_columna7,bandera_columna8,bandera_columna9)
+                                sumar9 = True
+                            
 
-                             #llenar con funcion sumar_9_zona_3,4,5,6,7,8,9 ,  no esta creada 
+                             
                                 
 
                             bandera_final = validar_final(lista_de_banderas_sectores)
