@@ -132,6 +132,9 @@ while True:
             case "jugar":
                 
                 if modo_dificultad == "dificil":
+                    #banderas para controlar la suma de puntos 
+                    
+
                     pausar_despausar(evento) #pausa/despausa 
                     texto_de_puntaje = fuente.render(str(puntaje), True, (0,0,0))
                     rect_de_puntaje = texto_de_puntaje.get_rect(topleft=(800,20))
@@ -233,8 +236,11 @@ while True:
                                                                  bandera_fila5,bandera_fila6,bandera_fila7,bandera_fila8,bandera_fila9)
                                                        
                             puntaje = sumar_restar_puntaje(nuevita,lista_de_banderas_sectores,puntaje) #restar puntaje 
-                            puntaje = sumar_9_zona_1(puntaje,flag_sector_1,bandera_fila1,bandera_fila2,bandera_fila3,bandera_columna1,bandera_columna2,bandera_columna3)
-
+                            if sumar1:
+                                puntaje = sumar_9_zona_1(puntaje,flag_sector_1,bandera_fila1,bandera_fila2,bandera_fila3,bandera_columna1,bandera_columna2,bandera_columna3)
+                                sumar1 = False
+                             #llenar con funcion sumar_9_zona_2 ,  no esta creada 
+                                
                             bandera_final = validar_final(lista_de_banderas_sectores)
                             if bandera_final:
                                 fin = True
