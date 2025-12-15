@@ -206,7 +206,6 @@ while True:
                     bandera_fila8 = validar_matriz_fila_8(nuevita)
                     bandera_fila9 = validar_matriz_fila_9(nuevita)
 
-                    lista_de_banderas_filas = [bandera_fila1,bandera_fila2,bandera_fila3,bandera_fila4,bandera_fila5,bandera_fila6,bandera_fila7,bandera_fila8,bandera_fila9]
                     
                     #columnas 
                     bandera_columna1 = verificar_columna_1(nuevita)
@@ -219,7 +218,7 @@ while True:
                     bandera_columna8 = verificar_columna_8(nuevita)
                     bandera_columna9 = verificar_columna_9(nuevita)
 
-                    lista_de_banderas_columnas = [bandera_columna1,bandera_columna2,bandera_columna3,bandera_columna4,bandera_columna5,bandera_columna6,bandera_columna7,bandera_columna8,bandera_columna9]
+                    
 
                             
                             #Detector de colisiones:
@@ -230,11 +229,13 @@ while True:
                         
                         #validar 
                         if boton_validar_celda.collidepoint(posicion):#detecta click en boton "validar celdas"
+
                             dibujar_todas_las_validaciones_sectores(pantalla,flag_sector_1,flag_sector_2,flag_sector_3,
                             flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9)
                             dibujar_todas_las_validaciones_filas(pantalla,bandera_fila1,bandera_fila2,bandera_fila3,bandera_fila4,
                                                                  bandera_fila5,bandera_fila6,bandera_fila7,bandera_fila8,bandera_fila9)
-                                                       
+                            dibujar_todas_las_validaciones_columnas(pantalla,bandera_columna1,bandera_columna2,bandera_columna3,bandera_columna4,bandera_columna5,bandera_columna6,bandera_columna7,bandera_columna8,bandera_columna9)
+                            
                             puntaje = sumar_restar_puntaje(nuevita,lista_de_banderas_sectores,puntaje) #restar puntaje por repetidos en fila,columna o zona
 
                             #sumar 9 puntos por zona completada 
@@ -275,14 +276,14 @@ while True:
                                 puntaje = sumar_9_zona_9(puntaje,flag_sector_9,bandera_fila7,bandera_fila8,bandera_fila9,bandera_columna7,bandera_columna8,bandera_columna9)
                                 sumar9 = True
                             
-
-                             
                                 
-
+                            
+                            
                             bandera_final = validar_final(lista_de_banderas_sectores)
                             if bandera_final:
                                 fin = True
                                 actualizar_puntaje_json(texto_para_ingresar,puntaje)
+                                pantalla_actual = "final"
                             print(f"puntaje: {puntaje}")
                             print("validar  presionado")
 
@@ -528,6 +529,10 @@ while True:
                             pantalla_actual = "inicio" 
                         if evento.key == pg.K_SPACE:#ESPACIO
                             pantalla_actual = "inicio"
+
+            case "final":
+                pass
+
                 
                 
                     
