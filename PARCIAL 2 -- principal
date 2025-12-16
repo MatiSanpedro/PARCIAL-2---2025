@@ -531,15 +531,16 @@ while True:
                             pantalla_actual = "inicio"
 
             case "final":
-                pass
 
+                pantalla.blit(correccion_final_pantalla,(0,0))
+                
                 
                 
                     
                 
                 
                          
-    
+    #actualizar los cases "facil" y "medio", solo el dificil está resuelto 
 
     pg.display.flip()
 
