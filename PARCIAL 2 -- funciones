@@ -2503,3 +2503,4 @@ def sumar_9_por_zona_completada(puntaje:int,flag_sector_1:bool,flag_sector_2:boo
 # armar final de juego(un cartel de victoria o algo asi ) 
 
 
+ 
