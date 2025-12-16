@@ -23,6 +23,11 @@ tamaño = 50
 fondo_pantalla = pg.image.load("sudoku2.jpg")
 correccion_fondo_pantalla = pg.transform.scale(fondo_pantalla,(900,700))
 
+#imagen de final de juego
+fondo_final = pg.image.load("fondo_final.jpeg")
+correccion_final_pantalla = pg.transform.scale(fondo_final, (900,700))
+
+
 #musica
 mixer.music.load(r'C:\Users\Kaio\Documents\Prog1\musiquita_sudoku.mp3')
 mixer.music.set_volume(0.6)
@@ -131,6 +136,15 @@ rect_de_texto_de_palabra_puntaje = texto_de_palabra_puntaje.get_rect(topleft = (
 #texto de numeros puntaje:
 puntaje =  0000
 puntaje_str = formatear_puntaje(puntaje)
+
+
+'boton de final de juego'
+ultimo_boton = pg.Surface((290,50))
+ultimo_boton.fill((0,0,0))
+texto_ultimo_boton = fuente.render("Volver al inicio",True, (250,250,250))
+ultimo_boton_rect = ultimo_boton.get_rect(topleft = (250,350))
+
+
 
 
 
