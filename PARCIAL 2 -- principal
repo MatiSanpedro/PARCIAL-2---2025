@@ -147,6 +147,10 @@ while True:
                     pantalla.blit(reset_juego,(650,400)) #blit de boton "reiniciar juego"
                     pantalla.blit(texto_reiniciar_juego,(667, 415)) #texto de "reiniciar juego "
                     pantalla.blit(texto_de_puntaje,rect_de_puntaje) #numeros del puntaje
+                    pantalla.blit(aclaracion_tecla3,(50,610))
+                    pantalla.blit(aclaracion_tecla1,(50,640))
+                    pantalla.blit(aclaracion_tecla2,(50,670))
+
                     pantalla_actual = pausar_juego(evento,pantalla_actual) #controlador de pantalla, #ESC = volver a inicio - pausar
                     
 
@@ -173,6 +177,9 @@ while True:
                     matriz_general_dibujos = dibujar_numeros(pantalla,nuevita,tamaño, fuente,150,150)
                     
                     #ingresar numero por teclado
+                    #BORRAR ESTO 
+                    
+
                     if evento.type == pg.KEYDOWN and celda_seleccionada is not None:#verifico que sea evento de telclado y se haya clickeado una celda 
                         numero_ingresado = input_numero(evento,celda_seleccionada)
                         nuevita = borrar_numero_de_matriz(nuevita,evento,celda_seleccionada,tamaño,x_inicial=150, y_inicial=150) #funcion borrar numero
@@ -296,6 +303,41 @@ while True:
                                 nuevita = agregar_ceros_final(matriz_dificil,6) #limpia ceros y repeticiones 
                                 celda_seleccionada = None
                                 puntaje = 0
+
+                                flag_sector_1 = False       
+                                flag_sector_2 = False
+                                flag_sector_3 = False
+                                flag_sector_4 = False
+                                flag_sector_4 = False
+                                flag_sector_5 = False
+                                flag_sector_6 = False
+                                flag_sector_7 = False
+                                flag_sector_8 = False
+                                flag_sector_9 = False
+                               
+                                #banderas - filas
+                                bandera_fila1 = False
+                                bandera_fila2 = False
+                                bandera_fila3 = False
+                                bandera_fila4 = False
+                                bandera_fila5 = False
+                                bandera_fila6 = False
+                                bandera_fila7 = False
+                                bandera_fila8 = False
+                                bandera_fila9 = False
+
+                                #banderas - columnas
+
+                                bandera_columna1 = False
+                                bandera_columna2 = False
+                                bandera_columna3 = False
+                                bandera_columna4 = False
+                                bandera_columna5 = False
+                                bandera_columna6 = False
+                                bandera_columna7 = False
+                                bandera_columna8 = False
+                                bandera_columna9 = False
+                                
                                 reiniciar_juego = False
                                 print("reiniciar presionado")
 
@@ -303,106 +345,8 @@ while True:
                         
                         
                 if modo_dificultad == "medio":
-                        pausar_despausar(evento)
-                        texto_de_puntaje = fuente.render(str(puntaje), True, (0,0,0))
-                        rect_de_puntaje = texto_de_puntaje.get_rect(topleft=(800,20))
-                        pantalla.blit(texto_de_puntaje, rect_de_puntaje)
-                    
-                        pantalla.fill((189, 162, 162))#color de fondo de pantalla durante el juego
-                        pantalla.blit(validar_celda,(650,200)) #blit de validar celda
-                        pantalla.blit(texto_validar_celda,(710,215))#blit de texto validar celda
-                        pantalla.blit(texto_de_palabra_puntaje,rect_de_texto_de_palabra_puntaje)#blit de texto "puntaje" 
-                        pantalla.blit(reset_juego,(650,400)) #blit de boton "reiniciar juego"
-                        pantalla.blit(texto_reiniciar_juego,(667, 415)) #texto de "reiniciar juego "
-                        pantalla.blit(texto_de_puntaje,rect_de_puntaje) #numeros del puntaje
-                        pantalla_actual = pausar_juego(evento,pantalla_actual) #controlador de pantalla, #ESC = volver a inicio - pausar
-                    
 
-                        #dibujos de celdas - cuadrados
-                        celdas_sector_1_medio = dibujar_cuadrados(pantalla,50,3,3,150,150)
-                        celdas_sector_2_medio = dibujar_cuadrados(pantalla,50,3,3,300,150)
-                        celdas_sector_3_medio = dibujar_cuadrados(pantalla,50,3,3,450,150)
-                        celdas_sector_4_medio = dibujar_cuadrados(pantalla,50,3,3,150,300)
-                        celdas_sector_5_medio = dibujar_cuadrados(pantalla,50,3,3,300,300)
-                        celdas_sector_6_medio = dibujar_cuadrados(pantalla,50,3,3,450,300)
-                        celdas_sector_7_medio = dibujar_cuadrados(pantalla,50,3,3,150,450)
-                        celdas_sector_8_medio = dibujar_cuadrados(pantalla,50,3,3,300,450)
-                        celdas_sector_9_medio = dibujar_cuadrados(pantalla,50,3,3,450,450)
-
-                        #union de celdas:
-                        todas_las_celdas_medio = (
-                            celdas_sector_1_medio + celdas_sector_2_medio + celdas_sector_3_medio +
-                            celdas_sector_4_medio + celdas_sector_5_medio + celdas_sector_6_medio +
-                            celdas_sector_7_medio + celdas_sector_8_medio + celdas_sector_9_medio)
-
-                        dibujar_lineas(pantalla) #son las 4 lineas que separan los 9 espacios de la cuadricula
-                        
-                        #Dibujar numeros:
-                        matriz_general_dibujos_medio = dibujar_numeros(pantalla,matriz_general_fin_medio,tamaño, fuente,150,150)
-                        
-                        #ingresar numero por teclado
-                        if evento.type == pg.KEYDOWN and celda_seleccionada_medio is not None:#verifico que sea evento de telclado y se haya clickeado una celda 
-                            numero_ingresado = input_numero(evento,celda_seleccionada_medio)
-                            matriz_general_fin_medio = borrar_numero_de_matriz(matriz_general_fin_medio,evento,celda_seleccionada_medio,tamaño,x_inicial=150, y_inicial=150) #funcion borrar numero
-                            
-                            if numero_ingresado is not None: #si numero es algo
-                                
-                                matriz_general_fin_medio = ingresar_numero_a_matriz(matriz_general_fin_medio,numero_ingresado,celda_seleccionada_medio,tamaño) #ingresar numero 
-                                #banderas de sectores 3x3 | 
-                                flag_sector_1 = validar_matriz_sector_1(matriz_general_fin_medio)
-                                flag_sector_2 = validar_matriz_sector_2(matriz_general_fin_medio)
-                                flag_sector_3 = validar_matriz_sector_3(matriz_general_fin_medio)
-                                flag_sector_4 = validar_matriz_sector_4(matriz_general_fin_medio)
-                                flag_sector_5 = validar_matriz_sector_5(matriz_general_fin_medio)
-                                flag_sector_6 = validar_matriz_sector_6(matriz_general_fin_medio)
-                                flag_sector_7 = validar_matriz_sector_7(matriz_general_fin_medio)
-                                flag_sector_8 = validar_matriz_sector_8(matriz_general_fin_medio)
-                                flag_sector_9 = validar_matriz_sector_9(matriz_general_fin_medio)
-
-                                
-                                
-                        lista_de_banderas_sectores = [flag_sector_1,flag_sector_2,flag_sector_3,flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9]
-                                #aca deberia ir la funcion de descontar puntos 
-                                
-                                
-                                #Detector de colisiones:
-                        if evento.type == pg.MOUSEBUTTONDOWN:
-                            posicion = (evento.pos) #posicion
-                            celda_seleccionada_medio = detectar_celda(posicion,todas_las_celdas_medio) #detecta celda seleccionada
-                            dibujar_borde_verde(pantalla,celda_seleccionada_medio) #dibuja un bordecito verde en la celda clickeada
-                            
-                                
-                            if boton_validar_celda.collidepoint(posicion):#detecta click en boton "validar celdas"
-                                dibujar_todas_las_validaciones_sectores(pantalla,flag_sector_1,flag_sector_2,flag_sector_3,
-                                flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9,)
-                                
-                                puntaje = sumar_restar_puntaje(lista_de_banderas_sectores,puntaje)
-                                bandera_final = validar_final(lista_de_banderas_sectores)
-                                if bandera_final:
-                                    fin = True
-                                    actualizar_puntaje_json(texto_para_ingresar,puntaje)
-                                print(f"puntaje: {puntaje}")
-                                print("validar celda presionado")
-                             
-                            if boton_reiniciar_juego.collidepoint(posicion): #boton reiniciar
-                                reiniciar_juego = True
-                                if reiniciar_juego == True:
-                                    matriz_vacia_medio = iniciar_matriz(9,9,0)
-                                    matriz_medio = generar_matriz_completa_C(matriz_vacia_medio) #llena la matriz vacia 
-                                    matriz_general_fin_medio = agregar_ceros_final(matriz_medio,5) #limpia ceros y repeticiones 
-
-                                
-                                    celda_seleccionada_medio = None
-                                    puntaje = 0
-                                    reiniciar_juego = False
-                                    print("reiniciar presionado")
-                            
-                                    
-
-                # facil
-                if modo_dificultad == "facil":
-                    pausar_despausar(evento)
-
+                    pausar_despausar(evento) #pausa/despausa 
                     texto_de_puntaje = fuente.render(str(puntaje), True, (0,0,0))
                     rect_de_puntaje = texto_de_puntaje.get_rect(topleft=(800,20))
                     pantalla.blit(texto_de_puntaje, rect_de_puntaje)
@@ -414,6 +358,220 @@ while True:
                     pantalla.blit(reset_juego,(650,400)) #blit de boton "reiniciar juego"
                     pantalla.blit(texto_reiniciar_juego,(667, 415)) #texto de "reiniciar juego "
                     pantalla.blit(texto_de_puntaje,rect_de_puntaje) #numeros del puntaje
+                    pantalla.blit(aclaracion_tecla3,(50,610))
+                    pantalla.blit(aclaracion_tecla1,(50,640))
+                    pantalla.blit(aclaracion_tecla2,(50,670))
+
+                    pantalla_actual = pausar_juego(evento,pantalla_actual) #controlador de pantalla, #ESC = volver a inicio - pausar
+                    
+
+                    #dibujos de celdas - cuadrados
+                    celdas_sector_1_medio = dibujar_cuadrados(pantalla,50,3,3,150,150)
+                    celdas_sector_2_medio = dibujar_cuadrados(pantalla,50,3,3,300,150)
+                    celdas_sector_3_medio = dibujar_cuadrados(pantalla,50,3,3,450,150)
+                    celdas_sector_4_medio = dibujar_cuadrados(pantalla,50,3,3,150,300)
+                    celdas_sector_5_medio = dibujar_cuadrados(pantalla,50,3,3,300,300)
+                    celdas_sector_6_medio = dibujar_cuadrados(pantalla,50,3,3,450,300)
+                    celdas_sector_7_medio = dibujar_cuadrados(pantalla,50,3,3,150,450)
+                    celdas_sector_8_medio = dibujar_cuadrados(pantalla,50,3,3,300,450)
+                    celdas_sector_9_medio = dibujar_cuadrados(pantalla,50,3,3,450,450)
+
+                    #union de celdas:
+                    todas_las_celdas_medio = (
+                        celdas_sector_1_medio + celdas_sector_2_medio + celdas_sector_3_medio +
+                        celdas_sector_4_medio + celdas_sector_5_medio + celdas_sector_6_medio +
+                        celdas_sector_7_medio + celdas_sector_8_medio + celdas_sector_9_medio)
+
+                    dibujar_lineas(pantalla) #son las 4 lineas que separan los 9 espacios de la cuadricula
+                    
+                    #Dibujar numeros:
+                    matriz_general_dibujos_medio = dibujar_numeros(pantalla,matriz_general_fin_medio,tamaño, fuente,150,150)
+                    
+                    #ingresar numero por teclado
+                    
+                    
+
+                    if evento.type == pg.KEYDOWN and celda_seleccionada is not None:#verifico que sea evento de telclado y se haya clickeado una celda 
+                        numero_ingresado = input_numero(evento,celda_seleccionada)
+                        matriz_general_fin_medio = borrar_numero_de_matriz(matriz_general_fin_medio,evento,celda_seleccionada,tamaño,x_inicial=150, y_inicial=150) #funcion borrar numero
+                        
+                        if numero_ingresado is not None: #si numero es algo
+                            
+                            matriz_general_fin_medio = ingresar_numero_a_matriz(matriz_general_fin_medio,numero_ingresado,celda_seleccionada,tamaño) #ingresar numero 
+                            #banderas de sectores 3x3 | 
+                            flag_sector_1 = validar_matriz_sector_1(matriz_general_fin_medio)
+                            flag_sector_2 = validar_matriz_sector_2(matriz_general_fin_medio)
+                            flag_sector_3 = validar_matriz_sector_3(matriz_general_fin_medio)
+                            flag_sector_4 = validar_matriz_sector_4(matriz_general_fin_medio)
+                            flag_sector_5 = validar_matriz_sector_5(matriz_general_fin_medio)
+                            flag_sector_6 = validar_matriz_sector_6(matriz_general_fin_medio)
+                            flag_sector_7 = validar_matriz_sector_7(matriz_general_fin_medio)
+                            flag_sector_8 = validar_matriz_sector_8(matriz_general_fin_medio)
+                            flag_sector_9 = validar_matriz_sector_9(matriz_general_fin_medio)
+
+                            
+                            
+                    lista_de_banderas_sectores = [flag_sector_1,flag_sector_2,flag_sector_3,flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9]
+                    
+                    #banderas de filas
+                    bandera_fila1 = validar_matriz_fila_1(matriz_general_fin_medio)
+                    bandera_fila2 = validar_matriz_fila_2(matriz_general_fin_medio)
+                    bandera_fila3 = validar_matriz_fila_3(matriz_general_fin_medio)
+                    bandera_fila4 = validar_matriz_fila_4(matriz_general_fin_medio)
+                    bandera_fila5 = validar_matriz_fila_5(matriz_general_fin_medio)
+                    bandera_fila6 = validar_matriz_fila_6(matriz_general_fin_medio)
+                    bandera_fila7 = validar_matriz_fila_7(matriz_general_fin_medio)
+                    bandera_fila8 = validar_matriz_fila_8(matriz_general_fin_medio)
+                    bandera_fila9 = validar_matriz_fila_9(matriz_general_fin_medio)
+
+                    
+                    #columnas 
+                    bandera_columna1 = verificar_columna_1(matriz_general_fin_medio)
+                    bandera_columna2 = verificar_columna_2(matriz_general_fin_medio)
+                    bandera_columna3 = verificar_columna_3(matriz_general_fin_medio)
+                    bandera_columna4 = verificar_columna_4(matriz_general_fin_medio)
+                    bandera_columna5 = verificar_columna_5(matriz_general_fin_medio)
+                    bandera_columna6 = verificar_columna_6(matriz_general_fin_medio)
+                    bandera_columna7 = verificar_columna_7(matriz_general_fin_medio)
+                    bandera_columna8 = verificar_columna_8(matriz_general_fin_medio)
+                    bandera_columna9 = verificar_columna_9(matriz_general_fin_medio)
+
+                    
+
+                            
+                            #Detector de colisiones:
+                    if evento.type == pg.MOUSEBUTTONDOWN:
+                        posicion = (evento.pos) #posicion
+                        celda_seleccionada = detectar_celda(posicion,todas_las_celdas_medio) #detecta celda seleccionada
+                        dibujar_borde_verde(pantalla,celda_seleccionada) #dibuja un bordecito verde en la celda clickeada
+                        
+                        #validar 
+                        if boton_validar_celda.collidepoint(posicion):#detecta click en boton "validar celdas"
+
+                            dibujar_todas_las_validaciones_sectores(pantalla,flag_sector_1,flag_sector_2,flag_sector_3,
+                            flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9)
+                            dibujar_todas_las_validaciones_filas(pantalla,bandera_fila1,bandera_fila2,bandera_fila3,bandera_fila4,
+                                                                 bandera_fila5,bandera_fila6,bandera_fila7,bandera_fila8,bandera_fila9)
+                            dibujar_todas_las_validaciones_columnas(pantalla,bandera_columna1,bandera_columna2,bandera_columna3,bandera_columna4,bandera_columna5,bandera_columna6,bandera_columna7,bandera_columna8,bandera_columna9)
+                            
+                            puntaje = sumar_restar_puntaje(matriz_general_fin_medio,lista_de_banderas_sectores,puntaje) #restar puntaje por repetidos en fila,columna o zona
+
+                            #sumar 9 puntos por zona completada 
+                            if flag_sector_1 and not sumar1: #condicion: sector lleno = True + bandera sumar = False -> entra al if
+                                puntaje = sumar_9_zona_1(puntaje,flag_sector_1,bandera_fila1,bandera_fila2,bandera_fila3,bandera_columna1,bandera_columna2,bandera_columna3)
+                                sumar1 = True #inhabilita la repeticion de la suma 
+                                
+                            
+                            if flag_sector_2 and not sumar2 :
+                                puntaje = sumar_9_zona_2(puntaje,flag_sector_2,bandera_fila1,bandera_fila2,bandera_fila3,bandera_columna4,bandera_columna5,bandera_columna6)
+                                sumar2 = True
+                            
+                            if flag_sector_3 and not sumar3:
+                                puntaje = sumar_9_zona_3(puntaje,flag_sector_3,bandera_fila1,bandera_fila2,bandera_fila3,bandera_columna7,bandera_columna8,bandera_columna9)
+                                sumar3 = True
+                            
+                            if flag_sector_4 and not sumar4:
+                                puntaje = sumar_9_zona_4(puntaje,flag_sector_4,bandera_fila4,bandera_fila5,bandera_fila6,bandera_columna1,bandera_columna2,bandera_columna3)
+                                sumar4 = True
+
+                            if flag_sector_5 and not sumar5:
+                                puntaje = sumar_9_zona_5(puntaje,flag_sector_5,bandera_fila4,bandera_fila5,bandera_fila6,bandera_columna4,bandera_columna5,bandera_columna6)
+                                sumar5 = True
+                            
+                            if flag_sector_6 and not sumar6:
+                                puntaje = sumar_9_zona_6(puntaje,flag_sector_6,bandera_fila4,bandera_fila5,bandera_fila6,bandera_columna7,bandera_columna8,bandera_columna9)
+                                sumar6 = True
+                            
+                            if flag_sector_7 and not sumar7:
+                                puntaje = sumar_9_zona_7(puntaje,flag_sector_7,bandera_fila7,bandera_fila8,bandera_fila9,bandera_columna1,bandera_columna2,bandera_columna3)
+                                sumar7 = True
+                            
+                            if flag_sector_8 and not sumar8:
+                                puntaje = sumar_9_zona_7(puntaje,flag_sector_8,bandera_fila7,bandera_fila8,bandera_fila9,bandera_columna4,bandera_columna5,bandera_columna6)
+                                sumar8 = True
+                            
+                            if flag_sector_9 and not sumar9:
+                                puntaje = sumar_9_zona_9(puntaje,flag_sector_9,bandera_fila7,bandera_fila8,bandera_fila9,bandera_columna7,bandera_columna8,bandera_columna9)
+                                sumar9 = True
+                            
+                                
+                            
+                            
+                            bandera_final = validar_final(lista_de_banderas_sectores)
+                            if bandera_final:
+                                fin = True
+                                actualizar_puntaje_json(texto_para_ingresar,puntaje)
+                                pantalla_actual = "final"
+                            print(f"puntaje: {puntaje}")
+                            print("validar  presionado")
+
+                        #reiniciar
+                        if boton_reiniciar_juego.collidepoint(posicion): #detecta click en  boton "reiniciar juego"
+                            reiniciar_juego = True
+                            if reiniciar_juego == True:
+                                matriz_vacia_medio = iniciar_matriz(9,9,0) #inicia matriz, | int1 = cantidad de filas| int2 = cantidad de columnas| int3 = numeros que contiene  
+                                matriz_medio = generar_matriz_completa_C(matriz_vacia_medio) #llena la matriz vacia 
+                                matriz_general_fin_medio = agregar_ceros_final(matriz_medio,5) #limpia ceros y repeticiones 
+                                celda_seleccionada = None
+                                puntaje = 0
+                                flag_sector_1 = False       
+                                flag_sector_2 = False
+                                flag_sector_3 = False
+                                flag_sector_4 = False
+                                flag_sector_4 = False
+                                flag_sector_5 = False
+                                flag_sector_6 = False
+                                flag_sector_7 = False
+                                flag_sector_8 = False
+                                flag_sector_9 = False
+                               
+                                #banderas - filas
+                                bandera_fila1 = False
+                                bandera_fila2 = False
+                                bandera_fila3 = False
+                                bandera_fila4 = False
+                                bandera_fila5 = False
+                                bandera_fila6 = False
+                                bandera_fila7 = False
+                                bandera_fila8 = False
+                                bandera_fila9 = False
+
+                                #banderas - columnas
+
+                                bandera_columna1 = False
+                                bandera_columna2 = False
+                                bandera_columna3 = False
+                                bandera_columna4 = False
+                                bandera_columna5 = False
+                                bandera_columna6 = False
+                                bandera_columna7 = False
+                                bandera_columna8 = False
+                                bandera_columna9 = False
+                                
+                                reiniciar_juego = False
+                                print("reiniciar presionado")
+
+                                    
+
+                # facil
+                if modo_dificultad == "facil":
+
+                    pausar_despausar(evento) #pausa/despausa 
+                    texto_de_puntaje = fuente.render(str(puntaje), True, (0,0,0))
+                    rect_de_puntaje = texto_de_puntaje.get_rect(topleft=(800,20))
+                    pantalla.blit(texto_de_puntaje, rect_de_puntaje)
+                    
+                    pantalla.fill((189, 162, 162))#color de fondo de pantalla durante el juego
+                    pantalla.blit(validar_celda,(650,200)) #blit de validar celda
+                    pantalla.blit(texto_validar_celda,(710,215))#blit de texto validar celda
+                    pantalla.blit(texto_de_palabra_puntaje,rect_de_texto_de_palabra_puntaje)#blit de texto "puntaje" 
+                    pantalla.blit(reset_juego,(650,400)) #blit de boton "reiniciar juego"
+                    pantalla.blit(texto_reiniciar_juego,(667, 415)) #texto de "reiniciar juego "
+                    pantalla.blit(texto_de_puntaje,rect_de_puntaje) #numeros del puntaje
+                    pantalla.blit(aclaracion_tecla3,(50,610))
+                    pantalla.blit(aclaracion_tecla1,(50,640))
+                    pantalla.blit(aclaracion_tecla2,(50,670))
+
                     pantalla_actual = pausar_juego(evento,pantalla_actual) #controlador de pantalla, #ESC = volver a inicio - pausar
                     
 
@@ -440,13 +598,16 @@ while True:
                     matriz_general_dibujos_facil = dibujar_numeros(pantalla,matriz_general_fin_facil,tamaño, fuente,150,150)
                     
                     #ingresar numero por teclado
-                    if evento.type == pg.KEYDOWN and celda_seleccionada_facil is not None:#verifico que sea evento de telclado y se haya clickeado una celda 
-                        numero_ingresado = input_numero(evento,celda_seleccionada_facil)
-                        matriz_general_fin_facil = borrar_numero_de_matriz(matriz_general_fin_facil,evento,celda_seleccionada_facil,tamaño,x_inicial=150, y_inicial=150) #funcion borrar numero
+                    #BORRAR ESTO 
+                    
+
+                    if evento.type == pg.KEYDOWN and celda_seleccionada is not None:#verifico que sea evento de telclado y se haya clickeado una celda 
+                        numero_ingresado = input_numero(evento,celda_seleccionada)
+                        matriz_general_fin_facil = borrar_numero_de_matriz(matriz_general_fin_facil,evento,celda_seleccionada,tamaño,x_inicial=150, y_inicial=150) #funcion borrar numero
                         
                         if numero_ingresado is not None: #si numero es algo
-                            
-                            matriz_general_fin_facil = ingresar_numero_a_matriz(matriz_general_fin_facil,numero_ingresado,celda_seleccionada_facil,tamaño) #ingresar numero 
+                             
+                            matriz_general_fin_facil = ingresar_numero_a_matriz(matriz_general_fin_facil,numero_ingresado,celda_seleccionada,tamaño) #ingresar numero 
                             #banderas de sectores 3x3 | 
                             flag_sector_1 = validar_matriz_sector_1(matriz_general_fin_facil)
                             flag_sector_2 = validar_matriz_sector_2(matriz_general_fin_facil)
@@ -460,46 +621,150 @@ while True:
 
                             
                             
-                            lista_de_banderas = [flag_sector_1,flag_sector_2,flag_sector_3,flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9]
-                            #aca deberia ir la funcion de descontar puntos 
-                            
+                    lista_de_banderas_sectores = [flag_sector_1,flag_sector_2,flag_sector_3,flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9]
+                    
+                    #banderas de filas
+                    bandera_fila1 = validar_matriz_fila_1(matriz_general_fin_facil)
+                    bandera_fila2 = validar_matriz_fila_2(matriz_general_fin_facil)
+                    bandera_fila3 = validar_matriz_fila_3(matriz_general_fin_facil)
+                    bandera_fila4 = validar_matriz_fila_4(matriz_general_fin_facil)
+                    bandera_fila5 = validar_matriz_fila_5(matriz_general_fin_facil)
+                    bandera_fila6 = validar_matriz_fila_6(matriz_general_fin_facil)
+                    bandera_fila7 = validar_matriz_fila_7(matriz_general_fin_facil)
+                    bandera_fila8 = validar_matriz_fila_8(matriz_general_fin_facil)
+                    bandera_fila9 = validar_matriz_fila_9(matriz_general_fin_facil)
+
+                    
+                    #columnas 
+                    bandera_columna1 = verificar_columna_1(matriz_general_fin_facil)
+                    bandera_columna2 = verificar_columna_2(matriz_general_fin_facil)
+                    bandera_columna3 = verificar_columna_3(matriz_general_fin_facil)
+                    bandera_columna4 = verificar_columna_4(matriz_general_fin_facil)
+                    bandera_columna5 = verificar_columna_5(matriz_general_fin_facil)
+                    bandera_columna6 = verificar_columna_6(matriz_general_fin_facil)
+                    bandera_columna7 = verificar_columna_7(matriz_general_fin_facil)
+                    bandera_columna8 = verificar_columna_8(matriz_general_fin_facil)
+                    bandera_columna9 = verificar_columna_9(matriz_general_fin_facil)
+
+                    
+
                             
                             #Detector de colisiones:
                     if evento.type == pg.MOUSEBUTTONDOWN:
                         posicion = (evento.pos) #posicion
-                        celda_seleccionada_facil = detectar_celda(posicion,todas_las_celdas_facil) #detecta celda seleccionada
-                        dibujar_borde_verde(pantalla,celda_seleccionada_facil) #dibuja un bordecito verde en la celda clickeada
+                        celda_seleccionada = detectar_celda(posicion,todas_las_celdas_facil) #detecta celda seleccionada
+                        dibujar_borde_verde(pantalla,celda_seleccionada) #dibuja un bordecito verde en la celda clickeada
                         
-                        
-                            
+                        #validar 
                         if boton_validar_celda.collidepoint(posicion):#detecta click en boton "validar celdas"
+
                             dibujar_todas_las_validaciones_sectores(pantalla,flag_sector_1,flag_sector_2,flag_sector_3,
-                            flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9,)
+                            flag_sector_4,flag_sector_5,flag_sector_6,flag_sector_7,flag_sector_8,flag_sector_9)
+                            dibujar_todas_las_validaciones_filas(pantalla,bandera_fila1,bandera_fila2,bandera_fila3,bandera_fila4,
+                                                                 bandera_fila5,bandera_fila6,bandera_fila7,bandera_fila8,bandera_fila9)
+                            dibujar_todas_las_validaciones_columnas(pantalla,bandera_columna1,bandera_columna2,bandera_columna3,bandera_columna4,bandera_columna5,bandera_columna6,bandera_columna7,bandera_columna8,bandera_columna9)
                             
-                            puntaje = sumar_restar_puntaje(lista_de_banderas,puntaje)
+                            puntaje = sumar_restar_puntaje(matriz_general_fin_facil,lista_de_banderas_sectores,puntaje) #restar puntaje por repetidos en fila,columna o zona
+
+                            #sumar 9 puntos por zona completada 
+                            if flag_sector_1 and not sumar1: #condicion: sector lleno = True + bandera sumar = False -> entra al if
+                                puntaje = sumar_9_zona_1(puntaje,flag_sector_1,bandera_fila1,bandera_fila2,bandera_fila3,bandera_columna1,bandera_columna2,bandera_columna3)
+                                sumar1 = True #inhabilita la repeticion de la suma 
+                                
                             
-                            bandera_final = validar_final(lista_de_banderas)
+                            if flag_sector_2 and not sumar2 :
+                                puntaje = sumar_9_zona_2(puntaje,flag_sector_2,bandera_fila1,bandera_fila2,bandera_fila3,bandera_columna4,bandera_columna5,bandera_columna6)
+                                sumar2 = True
+                            
+                            if flag_sector_3 and not sumar3:
+                                puntaje = sumar_9_zona_3(puntaje,flag_sector_3,bandera_fila1,bandera_fila2,bandera_fila3,bandera_columna7,bandera_columna8,bandera_columna9)
+                                sumar3 = True
+                            
+                            if flag_sector_4 and not sumar4:
+                                puntaje = sumar_9_zona_4(puntaje,flag_sector_4,bandera_fila4,bandera_fila5,bandera_fila6,bandera_columna1,bandera_columna2,bandera_columna3)
+                                sumar4 = True
+
+                            if flag_sector_5 and not sumar5:
+                                puntaje = sumar_9_zona_5(puntaje,flag_sector_5,bandera_fila4,bandera_fila5,bandera_fila6,bandera_columna4,bandera_columna5,bandera_columna6)
+                                sumar5 = True
+                            
+                            if flag_sector_6 and not sumar6:
+                                puntaje = sumar_9_zona_6(puntaje,flag_sector_6,bandera_fila4,bandera_fila5,bandera_fila6,bandera_columna7,bandera_columna8,bandera_columna9)
+                                sumar6 = True
+                            
+                            if flag_sector_7 and not sumar7:
+                                puntaje = sumar_9_zona_7(puntaje,flag_sector_7,bandera_fila7,bandera_fila8,bandera_fila9,bandera_columna1,bandera_columna2,bandera_columna3)
+                                sumar7 = True
+                            
+                            if flag_sector_8 and not sumar8:
+                                puntaje = sumar_9_zona_7(puntaje,flag_sector_8,bandera_fila7,bandera_fila8,bandera_fila9,bandera_columna4,bandera_columna5,bandera_columna6)
+                                sumar8 = True
+                            
+                            if flag_sector_9 and not sumar9:
+                                puntaje = sumar_9_zona_9(puntaje,flag_sector_9,bandera_fila7,bandera_fila8,bandera_fila9,bandera_columna7,bandera_columna8,bandera_columna9)
+                                sumar9 = True
+                            
+                                
+                            
+                            
+                            bandera_final = validar_final(lista_de_banderas_sectores)
                             if bandera_final:
                                 fin = True
                                 actualizar_puntaje_json(texto_para_ingresar,puntaje)
-
+                                pantalla_actual = "final"
                             print(f"puntaje: {puntaje}")
-                            print("validar celda presionado")
-                             
+                            print("validar  presionado")
+
+                        #reiniciar
                         if boton_reiniciar_juego.collidepoint(posicion): #detecta click en  boton "reiniciar juego"
                             reiniciar_juego = True
                             if reiniciar_juego == True:
                                 matriz_vacia_facil = iniciar_matriz(9,9,0)
                                 matriz_facil = generar_matriz_completa_C(matriz_vacia_facil) #llena la matriz vacia 
                                 matriz_general_fin_facil = agregar_ceros_final(matriz_facil,4) #limpia ceros y repeticiones 
-                                #esto se usa para controlar la interaccion entre funcion "input numero" y "dibujar numero ingresado" en el case "jugar"
-                                celda_seleccionada_facil = None
+
+                                celda_seleccionada = None
                                 puntaje = 0
+                                flag_sector_1 = False       
+                                flag_sector_2 = False
+                                flag_sector_3 = False
+                                flag_sector_4 = False
+                                flag_sector_4 = False
+                                flag_sector_5 = False
+                                flag_sector_6 = False
+                                flag_sector_7 = False
+                                flag_sector_8 = False
+                                flag_sector_9 = False
+                               
+                                #banderas - filas
+                                bandera_fila1 = False
+                                bandera_fila2 = False
+                                bandera_fila3 = False
+                                bandera_fila4 = False
+                                bandera_fila5 = False
+                                bandera_fila6 = False
+                                bandera_fila7 = False
+                                bandera_fila8 = False
+                                bandera_fila9 = False
+
+                                #banderas - columnas
+
+                                bandera_columna1 = False
+                                bandera_columna2 = False
+                                bandera_columna3 = False
+                                bandera_columna4 = False
+                                bandera_columna5 = False
+                                bandera_columna6 = False
+                                bandera_columna7 = False
+                                bandera_columna8 = False
+                                bandera_columna9 = False
+                                
                                 reiniciar_juego = False
-                            print("reiniciar presionado")
-                            
-                         
-             
+
+        
+                                print("reiniciar presionado")
+
+                   
                     
             case "ver puntaje":
                     
@@ -531,16 +796,52 @@ while True:
                             pantalla_actual = "inicio"
 
             case "final":
-
                 pantalla.blit(correccion_final_pantalla,(0,0))
+                pantalla.blit(ultimo_boton,(350,500))
+                pantalla.blit(texto_ultimo_boton,(350,500))
                 
                 
+                if not necesito_el_puntaje:
+                    nombre_y_puntaje_final = leer_json("nombres_puntaje.json")
+                    ultimo_sujeto = nombre_y_puntaje_final[-1]
+                    nombre = ultimo_sujeto['nombre']
+                    puntitos = ultimo_sujeto['puntaje']
+
+
+                    mensaje_final_a = f"¡Felicitaciones {nombre} has ganado!"
+                    mensaje_final_b = f"tu puntaje es: {puntitos}"
+
+                    surface_con_nombre_y_punto_del_jugador = fuente.render(mensaje_final_a,True,(250,250,250),(0,0,0))
+                    segundo_surface = fuente.render(mensaje_final_b,True,(250,250,250),(0,0,0))
+
+
+                    necesito_el_puntaje = True
+                    if pantalla_actual != "final":
+                        necesito_el_puntaje = False
+
+                pantalla.blit(surface_con_nombre_y_punto_del_jugador,(50,150))
+                pantalla.blit(segundo_surface,(50,200))
+
+
+
+                if evento.type == pg.MOUSEBUTTONDOWN: 
+                    posicion = (evento.pos)
+
+                    if ultimo_boton_rect.collidepoint(posicion):         
+                        pantalla_actual = "inicio"   #vuelvo a inicio 
+            
+
+
+
                 
+                
+                 
+
                     
                 
                 
                          
-    #actualizar los cases "facil" y "medio", solo el dificil está resuelto 
+   
 
     pg.display.flip()
 
