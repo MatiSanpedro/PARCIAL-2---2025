@@ -2470,6 +2470,9 @@ def sumar_9_zona_8(puntaje:int,bandera_sector8:bool,bandera_fila7:bool,bandera_f
 
     return puntaje 
 
+
+
+
 def sumar_9_zona_9(puntaje:int,bandera_sector9:bool,bandera_fila7:bool,bandera_fila8:bool,bandera_fila9:bool,bandera_columna7:bool,bandera_columna8:bool,bandera_columna9:bool)->int:
     'recibe int(puntaje) y 7 bool: sector1, filas 123 y columnas 123, verifica si todas son verdaderas para sumar +9 al puntaje. Retorna Int'
     
@@ -2485,22 +2488,17 @@ def sumar_9_zona_9(puntaje:int,bandera_sector9:bool,bandera_fila7:bool,bandera_f
     return puntaje 
 
 
-
-def sumar_9_por_zona_completada(puntaje:int,flag_sector_1:bool,flag_sector_2:bool,flag_sector_3:bool,flag_sector_4:bool,flag_sector_5:bool
-                                ,flag_sector_6:bool,flag_sector_7:bool,flag_sector_8:bool,flag_sector_9:bool,
-                                bandera_fila1:bool,bandera_fila2:bool,bandera_fila3:bool,bandera_fila4:bool,bandera_fila5:bool
-                                ,bandera_fila6:bool,bandera_fila7:bool,bandera_fila8:bool,bandera_fila9:bool,
-                                bandera_columna1:bool,bandera_columna2:bool,bandera_columna3:bool,bandera_columna4:bool,
-                                bandera_columna5:bool,bandera_columna6:bool,bandera_columna7:bool,bandera_columna8:bool,bandera_columna9:bool)->int:
+def invalidar_posiciones_iniciales(matriz)->list:
     
-    pass
+    lista_de_posiciones = []
+    for i in range(len(matriz)):
+        for j in range(len(matriz[i])):
+            if matriz[i][j] != 0:
+                posicion = (i,j)
+                lista_de_posiciones.append(posicion)
+            
     
-
-#validar por fila y columna, y numero incorrecto
-# solo restar por cada numero incorrecto ingresado 
-# #agregar una pequeña descripcion de las teclas dentro del juego
-
-# armar final de juego(un cartel de victoria o algo asi ) 
+    return lista_de_posiciones
 
 
- 
+    
