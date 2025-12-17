@@ -142,10 +142,17 @@ puntaje_str = formatear_puntaje(puntaje)
 ultimo_boton = pg.Surface((290,50))
 ultimo_boton.fill((0,0,0))
 texto_ultimo_boton = fuente.render("Volver al inicio",True, (250,250,250))
-ultimo_boton_rect = ultimo_boton.get_rect(topleft = (250,350))
+ultimo_boton_rect = ultimo_boton.get_rect(topleft = (350,500))
+
+'texto de aclaraciones'
+aclaracion_tecla1 = fuente_validar_celda.render("p: pausar musica, o: despausar",True,(0,0,0))
+aclaracion_tecla2 = fuente_validar_celda.render("esc: volver a inicio",True,(0,0,0))
+aclaracion_tecla3 = fuente_validar_celda.render("supr/del: borrar numero",True,(0,0,0))
 
 
 
+
+necesito_el_puntaje = False
 
 
 #bandera de control de punto 4 "ver puntaje"
@@ -208,7 +215,7 @@ sumar9 = False
 #variables de input, solo se usan en una funcion 
 cuadrado_seleccionado = False
 #esto se usa para controlar la interaccion entre funcion "input numero" y "dibujar numero ingresado" en el case "jugar"
-
+posiciones_invalidas = False
 
 
 puntaje = 0
